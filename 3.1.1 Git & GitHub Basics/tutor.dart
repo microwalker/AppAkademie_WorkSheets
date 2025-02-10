@@ -5,4 +5,8 @@ class tutor {
   void addFach(String fach) {
     this._faecher.add(fach);
   }
+
+  String toString() {
+    return "$name für $_faecher";
+  }
 }

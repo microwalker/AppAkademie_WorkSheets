@@ -6,4 +6,8 @@ class tuts {
   void addTutor(tutor tut) {
     this._tutors.add(tut);
   }
+
+  String toString() {
+    return "$_tutors";
+  }
 }
