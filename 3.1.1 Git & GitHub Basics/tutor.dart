@@ -1,4 +1,4 @@
 class tutor {
   String name = "";
-  List faecher = new List.empty();
+  List<String> faecher = new List<String>.empty();
 }
