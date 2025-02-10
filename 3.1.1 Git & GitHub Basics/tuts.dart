@@ -1,5 +1,9 @@
 import 'tutor.dart';
 
 class tuts {
-  List<tutor> tutors = new List<tutor>.empty();
+  List<tutor> _tutors = new List<tutor>.empty();
+
+  void addTutor(tutor tut) {
+    this._tutors.add(tut);
+  }
 }
