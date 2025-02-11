@@ -1,6 +1,7 @@
-class tutor {
-  String name = "";
+class tutor extends nixtut {
   List<String> _faecher = new List<String>.empty(growable: true);
+
+  tutor(String name) {super.name = name;}
 
   void addFach(String fach) {
     this._faecher.add(fach);
@@ -9,4 +10,7 @@ class tutor {
   String toString() {
     return "$name für $_faecher";
   }
+}
+class nixtut {
+  String name = "";
 }
