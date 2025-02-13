@@ -26,11 +26,18 @@ void startCompetitiom(List<dynamic> liste) {
   c..stop(); // Stopuhr beenden
 }
 
+/**
+ * Generiert in der übergebenen Liste die übergebene anzahl an zufälligen Ganzzahlen zwischen 0 und max
+ */
 void GenerateRandomsIntNumbers(List list, int anzahl, int max) {
   for(int i=0;i<anzahl;i++)
     list.add((Random().nextInt(max)));
 }
 
+/**
+ * BubbleSort, die typische Sortiermethode. Führt sehr viele Tauschvorgänge und etliche Schleifendurchgänge durch...
+ * Etwas langsam, aber Zuverlässig :-)
+ */
 List BubbleSort(List liste) {
   int swaps = 0;
   int loops = 0;
@@ -50,6 +57,9 @@ List BubbleSort(List liste) {
   return liste;
 }
 
+/**
+ * SelectionSort, tauscht noch mehrfach in der inneren Schleife
+ */
 List SelectionSort(List liste) {
   int swaps = 0;
   int loops = 0;
@@ -71,6 +81,9 @@ List SelectionSort(List liste) {
   return liste;
 }
 
+/**
+ * SelectionSort mit minimierten Swaps (nur noch 1 Umtausch pro durchlaufene innere Schleife!)
+ */
 List ExtSelectionSort(List liste) {
   int swaps = 0;
   int loops = 0;
