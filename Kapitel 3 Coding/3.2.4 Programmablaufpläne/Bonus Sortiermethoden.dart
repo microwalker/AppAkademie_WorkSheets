@@ -1,5 +1,5 @@
 void main(List<String> args) {
-  List liste = [9,84,36,71,12,8,44,69,32,108,11,71,14,3,92];
+  List liste = [9,84,36,71,12,8,44,69,32,108,11,71,14,3,92,22,79,37,3,19,102];
   print("Bubble: ${BubbleSort(liste.toList())}");
   print("Selection ${SelectionSort(liste.toList())}");
 }
