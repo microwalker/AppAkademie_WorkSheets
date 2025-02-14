@@ -1,28 +1,36 @@
 import 'dart:math';
 
+int zahlen = 10000;
+int maxZahl = 9999;
 void main(List<String> args) {
   List liste = []; // [9,84,36,71,12,8,44,69,32,108,11,71,14,3,92,22,79,37,3,19,102];
-  GenerateRandomsIntNumbers(liste, 100, 1000);
-  startCompetitiom(liste);
+  GenerateRandomsIntNumbers(liste, zahlen, maxZahl);
+  startCompetitiom(liste, false);
+
+  liste.clear();
+  GenerateRandomsDblNumbers(liste, zahlen, maxZahl);
+  startCompetitiom(liste, false);
 
   /* benötigt Modifikation der Sort-Routinen zum dynamischen Vergleich von Strings, Stichwort (a,b) => b.compareTo(a) 
   fillWithWords(liste);
   startCompetitiom(liste);
   */
+
+  print("K" * 6);
 }
 
-void startCompetitiom(List<dynamic> liste) {
+void startCompetitiom(List<dynamic> liste, bool showList) {
   Stopwatch c = new Stopwatch();
-  print("Original: $liste");
+  if(showList) print("Original: $liste");
   c.start(); // Zeitmessung für BubbleSort starten
-  print("Bubble: ${BubbleSort(liste.toList())} (Dauer: ${c.elapsed})");
+  print("Bubble: ${showList?BubbleSort(liste.toList()):""} (Dauer: ${c.elapsed})");
   c.reset(); // Zeitmessung für SelectionSort neu starten
-  print("Selection ${SelectionSort(liste.toList())} (Dauer: ${c.elapsed})");
+  print("Selection ${showList?SelectionSort(liste.toList()):""} (Dauer: ${c.elapsed})");
   c.reset(); // Zeitmessung für ExtSelectionSort neu starten
-  print("ExtSelection ${ExtSelectionSort(liste.toList())} (Dauer: ${c.elapsed})");
+  print("ExtSelection ${showList?ExtSelectionSort(liste.toList()):""} (Dauer: ${c.elapsed})");
   c.reset(); // Zeitmessung für List.Sort() neu starten
   liste.sort();
-  print("List.Sort: $liste (Dauer: ${c.elapsed})");
+  print("List.Sort: ${showList?liste:""} (Dauer: ${c.elapsed})");
   c..stop(); // Stopuhr beenden
 }
 
@@ -32,6 +40,11 @@ void startCompetitiom(List<dynamic> liste) {
 void GenerateRandomsIntNumbers(List list, int anzahl, int max) {
   for(int i=0;i<anzahl;i++)
     list.add((Random().nextInt(max)));
+}
+
+void GenerateRandomsDblNumbers(List list, int anzahl, int max) {
+  for(int i=0; i < anzahl;i++)
+    list.add(Random().nextDouble() * max);
 }
 
 /**
