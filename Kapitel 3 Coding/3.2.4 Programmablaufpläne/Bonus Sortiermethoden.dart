@@ -1,34 +1,58 @@
 import 'dart:math';
 
-int zahlen = 10000;
-int maxZahl = 9999;
-void main(List<String> args) {
-  List liste = []; // [9,84,36,71,12,8,44,69,32,108,11,71,14,3,92,22,79,37,3,19,102];
-  GenerateRandomsIntNumbers(liste, zahlen, maxZahl);
-  startCompetitiom(liste, false);
+int zahlen = 500;
+int maxZahl = 100;
+bool showList = false;
 
-  liste.clear();
-  GenerateRandomsDblNumbers(liste, zahlen, maxZahl);
-  startCompetitiom(liste, false);
+void main(List<String> args) {
+  // List liste = [9,84,36,71,12,8,44,69,32,108,11,71,14,3,92,22,79,37,3,19,102];
+  List liste = new List.generate(zahlen, (int i) => Random().nextInt(maxZahl), growable: false);
+  // GenerateRandomsIntNumbers(liste, zahlen, maxZahl);
+  print("\nRunning INT Sort Competition ($zahlen Zahlen):");
+  startCompetitiom(liste, showList);
+
+  // liste.clear();
+  liste = new List.generate(zahlen, (int i) => Random().nextDouble() * maxZahl, growable: false);
+  // GenerateRandomsDblNumbers(liste, zahlen, maxZahl);
+  print("\nRunning DOUBLE Sort Competition ($zahlen Zahlen):");
+  startCompetitiom(liste, showList);
 
   /* benötigt Modifikation der Sort-Routinen zum dynamischen Vergleich von Strings, Stichwort (a,b) => b.compareTo(a) 
   fillWithWords(liste);
   startCompetitiom(liste);
   */
 
-  print("K" * 6);
+  print("Measurement finished!");
 }
 
 void startCompetitiom(List<dynamic> liste, bool showList) {
   Stopwatch c = new Stopwatch();
+  
   if(showList) print("Original: $liste");
+  
+  List tList = liste.toList();
+  
   c.start(); // Zeitmessung für BubbleSort starten
-  print("Bubble: ${showList?BubbleSort(liste.toList()):""} (Dauer: ${c.elapsed})");
+  BubbleSort(tList);
+  c.stop();
+  print("Bubble: ${showList?tList:""} (Dauer: ${c.elapsed})");
   c.reset(); // Zeitmessung für SelectionSort neu starten
-  print("Selection ${showList?SelectionSort(liste.toList()):""} (Dauer: ${c.elapsed})");
+
+  tList = liste.toList();
+  c.start();
+  SelectionSort(tList);
+  c.stop();
+  print("Selection ${showList?tList:""} (Dauer: ${c.elapsed})");
   c.reset(); // Zeitmessung für ExtSelectionSort neu starten
-  print("ExtSelection ${showList?ExtSelectionSort(liste.toList()):""} (Dauer: ${c.elapsed})");
+  
+  tList = liste.toList();
+  c.start();
+  ExtSelectionSort(tList);
+  c.stop();
+  print("ExtSelection ${showList?tList:""} (Dauer: ${c.elapsed})");
   c.reset(); // Zeitmessung für List.Sort() neu starten
+
+  c.start();
   liste.sort();
   print("List.Sort: ${showList?liste:""} (Dauer: ${c.elapsed})");
   c..stop(); // Stopuhr beenden
@@ -66,7 +90,7 @@ List BubbleSort(List liste) {
     }
     loops++;
   }
-  print("BubbleSort: $swaps Swaps / $loops Loops");
+  print("Bubble Stats: $swaps Swaps / $loops Loops");
   return liste;
 }
 
@@ -90,7 +114,7 @@ List SelectionSort(List liste) {
     pos++;
     loops++;
   }
-  print("SelectionSort: $swaps Swaps / $loops Loops");
+  print("Selection Stats: $swaps Swaps / $loops Loops");
   return liste;
 }
 
@@ -118,7 +142,7 @@ List ExtSelectionSort(List liste) {
     pos++;
     loops++;
   }
-  print("ExtSelectionSort: $swaps Swaps / $loops Loops");
+  print("ExtSelection Stats: $swaps Swaps / $loops Loops");
   return liste;
 }
 
