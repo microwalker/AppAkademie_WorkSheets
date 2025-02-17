@@ -124,6 +124,7 @@ List SelectionSort(List liste) {
 List ExtSelectionSort(List liste) {
   int swaps = 0;
   int loops = 0;
+  
   int pos = 0;
   while(pos < liste.length) {
     int min = pos;
