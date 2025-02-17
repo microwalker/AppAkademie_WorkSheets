@@ -56,6 +56,30 @@ void startCompetitiom(List<dynamic> liste, bool showList) {
   liste.sort();
   print("List.Sort: ${showList?liste:""} (Dauer: ${c.elapsed})");
   c..stop(); // Stopuhr beenden
+
+  int i = 0;
+  int e = 1000000000;
+  c.reset();
+  c.start();
+  while(i < e) i++;
+  c.stop();
+  print("While ($i): ${c.elapsed}");
+
+  i = 0;
+  c.reset();
+  c.start();
+  do {
+    i++;
+  } while (i < e);
+  c.stop();
+  print("Do-While ($i): ${c.elapsed}");
+
+  c.reset();
+  c.start();
+  for(i = 0;i < e;i++) {}
+  c.stop();
+  print("For ($i): ${c.elapsed}");
+
 }
 
 /**
