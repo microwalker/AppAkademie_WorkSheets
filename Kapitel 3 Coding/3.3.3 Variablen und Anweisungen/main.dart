@@ -13,4 +13,17 @@ void main(List<String> args) {
   int d = 20; // wurde vor Änderung (s.o) schon als String-Variable verwendet! Absicht?
   int seven = 7;
   int twelve = 12;
+
+  String tmpString = gdStr + spa + dayStr + spa + worldStr + dd;
+  print(tmpString);
+
+  print(a+seven);
+
+  tmpString = c + spa + timeStr + dd;
+  print(tmpString);
+
+  tmpString = s + spa + morning + dd;
+  print(tmpString);
+
+  print(a*seven);
 }
