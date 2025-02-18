@@ -28,4 +28,80 @@ void main(List<String> args) {
   print(tmpString);
 
   print(a*seven);
+
+  aufg2a();
+  aufg2b();
+  aufg2c();
+  aufg2d();
+}
+
+void aufg2a() {
+  String a = "Apfel";
+  String b = "Birne";
+  String c = "Kirsche";
+  String d = "Mango";
+  b = c;
+  d = a;
+  c = d;
+  a = b;
+  d = c;
+  b = d;
+  
+  print("Aufgabe 2a) $a $b $c $d");
+}
+
+void aufg2b() {
+  String x = "Java";
+  String y = "Python";
+  String z = "Ruby";
+  String w = "Kotlin";
+  String v = "Swift";
+
+  w = x;
+  v = w;
+  x = y;
+  y = z;
+  z = v;
+  v = w;
+  w = y;
+
+  print("Aufgabe 2b) $x $y $z $w $v");
+}
+
+void aufg2c() {
+  int a = 100;
+  int b = 200;
+  int c = 300;
+  int d = 400;
+  int e = 500; 
+
+  c = a;
+  e = b;
+  a = d;
+  b = c;
+  d = e;
+  c = b;
+  e = a;
+
+  print("Aufgabe 2c) $a $b $c $d $e");
+}
+
+void aufg2d() {
+  int x = 42;
+  int y = 55;
+  int z = 89;
+  int w = 73;
+  int v = 91;
+  int u = 64;
+
+  w = x;
+  u = y;
+  x = v;
+  y = z;
+  v = w;
+  z = u;
+  w = y;
+  u = v;
+
+  print("Aufgabe 2d) $x $y $z $w $v $u");
 }
