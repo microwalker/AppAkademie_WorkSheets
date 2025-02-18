@@ -29,10 +29,15 @@ void main(List<String> args) {
 
   print(a*seven);
 
+  String name = "Eberhardt";
+  print("Hallo $name, wie geht es Dir. Heute ist der ...");
+
   aufg2a();
   aufg2b();
   aufg2c();
   aufg2d();
+
+  test(5);
 }
 
 void aufg2a() {
@@ -104,4 +109,34 @@ void aufg2d() {
   u = v;
 
   print("Aufgabe 2d) $x $y $z $w $v $u");
+}
+
+void test(int zahl) {
+  String xyz = "uhodfghnsdfuogh";
+  int laenge = xyz.length;
+  String teil = xyz[zahl];
+
+  print("Micheal ist " + zahl.toString() + " Jahre alt :-)...");
+
+  List namen = ["Björg","Michael","David","Melike","Oskar","Pauline"];
+  String deinName = namen[1];
+  print("Hallo $deinName, schön dass Du da bist!");
+
+  while(zahl < 20.000) {
+    print("Jetzt ist die Zahl $zahl!");
+    zahl++; 
+  }
+
+  if(zahl == 20)
+  {
+    print("Zahl ist 20 !!!");
+  }
+  /*
+  else 
+  {
+    print("Zahl ist NICHT 20!");
+  }
+  */ 
+
+  print("Ich habe Fertig!");
 }
