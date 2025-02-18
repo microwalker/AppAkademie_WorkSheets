@@ -29,8 +29,7 @@ void main(List<String> args) {
 
   print(a*seven);
 
-  String name = "Eberhardt";
-  print("Hallo $name, wie geht es Dir. Heute ist der ...");
+  print(d/twelve); // ...damit die Variablen auch endlich mal verwendet werden und der Analyzer aufhört, zu meckern :-)
 
   aufg2a();
   aufg2b();
@@ -116,13 +115,16 @@ void test(int zahl) {
   int laenge = xyz.length;
   String teil = xyz[zahl];
 
-  print("Micheal ist " + zahl.toString() + " Jahre alt :-)...");
+  print("Michael ist " + zahl.toString() + " Jahre alt :-)...");
+
+  String name = "Eberhardt";
+  print("Hallo $name, wie geht es Dir. Heute ist der ...");
 
   List namen = ["Björg","Michael","David","Melike","Oskar","Pauline"];
   String deinName = namen[1];
   print("Hallo $deinName, schön dass Du da bist!");
 
-  while(zahl < 20.000) {
+  while(zahl < 20.1) {
     print("Jetzt ist die Zahl $zahl!");
     zahl++; 
   }
