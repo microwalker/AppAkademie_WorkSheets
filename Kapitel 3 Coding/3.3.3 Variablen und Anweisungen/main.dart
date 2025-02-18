@@ -16,20 +16,30 @@ void main(List<String> args) {
 
   String tmpString = gdStr + spa + dayStr + spa + worldStr + dd;
   print(tmpString);
-  //oder:
+  // oder:
   print(gdStr + spa + dayStr + spa + worldStr + dd);
+  // oder:
+  print("$gdStr$spa$dayStr$spa$worldStr$dd");
 
   print(a+seven);
 
   tmpString = c + spa + timeStr + dd;
   print(tmpString);
+  // oder:
+  print(c + spa + timeStr + dd);
+  // oder:
+  print("$c$spa$timeStr$dd");
 
   tmpString = s + spa + morning + dd;
   print(tmpString);
+  // oder:
+  print(s + spa + morning + dd);
+  // oder:
+  print("$s$spa$morning$dd");
 
   print(a*seven);
 
-  print(d^twelve); // ...damit die Variablen auch endlich mal verwendet werden und der Analyzer aufhört, zu meckern :-)
+  print(d|twelve); // ...damit die Variablen auch endlich mal verwendet werden und der Analyzer aufhört, zu meckern :-)
 
   aufg2a();
   aufg2b();
