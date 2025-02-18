@@ -16,6 +16,8 @@ void main(List<String> args) {
 
   String tmpString = gdStr + spa + dayStr + spa + worldStr + dd;
   print(tmpString);
+  //oder:
+  print(gdStr + spa + dayStr + spa + worldStr + dd);
 
   print(a+seven);
 
