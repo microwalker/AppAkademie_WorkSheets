@@ -1,6 +1,6 @@
 void main(List<String> args) {
   String c = "Schöne";
-  String d = "!";
+  String dd = "!"; // Variablenbezeichnung nach Ansage auf dd geändert!
   String dayStr = "Tag";
   String gdStr = "Guten";
   String morning = "Morgen";
@@ -10,7 +10,7 @@ void main(List<String> args) {
   String worldStr = "Welt";
   
   int a = 24;
-  int d = 20; // FAIL: d wird schon als String-Variable verwendet! Absicht?
+  int d = 20; // wurde vor Änderung (s.o) schon als String-Variable verwendet! Absicht?
   int seven = 7;
   int twelve = 12;
 }
