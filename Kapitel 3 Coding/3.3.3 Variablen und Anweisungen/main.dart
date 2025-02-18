@@ -29,7 +29,7 @@ void main(List<String> args) {
 
   print(a*seven);
 
-  print(d/twelve); // ...damit die Variablen auch endlich mal verwendet werden und der Analyzer aufhört, zu meckern :-)
+  print(d^twelve); // ...damit die Variablen auch endlich mal verwendet werden und der Analyzer aufhört, zu meckern :-)
 
   aufg2a();
   aufg2b();
@@ -51,7 +51,8 @@ void aufg2a() {
   d = c;
   b = d;
   
-  print("Aufgabe 2a) $a $b $c $d");
+  print('\nAufgabe 2a)\nString a = "Apfel";\nString b = "Birne";\nString c = "Kirsche";\nString d = "Mango";\n\nb = c;\nd = a;\nc = d;\na = b;\nd = c;\nb = d;');
+  print('Ergebnisse: a="$a" b="$b" c="$c" d="$d"\n');
 }
 
 void aufg2b() {
@@ -69,7 +70,8 @@ void aufg2b() {
   v = w;
   w = y;
 
-  print("Aufgabe 2b) $x $y $z $w $v");
+  print('\nAufgabe 2b)\nString x = "Java";\nString y = "Python";\nString z = "Ruby";\nString w = "Kotlin";\nString v = "Swift";\n\nw = x;\nv = w;\nx = y;\ny = z;\nz = v;\nv = w;\nw = y;\n\n');
+  print('Ergebnisse: x="$x" y="$y" z="$z" w="$w" v="$v"\n');
 }
 
 void aufg2c() {
@@ -87,7 +89,8 @@ void aufg2c() {
   c = b;
   e = a;
 
-  print("Aufgabe 2c) $a $b $c $d $e");
+  print("\nAufgabe 2c)\nint a = 100;\nint b = 200;\nint c = 300;\nint d = 400;\nint e = 500;\n\nc = a;\ne = b;\na = d;\nb = c;\nd = e;\nc = b;\ne = a;\n\n");
+  print("Ergebnisse: a=$a b=$b c=$c d=$d e=$e\n");
 }
 
 void aufg2d() {
@@ -107,7 +110,8 @@ void aufg2d() {
   w = y;
   u = v;
 
-  print("Aufgabe 2d) $x $y $z $w $v $u");
+  print("\nAufgabe 2d)\nint x = 42;\nint y = 55;\nint z = 89;\nint w = 73;\nint v = 91;\nint u = 64;\n\nw = x;\nu = y;\nx = v;\ny = z;\nv = w;\nz = u;\nw = y;\nu = v;\n\n");
+  print("Ergebnisse: x=$x y=$y z=$z w=$w v=$v u=$u\n");
 }
 
 void test(int zahl) {
