@@ -13,6 +13,8 @@ void aufg1() {
   List<int> a = [1, 3, 10, -4];
   List<bool> b = [true, true, false];
 
+  print(a); // just for being used!
+
   int x = 5;
   int y = 23;
   List<int> c = [x, x + 1, x + y]; // Inhalt: [5, 6, 28]
