@@ -3,7 +3,7 @@ void main(List<String> args) {
   bonusAufg1();
   bonusAufg2();
 
-  const String str = "Hallo, mein Name ist %name%!";
+  const String str = "Hallo, mein Name ist %name%! Ihr könnt mich einfach %name% nennen 😂...";
   String name = "Klaus";
   print(str.replaceAll("%name%", name));
 }
@@ -42,7 +42,8 @@ void bonusAufg1() {
 
 void bonusAufg2() {
   print("\nBonus-Aufgabe 2)");
-  List<List<List<Map<String, int>>>> myList = [
+  List<List<List<Map<String, int>>>> myList = 
+  [
     [
       [
         {"Alpha": 24},
@@ -84,6 +85,11 @@ void bonusAufg2() {
       ],
     ],
   ];
+  print(myList[0]);
+  print(myList[0][0]);
+  print(myList[0][0][0]);
+  // print(myList[0][0][0].map((key, value) { print("$key = $value")}));
+  
 
   print(myList);
   int erg = myList[0][0][0]["Alpha"]! + myList[1][0][0]["Alpha"]! + myList[2][0][0]["Alpha"]! - myList[0][1][0]["Beta"]!;
