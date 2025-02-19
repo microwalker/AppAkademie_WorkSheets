@@ -129,7 +129,7 @@ void test(int zahl) {
   int laenge = xyz.length;
   String teil = xyz[zahl];
 
-  print("Michael ist " + zahl.toString() + " Jahre alt :-)...");
+  print("Michael ist " + zahl.toString() + " Jahre alt :-)..." + (teil * laenge));
 
   String name = "Eberhardt";
   print("Hallo $name, wie geht es Dir. Heute ist der ...");
