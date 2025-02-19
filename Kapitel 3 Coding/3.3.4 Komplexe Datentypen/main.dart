@@ -2,6 +2,10 @@ void main(List<String> args) {
   aufg1();
   bonusAufg1();
   bonusAufg2();
+
+  const String str = "Hallo, mein Name ist %name%!";
+  String name = "Klaus";
+  print(str.replaceAll("%name%", name));
 }
 
 void aufg1() {
@@ -87,5 +91,9 @@ void bonusAufg2() {
   // myList[0][0][0]["Alpha"] + myList[1][0][0]["Alpha"] + myList[2][0][0]["Alpha"] - myList[0][0][0]["Beta"]; 
   print(erg);
 
-  print(myList[0][0][0]["Alpha"]! + myList[1][0][0]["Alpha"]! + myList[2][0][0]["Alpha"]! - myList[0][1][0]["Beta"]!);
+  try {
+    print(myList[0][0][0]["Alpha"]! + myList[1][0][0]["Alpha"]! + myList[2][0][0]["Alpha"]! - myList[0][0][0]["Beta"]!);
+  } catch(e) {
+    print("Error: $e");
+  }
 }
