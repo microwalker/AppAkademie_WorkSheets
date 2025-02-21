@@ -44,55 +44,56 @@ void bonusAufg1() {
 
 void bonusAufg2() {
   print("\nBonus-Aufgabe 2)");
-  List<List<List<Map<String, int>>>> myList = 
-  [
-    [
-      [
-        {"Alpha": 24},
+  List<List<List<Map<String, int>>>> myList = [
+    [ // 0 
+      [ // 0 0
+        {"Alpha": 24}, // 0 0 0 + key
+        {"Alpha": 31, "Beta": 4} // 0 0 1 + key
       ],
-      [
-        {"Beta": 25},
-      ],
-    ],
-    [
-      [
-        {"Alpha": 34},
-      ],
-      [
-        {"Beta": 35},
+      [ // 0 1
+        {"Beta": 25}, // 0 1 0
       ],
     ],
-    [
-      [
-        {"Alpha": 44},
+    [ // 1
+      [ // 1 0
+        {"Alpha": 34}, // 1 0 0 + key
       ],
-      [
-        {"Beta": 45},
-      ],
-    ],
-    [
-      [
-        {"Alpha": 54},
-      ],
-      [
-        {"Beta": 55},
+      [ // 1 1
+        {"Beta": 35}, // 1 1 0 + key
       ],
     ],
-    [
-      [
-        {"Alpha": 64},
+    [ // 2
+      [ // 2 0
+        {"Alpha": 44}, // 2 0 0 + key
       ],
-      [
-        {"Beta": 65},
+      [// 2 1
+        {"Beta": 45}, // 2 1 0 + key
+      ],
+    ],
+    [ // 3
+      [ // 3 0
+        {"Alpha": 54}, // 3 0 0 + key
+      ],
+      [ // 3 1
+        {"Beta": 55}, // 3 1 0 + key
+      ], 
+    ],
+    [ // 4 
+      [ // 4 0
+        {"Alpha": 64}, // 4 0 0 + key
+      ],
+      [ // 4 1
+        {"Beta": 65}, // 4 1 0 + key
       ],
     ],
   ];
-  print(myList[0]);
-  print(myList[0][0]);
-  print(myList[0][0][0]);
+  print(myList[0]); // 0 - 4 
+  print(myList[0][0]); // 0 - 1
+  print(myList[0][0][0]); // 0 (- 1 nur in myList[0][0] !)
+
+  print(myList[0][0][1]["Beta"]!);
   // print(myList[0][0][0].map((key, value) { print("$key = $value")}));
   
-
   print(myList);
   int erg = myList[0][0][0]["Alpha"]! + myList[1][0][0]["Alpha"]! + myList[2][0][0]["Alpha"]! - myList[0][1][0]["Beta"]!;
 
