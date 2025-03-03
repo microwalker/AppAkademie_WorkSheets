@@ -62,7 +62,7 @@ void whichCategory(double delivery) {
 
 void printBill(double orderValue, double delivery) {
   double total = orderValue + delivery;
-  print("Bill:\nOrderValue: ${orderValue.toStringAsFixed(2)} €\n+ Delivery: ${delivery.toStringAsFixed(2)} €\nTotal:      ${total.toStringAsFixed(2)} €");
+  print("\nBill:\nOrderValue: ${orderValue.toStringAsFixed(2)} €\n+ Delivery: ${delivery.toStringAsFixed(2)} €\nTotal:      ${total.toStringAsFixed(2)} €");
   whichCategory(delivery);
 }
 
