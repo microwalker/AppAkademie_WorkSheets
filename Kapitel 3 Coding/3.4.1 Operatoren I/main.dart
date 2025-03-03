@@ -12,15 +12,24 @@ void aufg1() {
   String f=a.toString();
   String g=e+f+f;
   bool h=a==b;
+  assert(h==false);
   bool i=a!=b;
+  assert(i==true);
   bool j=a>b;
+  assert(j==false);
   bool k=f.length>(c*4000).toString().length;
+  assert(k==false);
   bool l=g.length==c;
+  assert(l==false);
   bool m=1<=--b;
+  assert(m==true);
   bool n=g.length==(d>0.5);
+  assert(n==false);
   List<int> o=[1,2,3]+[4,5,6];
   bool p=g[0]==(3+3).toString();
+  assert(p==false);
   int q=o.first*o.last+o[1]-o.length;
+  assert(q==2);
 
 }
 
@@ -38,14 +47,19 @@ void bonusAufg1() {
   int i=h[h.length-2]*h[2]+h.first;
   String j=(a+10).toString()+(b~/100).toString();
   int k=h[4]*(c~/b)+h[2];
+  assert(k==-17);
   List<int> l=[a,b,c];
   l.add(b~/10);
   l.add(c%100);
   String m=l[2].toString()+l[1].toString();
   int n=m.length*l.length+i;
+  assert(n==65);
   bool o=g.length>m.length;
+  assert(o==true);
   bool p=h[3]>l[2];
+  assert(p==true);
   int q=(h.length+l.length)*(j.length-1);
+  assert(q==28);
 
   print("2688/100=${2688~/100}, Rest ${2688%100}");
   print("-2688/100=${-2688~/100}, Rest ${-2688%100}");
