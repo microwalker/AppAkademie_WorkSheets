@@ -38,6 +38,7 @@ void main(List<String> args) {
   if(winds.length > 0)
     avgWind /= winds.length;
 
+  // Ausgabe der errechneten Werte (mit Prüfung auf deren Vorhandensein)
   print("\n                       Durchschnittswerte:\n" +
         "Temperatur:            ${temps.length > 0 ? avgTemp : "k.A."}\n" +
         "Niederschlag:          ${rains.length > 0 ? avgRain : "k.A."}\n" +
