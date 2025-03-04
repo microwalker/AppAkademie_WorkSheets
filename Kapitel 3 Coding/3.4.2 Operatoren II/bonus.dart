@@ -7,16 +7,15 @@ void bonusAufg1() {
   List<Map<String, dynamic>> orders = [
     {"orderName":"Test 1", "orderValue": 18.5, "distance": 4.2, "rushHour": false, "isRaining": false, "orderSize": 2},
     {"orderName":"Test 2", "orderValue": 55.9, "distance": 8.8, "rushHour": true, "isRaining": true, "orderSize": 6},
-    {"orderName":"Test 3", "orderValue": 12.4, "distance": 11.2, "rushHour": true, "isRaining": false, "orderSize": 1}
+    {"orderName":"Test 3", "orderValue": 12.4, "distance": 11.2, "rushHour": true, "isRaining": false, "orderSize": 1},
+    {"orderName":"Test 4", "orderValue": 81.65, "distance": 15.7, "rushHour": false, "isRaining": true, "orderSize": 9}
   ];
-  double delivery;
 
   orders.forEach((element) {
-    delivery = calcDelivery(element["orderValue"], element["distance"], element["isRaining"], element["rushHour"], element["orderSize"]);
-    print("\n == ${element["orderName"]} ==");
+    double delivery = calcDelivery(element["orderValue"], element["distance"], element["isRaining"], element["rushHour"], element["orderSize"]);
+    print("\n ==> ${element["orderName"]} <== ");
     printBill(element["orderValue"], delivery);
   });
-  return;
 
   /* Old "Spaghetti-Code" :-)
   // Test 1:
@@ -73,7 +72,7 @@ void printBill(double orderValue, double delivery) {
   double total = orderValue + delivery;
   print("\nBill:"+
         "\nOrderValue: ${orderValue.toStringAsFixed(2)} €"+
-        "\n+ Delivery: ${delivery.toStringAsFixed(2)} €"+
+        "\n+ Delivery:  ${delivery.toStringAsFixed(2)} €"+
         "\nTotal:      ${total.toStringAsFixed(2)} €");
   return whichCategory(delivery);
   // return;
