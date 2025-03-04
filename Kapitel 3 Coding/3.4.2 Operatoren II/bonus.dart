@@ -4,20 +4,27 @@ void main() {
 }
 
 void bonusAufg1() {
-  double orderValue;
-  double distance;
-  bool rushHour;
-  bool isRaining;
-  int orderSize;
-
+  List<Map<String, dynamic>> orders = [
+    {"orderName":"Test 1", "orderValue": 18.5, "distance": 4.2, "rushHour": false, "isRaining": false, "orderSize": 2},
+    {"orderName":"Test 2", "orderValue": 55.9, "distance": 8.8, "rushHour": true, "isRaining": true, "orderSize": 6},
+    {"orderName":"Test 3", "orderValue": 12.4, "distance": 11.2, "rushHour": true, "isRaining": false, "orderSize": 1}
+  ];
   double delivery;
 
+  orders.forEach((element) {
+    delivery = calcDelivery(element["orderValue"], element["distance"], element["isRaining"], element["rushHour"], element["orderSize"]);
+    print("\n == ${element["orderName"]} ==");
+    printBill(element["orderValue"], delivery);
+  });
+  return;
+
+  /* Old "Spaghetti-Code" :-)
   // Test 1:
-  orderValue = 18.5;
-  distance = 4.2;
-  rushHour = false;
-  isRaining = false;
-  orderSize = 2;
+  double orderValue = 18.5;
+  double distance = 4.2;
+  bool rushHour = false;
+  bool isRaining = false;
+  int orderSize = 2;
 
   delivery = calcDelivery(orderValue, distance, isRaining, rushHour, orderSize);
   printBill(orderValue, delivery);
@@ -41,6 +48,8 @@ void bonusAufg1() {
 
   delivery = calcDelivery(orderValue, distance, isRaining, rushHour, orderSize);
   printBill(orderValue, delivery);
+  */
+  // return; /* an ending "return" seems to be not necessary at DART for void-Functions !?!? */
 }
 
 double calcDelivery(double orderValue, double distance, bool isRaining, bool rushHour, int orderSize) {
@@ -56,14 +65,18 @@ double calcDelivery(double orderValue, double distance, bool isRaining, bool rus
 }
 
 void whichCategory(double delivery) {
-  print("(${delivery > 10 ? "Premium-Lieferung" : delivery > 5 ? "Standardlieferung" : "Günstige Lieferung"})");
-  return;
+  return print("(${delivery > 10 ? "Premium-Lieferung" : delivery > 5 ? "Standardlieferung" : "Günstige Lieferung"})");
+  // return; /* it seems to be possible to return a function at "return" for void-functions in DART */
 }
 
 void printBill(double orderValue, double delivery) {
   double total = orderValue + delivery;
-  print("\nBill:\nOrderValue: ${orderValue.toStringAsFixed(2)} €\n+ Delivery: ${delivery.toStringAsFixed(2)} €\nTotal:      ${total.toStringAsFixed(2)} €");
-  whichCategory(delivery);
+  print("\nBill:"+
+        "\nOrderValue: ${orderValue.toStringAsFixed(2)} €"+
+        "\n+ Delivery: ${delivery.toStringAsFixed(2)} €"+
+        "\nTotal:      ${total.toStringAsFixed(2)} €");
+  return whichCategory(delivery);
+  // return;
 }
 
 void bonusAufg2() {
@@ -85,10 +98,11 @@ void bonusAufg2() {
   hasVoucher = true;
   isLoyalCustomer = true;
   printDiscount(totalAmount, isStudent, hasVoucher, isLoyalCustomer);
-
+  // return;
 }
 
 void printDiscount(double totalAmount, bool isStudent, bool hasVoucher, bool isLoyalCustomer) {
   int discount = (hasVoucher ? 15 : isLoyalCustomer ? 10 : isStudent ? 5 : 0) + (totalAmount > 200.0 ? 5 : 0);
   print("\n${discount > 15 ? "Super Spar-Deal!" : discount > 0 ? "Normaler Rabatt" : "Standardpreis"}");  
+  // return;
 }
