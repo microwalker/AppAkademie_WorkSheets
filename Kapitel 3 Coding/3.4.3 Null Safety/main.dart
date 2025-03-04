@@ -42,7 +42,7 @@ void main(List<String> args) {
 
   // Ausgabe der errechneten Werte (mit Prüfung auf deren Vorhandensein)
   print("\n                       Durchschnittswerte:\n" +
-        "Temperatur:            ${temps.length > 0 ? avgTemp : "k.A."}\n" +
-        "Niederschlag:          ${rains.length > 0 ? avgRain : "k.A."}\n" +
-        "Windgeschwindigkeit:   ${winds.length > 0 ? avgWind : "k.A."}\n");
+        "Temperatur:            ${temps.length > 0 ? avgTemp.toStringAsFixed(1) + " °C" : "k.A."}\n" +
+        "Niederschlag:          ${rains.length > 0 ? avgRain.toStringAsFixed(2) + " mm" : "k.A."}\n" +
+        "Windgeschwindigkeit:   ${winds.length > 0 ? avgWind.toStringAsFixed(1) + " km/h" : "k.A."}\n");
 }
