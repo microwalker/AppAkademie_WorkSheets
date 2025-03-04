@@ -3,6 +3,7 @@ void main(List<String> args) {
   bonusAufg1();
   bonusAufg2();
 
+  // something for demonstration...
   const String str = "Hallo, mein Name ist %name%! Ihr könnt mich einfach %name% nennen 😂...";
   String name = "Klaus";
   print(str.replaceAll("%name%", name));
