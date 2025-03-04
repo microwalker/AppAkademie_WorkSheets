@@ -14,6 +14,7 @@ void main(List<String> args) {
   List<double> rains = [];
   List<double> winds = [];
 
+  // Listen mit gültigen Werten füllen
   weatherData.forEach((element) {
     if(element["temp"] != null)
        temps.add(element["temp"]!);
@@ -23,6 +24,7 @@ void main(List<String> args) {
        winds.add(element["wind"]!);
   }); 
 
+  // Ab hier kann sicher ohne lästige Null-Werte gearbeitet werden!
   double avgTemp = 0;
   temps.forEach((element) { avgTemp += element; });
   if(temps.length>0) 
