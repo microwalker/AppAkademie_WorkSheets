@@ -45,25 +45,25 @@ void calcPoweredHero(classes c, daytimes d, weathers w) {
   conditions+=" und ";
   switch(d) {
     case daytimes.morning:
-      conditions+="Morgens";
+      conditions+="so früh Morgens";
     case daytimes.noon:
-      conditions+="Mittags";
+      conditions+="zur Mittagszeit";
     case daytimes.evening:
-      conditions+="Abends";
+      conditions+="in den Abendstunden";
     case daytimes.night:
-      conditions+="Nachts";
+      conditions+="in der Nacht";
   }
 
-  String powerText = "Das ist schwach!";
+  String powerText = "Das ist ziemlich schwach.";
   switch(power) {
     case >20 && <=40:
-      powerText = "Nicht optimal!";
+      powerText = "Nicht wirklich optimal!";
     case <=60:
       powerText = "Gutes Mittelmaß...";
     case <=80:
       powerText = "Schon richtig kräftig!";
     case >80:
-      powerText = "Sehr gefährlich!";
+      powerText = "Sehr gefährlich!!!";
   }
 
   // Ausgabe in gut lesbarer Form
