@@ -31,23 +31,24 @@ void analyseWeekday(Weekday? day) {
 }
 
 void averageHeightBySex(String sex, int age) {
+  // falsche Angaben führen dazu, das erst garnichts ausgegeben wird...
   switch (sex) {
    case "male":
      switch (age) {
        case >=20 && <25:
          print("Im Schnitt 181,4m");
-       case >=25 && <30:
+       case <30:
          print("Im Schnitt 181,3m");
-       case >=30 && <= 35:
+       case <= 35:
          print("Im Schnitt 180,4m");
      }
    case "female":
      switch (age) {
        case >=20 && <25:
          print("Im Schnitt 167,5m");
-       case >=25 && <30:
+       case <30:
          print("Im Schnitt 167,3 m");
-       case >=30 && <= 35:
+       case <= 35:
          print("Im Schnitt 167,2");
      }
     }
