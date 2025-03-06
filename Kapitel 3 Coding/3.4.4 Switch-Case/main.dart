@@ -36,18 +36,18 @@ void averageHeightBySex(String sex, int age) {
    case "male":
      switch (age) {
        case >=20 && <25:
-         print("Im Schnitt 181,4m");
+         print("Im Schnitt 181,4");
        case <30:
-         print("Im Schnitt 181,3m");
+         print("Im Schnitt 181,3");
        case <= 35:
-         print("Im Schnitt 180,4m");
+         print("Im Schnitt 180,4");
      }
    case "female":
      switch (age) {
        case >=20 && <25:
-         print("Im Schnitt 167,5m");
+         print("Im Schnitt 167,5");
        case <30:
-         print("Im Schnitt 167,3 m");
+         print("Im Schnitt 167,3");
        case <= 35:
          print("Im Schnitt 167,2");
      }
