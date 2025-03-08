@@ -36,6 +36,7 @@ void main(List<String> args) {
   printMenu();
 
   // Verarbeitung der Eingaben mit Rückkehr zum Hauptmenü
+  // Um das Programm zu verlassen (mit "E") gibt getChoices true zurück!
   while(!getChoices()) {
     printMenu();
   }
@@ -66,10 +67,12 @@ void checkConsoleArgs(List<String> args) {
  * Ausgabe des Hauptmenüs auf "gecleantem" Terminal
  */
 void printMenu() {
-  List<String> menuOptions = [" 1 - Neuer Eintrag"," 2 - Eintrag löschen","\n 3 - Alle Einträge auflisten"," 4 - Anzahl Elemente pro Seite ändern (für Option 3)",
-                              "\n 5 - Suchen"," D - Alle Einträge nach Datum sortieren","\n S - als Datei Speichern"," L - Datei Laden","\n E - Ende","\n"];
+  List<String> menuOptions = [" 1 - Neuer Eintrag","  2 - Eintrag löschen","   3 - Alle Einträge auflisten","    4 - Anzahl Elemente pro Seite ändern (für Option 3)",
+                              "     5 - Suchen"," D - Alle Einträge nach Datum sortieren","  S - als Datei Speichern","   L - Datei Laden"," E - Ende","\n"];
 
-  print(Process.runSync("clear", [], runInShell: true).stdout); // Guter Tipp von https://github.com/dart-lang/sdk/issues/48953 !!!
+  // Guter Tipp von https://github.com/dart-lang/sdk/issues/48953 !!!
+  print(Process.runSync((Platform.isWindows ? "cls" : "clear"), [], runInShell: true).stdout); 
+
   stdout.writeln("Willkommen zur Haushaltsbuchführung!\n\nBitte wählen Sie eine der folgenden Optionen:");
   stdout.writeAll(menuOptions, "\n");
 }
@@ -83,26 +86,33 @@ bool getChoices() {
   bool shouldEnd = false;
   
   String option = getInput("Ihre Auswahl:");
-  switch(option[0].toUpperCase()) {
-    case "1": addEntry();
-    case "2": deleteEntry();
-    case "3": listEntries();
-    case "4": changePagesize();
-    case "5": searchEntry();
-    case "D": sortEntries();
-    case "S": saveAll();
-    case "L": load();
-    case "E": 
-      shouldEnd = true;
-      if(notSaved) {
-        print("Sie haben noch ungespeicherte Datensätze!");
-        if(getInput("Wollen Sie das Programm trotzdem verlassen (j/n)") != "j") { shouldEnd = false; }
-      }
-    default:
-      stdout.writeln("\nUngültige Eingabe!");
-      getInput("Return um zum Hauptmenue zurückzukehren...");
-  }
+  if(option.length>0)
+    switch(option[0].toUpperCase()) {
+      case "1": addEntry();
+      case "2": deleteEntry();
+      case "3": listEntries();
+      case "4": changePagesize();
+      case "5": searchEntry();
+      case "D": sortEntries();
+      case "S": saveAll();
+      case "L": load();
+      case "E": 
+        shouldEnd = true;
+        if(notSaved) {
+          print("Sie haben noch ungespeicherte Datensätze!");
+          if(getInput("Wollen Sie das Programm trotzdem verlassen (j/n)") != "j") { shouldEnd = false; }
+        }
+      default:
+        invalidInput();
+    } else {
+      invalidInput();      
+    }
   return shouldEnd;
+}
+
+void invalidInput() {
+  stdout.writeln("\nUngültige Eingabe!");
+  getInput("Return um zum Hauptmenue zurückzukehren...");
 }
 
 /**
@@ -119,16 +129,18 @@ bool addEntry() {
     String datum = getInput("Datum (dd.mm.jjjj):");
     newEntry["Datum"] = datum; // vorher Datetime, jetzt als String, da Datetime nicht als json-Datentyp akzeptiert wurde !!!
     newEntry["Text"] = getInput("Beschreibung des Vorgangs");
-    newEntry["Betrag"] = double.tryParse(getInput("Betrag"));
+    newEntry["Betrag"] = double.tryParse(getInput("Betrag").replaceAll(",", "."));
 
-    Entries.add(newEntry);
-    Entries.sort((e1, f1) { var e2 = toDateTime(e1["Datum"]); var f2 = toDateTime(f1["Datum"]); return e2.compareTo(f2); }); 
-    stdout.writeln("Es wurde dieser Eintrag hinzugefügt: $newEntry");
+    if(!newEntry.containsValue(null)) {
+      Entries.add(newEntry);
+      Entries.sort((e1, f1) { var e2 = toDateTime(e1["Datum"]); var f2 = toDateTime(f1["Datum"]); return e2.compareTo(f2); }); 
+      stdout.writeln("Es wurde dieser Eintrag hinzugefügt: $newEntry");
 
-    notSaved = true;
+      notSaved = true;
+    } else throw ArgumentError("Mindestens eine Eingabe war nicht korrekt. Bitte wiederholen!");
   } 
   catch(e) {
-    stdout.writeln("Fehler: $e, Eintrag konnte nicht hinzugefügt werden!");
+    stdout.writeln("Fehler: $e, Eintrag konnte nicht hinzugefügt werden! Bitte wiederholen...");
     added = false;
   }
 
@@ -184,12 +196,13 @@ void listEntries({bool withoutBackToMenu = false}) {
   double saldo = 0;
   int maxText = 0;
   Entries.forEach((e) { maxText = e["text"].toString().length > maxText ? e["text"].toString().length : maxText; });
-  stdout.writeln("\nNr  |Datum      |Beschreibung                   |Betrag   |Saldo");
+  stdout.writeln("\nNr    |Datum      |Beschreibung                   |Betrag    |Saldo");
   if(Entries.length>0) {
     for(int i=0; i<Entries.length;i+=entriesPerPage) {
       for(int j=i; j<i+entriesPerPage && j<Entries.length; j++) {
         saldo += Entries[j]["Betrag"] ?? 0;
-        stdout.writeln("$j)  |${Entries[j]["Datum"]} |${(Entries[j]["Text"] as String).padRight(30)} |${(Entries[j]["Betrag"] as double).toStringAsFixed(2).padLeft(8)} |${saldo.toStringAsFixed(2).padLeft(8)}");
+        stdout.writeln("${j.toString().padRight(3)})  |${Entries[j]["Datum"]} |${(Entries[j]["Text"] as String).padRight(30)} "+
+                       "|${(Entries[j]["Betrag"] as double).toStringAsFixed(2).padLeft(9)} |${saldo.toStringAsFixed(2).padLeft(9)}");
       }
       if(i+entriesPerPage<Entries.length) { 
         getInput("Return zum Fortsetzen..."); 
