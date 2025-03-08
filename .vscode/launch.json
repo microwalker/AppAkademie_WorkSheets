@@ -16,6 +16,13 @@
             "request": "launch",
             "program": "Kapitel 3 Coding/3.4.6 P9 Erstes Konsolenprogramm/haushalt.dart",
             "console": "terminal",
+        },
+        {
+            "name": "Dart (haushalt2.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "Kapitel 3 Coding/3.4.6 P9 Erstes Konsolenprogramm/haushalt v2/haushalt2.dart",
+            "console": "terminal",
         }
     ]
 }
