@@ -18,6 +18,35 @@ int entriesPerPage = 10;
  * und sonstige Fehlerquellen abgefangen werden, 
  * sollte das hier wohl mehr als genug für 
  * "mein erstes Konsolenprogramm" sein...
+ * 
+ * Verwendete Stile/Methoden/Techniken etc.:
+ * - globale und lokale Variablen
+ * - dynamische Listen und Maps
+ * - Parameter über Konsole bei Programmstart (mit opt. Hilfe-Ausgabe)
+ * - Switch- und if-/if-else-Abfragen
+ * - Ein- und Ausgaben im Terminal (formatiert falls erfordlich)
+ * - konditionale Programmbeendigung
+ * - Funktionsaufrufe mit/ohne Parameter und mit/ohne Rückgabewerte
+ * - Abfangen ungültiger Eingaben
+ * - Errorhandling mit try-catch und Exceptions
+ * - Prüfung bei Programmende noch ungespeicherte Daten vorhanden sind
+ * - Datumseingabe ohne führende Nullen und zweistelliger Jahreszahl möglich
+ * - Eingabe des Betrags mit Punkt oder Komma möglich
+ * - erneute Eingabemöglichkeit bei fehlerhaften Eingaben
+ * - Möglichkeit, mehrere Einträge nacheinander hinzuzufügen
+ * - Möglichkeit, den Eingabevorgang abzubrechen
+ * - Datumskonvertierung zur Verwendung als DateTime-Datentyp (z.B. zur Sortierung nach Datum)
+ * - Sortierung der Einträge nach Datum zur korrekten Saldenbildung
+ * - paginierte (nach frei einstellbarer Anzahl an Einträgen pro Seite) und formatierte Ausgabe i.F. einer Tabelle mit Saldenberechnung und SOLL/HABEN-Übertrag bzw. -Abschluss
+ * - Platform-Erkennung und Processaufruf im Terminal (bzw. Powershell in Windows, Anm.: cls wird in Windows nicht auf dem integr. Dartterminal ausgeführt!)
+ * - Nutzung von LINQ und Lamdas in Dart
+ * - Speichern und Laden der angelegten Einträge als json-Datei mit Zugriff auf das Dateisystem und dart:convert (früher separates Package)
+ * - Non-Casesensitive Volltextsuche in den Einträgen
+ * - Alle Ein- und Ausgaben über std-Stream (i.d.R. dem Terminal), Eingaben erfolgen i.d.R. in der selben Zeile wie dessen Aufforderung
+ * 
+ * VIEL SPASS BEIM AUSPROBIEREN!
+ * 
+ * PS: Falls Verwendungsmöglichkeiten bestehen, darf das Programm gerne selbst genutzt werden :-)
  */
 
 void main(List<String> args) {
@@ -29,7 +58,7 @@ void main(List<String> args) {
 
   // Prüfen, ob das Programm in einem Terminal gestartet wurde
   if(!stdout.hasTerminal) {
-    print("Bitte starten Sie die Haushaltsbuchführung in einem Terminalfenster um Eingaben zu ermöglichen!");
+    stdout.writeln("Bitte starten Sie die Haushaltsbuchführung in einem Terminalfenster um Eingaben zu ermöglichen!");
     return;
   }
 
@@ -43,6 +72,7 @@ void main(List<String> args) {
   }
 
   // Abschied nehmen fällt schwer...
+  cls();
   stdout.writeln("\nAuf Wiedersehen!");
 }
 
@@ -52,15 +82,26 @@ void main(List<String> args) {
 void checkConsoleArgs(List<String> args) {
     switch(args[0]) {
       case "help":
-        print("Optionen:\n help - zeigt diese Hilfe an\n load dateiname.dat - lädt eine zuvor gespeicherte Datei mit Buchungsdaten" +
-              "\n list dateiname.dat - zeigt alle Buchungen einer gespeicherten Datei an und verläßt dann das Programm\nOhne Param" +
-              "eter wird das Programm ohne bzw. zum Erstellen einer neuen Buchungsdatendatei geöffnet!");
+        stdout.writeln("Optionen:\n help - zeigt diese Hilfe an\n load dateiname.dat - lädt eine zuvor gespeicherte Datei mit Buchungsdaten" +
+              "\n list dateiname.dat - zeigt alle Buchungen einer gespeicherten Datei an und verläßt dann das Programm\n info - zeigt " +
+              "einen kleinen Infotext zum und über das Program\nOhne Parameter wird das Programm ohne bzw. zum Erstellen einer neuen "+
+              "Buchungsdatendatei geöffnet!");
+        exit(0);
       case "load":
-        throw(UnimplementedError("Diese Funktion steht noch nicht zur Verfügung"));
+        if(args.length>1)
+          load(filename: args[1], withoutBackToMenu: true);
       case "list":
-        throw(UnimplementedError("Diese Funktion steht noch nicht zur Verfügung"));
+        if(args.length>1) {
+          if(load(filename: args[1], withoutBackToMenu: true))
+            listEntries(withoutBackToMenu: true, paged: false);
+        }
+        exit(0);
+      case "info":
+        infos(withoutBackToMenu: true);
+        exit(0);
       default:
-        print("Unbekannte Parameter! Verwenden Sie 'help' um sich die Hilfe anzeigen zu lassen.");
+        stdout.writeln("Unbekannte Parameter! Verwenden Sie 'help' um sich die Hilfe anzeigen zu lassen.");
+        exit(-1); // Verlassen mit Fehlercode
     }
 }
 
@@ -68,14 +109,29 @@ void checkConsoleArgs(List<String> args) {
  * Ausgabe des Hauptmenüs auf "gecleantem" Terminal
  */
 void printMenu() {
-  List<String> menuOptions = [" 1 - Neuer Eintrag","  2 - Eintrag löschen","   3 - Alle Einträge auflisten","    4 - Anzahl Elemente pro Seite ändern (für Option 3)",
-                              "     5 - Suchen"," D - Alle Einträge nach Datum sortieren","  S - als Datei Speichern","   L - Datei Laden"," E - Ende","\n"];
+  List<String> menuOptions = [
+    " 1 - Neue Einträge erfassen",
+    "  2 - Einträge suchen",
+    "   3 - einen Eintrag löschen",
+    "    4 - Alle Einträge ausflisten",
+    "     5 - Anzahl Elemente pro Seite ändern (für Ausgabe)",
+    /* " D - Alle Einträge (erneut) nach Datum sortieren", */ // Nicht notwendig, da automatisch bei Erfassung von Einträgen
+    " S - als Datei Speichern",
+    "  L - gespeicherte Datei Laden",
+    "   I - Infos zum Programm",
+    " E - Programm beenden","\n"];
 
-  // Guter Tipp von https://github.com/dart-lang/sdk/issues/48953 !!!
-  print(Process.runSync((Platform.isWindows ? "cls" : "clear"), [], runInShell: true).stdout); 
-
+  cls();
   stdout.writeln("Willkommen zur Haushaltsbuchführung!\n\nBitte wählen Sie eine der folgenden Optionen:");
   stdout.writeAll(menuOptions, "\n");
+}
+
+/**
+ * Terminalinhalt löschen
+ */
+cls() {
+  // Guter Tipp von https://github.com/dart-lang/sdk/issues/48953 !!!
+  stdout.write(Process.runSync((Platform.isWindows ? "cls" : "clear"), [], runInShell: true).stdout); 
 }
 
 /**
@@ -90,17 +146,18 @@ bool getChoices() {
   if(option.length>0)
     switch(option[0].toUpperCase()) {
       case "1": addEntry();
-      case "2": deleteEntry();
-      case "3": listEntries();
-      case "4": changePagesize();
-      case "5": searchEntry();
+      case "3": deleteEntry();
+      case "4": listEntries();
+      case "5": changePagesize();
+      case "2": searchEntry();
       case "D": sortEntries();
       case "S": saveAll();
       case "L": load();
+      case "I": infos();
       case "E": 
         shouldEnd = true;
         if(notSaved) {
-          print("Sie haben noch ungespeicherte Datensätze!");
+          stdout.writeln("Sie haben Änderungen vorgenommen, die noch nicht gespeichert wurden!");
           if(getInput("Wollen Sie das Programm trotzdem verlassen (j/n)") != "j") { shouldEnd = false; }
         }
       default:
@@ -147,7 +204,15 @@ bool addEntry() {
     
     double? betrag = null;
     while(betrag == null) {
-      betrag = double.tryParse(getInput("Betrag").replaceAll(",", "."));
+      String input = getInput("Betrag");
+      if(input == "") {
+        return false;
+      }
+      
+      betrag = double.tryParse(input.replaceAll(",", "."));
+      if(betrag == null || betrag < 0) {
+        stdout.writeln("Betrag ungültig oder negativ. Bitte erneut eingeben oder Return zum Abbruch!");
+      }
     }
     
     String art = "";
@@ -204,14 +269,17 @@ bool deleteEntry() {
       listEntries(withoutBackToMenu: true);
     }
     String input = getInput("Bitte die Nummer des zu löschenden Eintrags eingeben (nur Return = Abbruch)");
-    if(input!="") {
+    if(input != "") {
       int nr = int.tryParse(input) ?? -1;
       if(nr>=0 && nr<Entries.length) {
-        Entries.remove(Entries[nr]);
+        stdout.writeln("Dieser Eintrag wurde zu Ihrer Eingabe gefunden:\n" + getEntry(Entries[nr]));
+        if(getInput("Soll dieser Eintrag gelöscht werden")=="j") {
+          Entries.remove(Entries[nr]);
+          stdout.writeln("Der gewünschte Eintrag wurde entfernt.");
+          notSaved = true;
+        }
       }
-      stdout.writeln("Der gewünschte Eintrag wurde entfernt.");
     }
-    notSaved = true;
   } else { 
     stdout.writeln("Es gibt keine Einträge, also kann auch kein Eintrag gelöscht werden!"); 
   }
@@ -223,32 +291,28 @@ bool deleteEntry() {
  * paginierte Auflistung aller eingegebenen Einträge (den bekannten Möglichkeiten des Terminals entsprechend formatiert)
  * und automatischer Saldenbildung nach den (nach Datum sortierten) Einträgen...
  */
-void listEntries({bool withoutBackToMenu = false}) {
+void listEntries({bool withoutBackToMenu = false, bool paged = true}) {
   double saldo = 0;
 
   if(Entries.length>0) {
     // Paginierte Ausgabe (entriesPerPage pro Seite)
-    for(int i=0; i<Entries.length;i+=entriesPerPage) {
-      stdout.write(Process.runSync((Platform.isWindows ? "cls" : "clear"), [], runInShell: true).stdout); 
+    for(int i=0; i<Entries.length;i+=paged ? entriesPerPage : Entries.length) {
+      cls();
       stdout.writeln("\nNr    |Datum      |Beschreibung                   |SOLL     €|HABEN    €|SALDO    € S/H");
       if(saldo!=0) stdout.writeln("      |           |Übertag                        |"+
                                   "${saldo>=0?saldo.abs().toStringAsFixed(2).padLeft(9):"         "} |"+
                                   "${saldo<0?saldo.abs().toStringAsFixed(2).padLeft(9):"         "} |"+
                                   "${saldo.abs().toStringAsFixed(2).padLeft(9)} ${saldo<0?"  S":"  H"}");
-      for(int j=i; j<i+entriesPerPage && j<Entries.length; j++) {
+      for(int j=i; j<Entries.length && (paged ? (j<i+entriesPerPage) : true); j++) {
         saldo += (Entries[j]["Soll"] ?? 0) - (Entries[j]["Haben"] ?? 0);
-        stdout.writeln("${j.toString().padLeft(3)})  |${Entries[j]["Datum"]} "+
-                       "|${(Entries[j]["Text"] as String).padRight(30)} "+
-                       "|${(Entries[j]["Soll"] as double) == 0?"         ":(Entries[j]["Soll"] as double).toStringAsFixed(2).padLeft(9)} "+
-                       "|${(Entries[j]["Haben"] as double) == 0?"         ":(Entries[j]["Haben"] as double).toStringAsFixed(2).padLeft(9)} "+
-                       "|${saldo.abs().toStringAsFixed(2).padLeft(9)} ${saldo<0?"  S":"  H"}");
+        stdout.writeln(getEntry(Entries[j])+"|${saldo.abs().toStringAsFixed(2).padLeft(9)} ${saldo<0?"  S":"  H"}");
       }
       stdout.writeln("                                                  |----------|----------|\n"+
                      "                                                  |"+
                      (saldo<0?saldo.abs().toStringAsFixed(2).padLeft(9):"         ")+" |"+
                      (saldo>=0?saldo.abs().toStringAsFixed(2).padLeft(9):"         ")+" |");
 
-      if(i+entriesPerPage<Entries.length) { 
+      if(paged && i+entriesPerPage<Entries.length) { 
         getInput("Return zum Fortsetzen..."); 
       }
     }
@@ -259,6 +323,18 @@ void listEntries({bool withoutBackToMenu = false}) {
   if(!withoutBackToMenu) {
     getInput("Return, um zum Hauptmenue zurückzukehren...");
   }
+}
+
+/**
+ * Anzeige eines Eintrags (ohne Saldo!)
+ */
+String getEntry(Map entry) {
+  return "${Entries.indexOf(entry).toString().padLeft(3)})  |${entry["Datum"]} "+
+         "|${(entry["Text"] as String).padRight(30)} "+
+         "|${(entry["Soll"] as double) == 0?"         ":(entry["Soll"] as double).toStringAsFixed(2).padLeft(9)} "+
+         "|${(entry["Haben"] as double) == 0?"         ":(entry["Haben"] as double).toStringAsFixed(2).padLeft(9)} ";
+         // "|${saldo.abs().toStringAsFixed(2).padLeft(9)} ${saldo<0?"  S":"  H"}";
+    
 }
 
 /**
@@ -279,8 +355,8 @@ void changePagesize() {
  */
 void searchEntry() {
   stdout.writeln("Aktuell steht nur die Textsuche für die Vorgangsbeschreibung zur Verfügung!");
-  String input = getInput("Nach welchem Text soll gesucht werden?");
-  Entries.where((element) => element["Text"].contains(input)).forEach((element) => print(element));
+  String input = getInput("Nach welchem Text soll gesucht werden (unabhängig von Groß- und Kleinschreibung)");
+  Entries.where((element) => element["Text"].toString().toLowerCase().contains(input.toLowerCase())).forEach((element) => stdout.writeln(getEntry(element)));
   getInput("Return, um zum Hauptmenue zurückzukehren...");
 }
 
@@ -305,12 +381,12 @@ bool saveAll() {
  * (Probleme bei Typumwandlung von Map<String, dynamic> zu List<Map<String, dynamic>>, daher werden die Daten
  * als List<dynamic> geladen und die Einträge von dort in die List<Map<>> kopiert)
  */
-bool load({String? filename = null}) {
-  String fn = getInput("Bitte Dateinamen angeben (.json wird - falls nicht angegeben - automatisch angehängt)");
-  fn = !fn.endsWith(".json") ? fn + ".json" : fn;
+bool load({String? filename = null, bool withoutBackToMenu = false}) {
+  filename = filename ?? getInput("Bitte Dateinamen angeben (.json wird - falls nicht angegeben - automatisch angehängt)");
+  filename = !filename.endsWith(".json") ? filename + ".json" : filename;
 
   try {
-    File file = File("./" + fn);
+    File file = File("./" + filename);
     String response = file.readAsStringSync();
     List json = jsonDecode(response);
     // print(json);
@@ -320,12 +396,16 @@ bool load({String? filename = null}) {
     // json.forEach((element) => Entries.add(element)); // ...das muss doch auch anders gehen???
   } 
   catch(e) { 
-    print("Fehler beim Laden: $e");
-    getInput("Return, um zum Hauptmenue zurückzukehren...");
+    stdout.writeln("Fehler beim Laden: $e");
+    if(!withoutBackToMenu)
+      getInput("Return, um zum Hauptmenue zurückzukehren...");
     return false;
   }
   
-  getInput("Daten wurden erfolgreich geladen!\nReturn, um zum Hauptmenue zurückzukehren...");
+  stdout.writeln("Daten wurden erfolgreich geladen!");
+  if(!withoutBackToMenu)
+    getInput("Return, um zum Hauptmenue zurückzukehren...");
+
   notSaved = false;
   return true;
 }
@@ -339,5 +419,29 @@ String getInput(String statement) {
     return stdin.readLineSync() ?? "";
   } else {
     throw("Bitte starten Sie das Programm im Terminal um Eingaben zu ermöglichen");
+  }
+}
+
+void infos({bool withoutBackToMenu = false}) {
+  List<String> _infos = ["Willkommen zu Haushalt V2\n","Dieses kleine Programm entstand als Projektaufgabe i.R. meiner Weiterbildung zum App-Entwickler "+
+                         "bei der App Akademie in Berlin in Anlehnung auf ein Programm, das ich schon Ende der 80er/Anfang der 90er auf einem Commodore "+
+                         "C64 in Microsoft BASIC V2 (in Ermangelung eines PC's) entwickelt hatte, um damit meine Buchhaltung (Einnahmeüberschussrechnung) "+
+                         "für meinen damals selbständigen Gebrauchtwagenhandel zu betreiben.","Im Gegensatz zu dieser moderneren Variante musste ich damals "+
+                         "allerdings noch sowohl das Programm als auch die Daten (sequenziell) auf einem Magnetbandlaufwerk ('Musikkassette' !!!) "+
+                         "speichern :-).","Eine Möglichkeit des Ausdrucks der Daten (formatiert und paginiert) auf Papier habe ich mir Aufgrund der Tat"+
+                         "sache, dass das ursprüngliche Programm eigentlich schon am ersten Tag nach Erteilung der Aufgabe grundsätzlich schon fertig war "+
+                         "und diese Version V2 eigentlich nur enstand, da ich einfach Lust dazu hatte, zwischendurch andere Verbesserungen und Erweiterungen zu "+
+                         "programmieren, nicht implementiert. Allerdings bräuchte dazu nur die Ausgabe statt stdout auf einen Druckerkanal oder in eine "+
+                         "Datei, die dann druckbar wäre, umgelenkt werden...\n","So, was kann das Programm? - Ganz einfach: man kann in (aktuell nur) einem "+
+                         "Konto Ein- und Ausgaben jeglicher Art mit Datum und einer kurzen Beschreibung erfassen. Die eingegebenen Daten werden nach "+
+                         "Datum sortiert in einer Liste gespeichert und können so in kaufmännischer Weise als Liste mit dem gebildeten Saldo und seitenweise "+
+                         "gebildetem Übertrag (SOLL nach HABEN bzw. umgekehrt) ausgegeben werden. Zudem besteht die Möglichkeit, Datensätze zu suchen "+
+                         "oder Datensätze nach deren Nummer zu löschen. Alle angelegten Datensätze können (als json-Datei) gespeichert und bei Programm"+
+                         "start (über Terminalparameter) oder später im Programm selbst geladen werden.","Im Grunde sollte alles weitere intuitiv über das "+
+                         "Menü herauszufinden und entsprechend bedienbar sein :-)\n","Viel Spass beim Benutzen wünscht Euch euer\n\n --==> MICROWALKER <==--\n\n"];
+  cls();
+  stdout.writeAll(_infos,"\n");
+  if(!withoutBackToMenu) {
+    getInput("Return um zum Hauptmenue zurückzukehren");
   }
 }
