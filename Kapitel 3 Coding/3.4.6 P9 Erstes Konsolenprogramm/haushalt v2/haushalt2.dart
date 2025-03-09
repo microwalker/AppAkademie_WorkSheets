@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:convert';
 
 bool notSaved = false;
-List<Map<String, dynamic>> Entries = [];
+List<dynamic> Entries = [];
 // Map<String, Map<String, dynamic>> Entries = {"Entries":{}}; // Test als mögliche Lösung für korrektes Json-Laden
-int entriesPerPage = 5;
+int entriesPerPage = 10;
 
 /**
  * Haushaltbuchführung als Konsolenprogramm
@@ -314,8 +314,10 @@ bool load({String? filename = null}) {
     String response = file.readAsStringSync();
     List json = jsonDecode(response);
     // print(json);
-    Entries.clear();
-    json.forEach((element) => Entries.add(element)); // ...das muss doch auch anders gehen???
+    Entries = json;
+
+    // Entries.clear();
+    // json.forEach((element) => Entries.add(element)); // ...das muss doch auch anders gehen???
   } 
   catch(e) { 
     print("Fehler beim Laden: $e");
