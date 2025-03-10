@@ -225,7 +225,7 @@ bool addEntry() {
     if(!newEntry.containsValue(null)) {
       Entries.add(newEntry);
       Entries.sort((e1, f1) { var e2 = toDateTime(e1["Datum"]); var f2 = toDateTime(f1["Datum"]); return e2.compareTo(f2); }); 
-      stdout.writeln("Es wurde dieser Eintrag hinzugefügt: $newEntry");
+      stdout.writeln("Es wurde dieser Eintrag hinzugefügt:\n${getEntry(newEntry)}");
 
       notSaved = true;
     } else throw ArgumentError("Mindestens eine Eingabe war nicht korrekt. Bitte wiederholen!");
