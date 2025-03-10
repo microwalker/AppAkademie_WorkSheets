@@ -50,7 +50,7 @@ int entriesPerPage = 10;
  */
 
 void main(List<String> args) {
-   
+
   // ggf. eingegebene Konsolenargumente prüfen
   if(args.isNotEmpty) {
     checkConsoleArgs(args);
@@ -82,19 +82,17 @@ void main(List<String> args) {
 void checkConsoleArgs(List<String> args) {
     switch(args[0]) {
       case "help":
-        stdout.writeln("Optionen:\n help - zeigt diese Hilfe an\n load dateiname.dat - lädt eine zuvor gespeicherte Datei mit Buchungsdaten" +
-              "\n list dateiname.dat - zeigt alle Buchungen einer gespeicherten Datei an und verläßt dann das Programm\n info - zeigt " +
-              "einen kleinen Infotext zum und über das Program\nOhne Parameter wird das Programm ohne bzw. zum Erstellen einer neuen "+
-              "Buchungsdatendatei geöffnet!");
+        stdout.writeln("Optionen:\n help - zeigt diese Hilfe an\n load <Optional: dateiname.json> - lädt eine zuvor gespeicherte Datei mit Buchungsdaten" +
+              "\n list <Optioal: dateiname.json> - zeigt alle Buchungen einer gespeicherten Datei an und verläßt dann das Programm\n info - zeigt " +
+              "einen kleinen Infotext zum und über das Program\nOhne Angabe des optionalen Dateinamens werden Sie zur Eingabe aufgefordert!\nOhne Parameter " +
+              "wird das Programm ohne bzw. zum Erstellen einer leeren Buchungsliste geöffnet!");
         exit(0);
       case "load":
-        if(args.length>1)
-          load(filename: args[1], withoutBackToMenu: true);
+        if(!load(filename: (args.length > 1 ? args[1] : null), withoutBackToMenu: true))
+          exit(-1);
       case "list":
-        if(args.length>1) {
-          if(load(filename: args[1], withoutBackToMenu: true))
-            listEntries(withoutBackToMenu: true, paged: false);
-        }
+        if(load(filename: (args.length > 1 ? args[1] : null), withoutBackToMenu: true))
+          listEntries(withoutBackToMenu: true, paged: false);
         exit(0);
       case "info":
         infos(withoutBackToMenu: true);
@@ -119,10 +117,10 @@ void printMenu() {
     " S - als Datei Speichern",
     "  L - gespeicherte Datei Laden",
     "   I - Infos zum Programm",
-    " E - Programm beenden","\n"];
+    " E (oder X) - Programm beenden","\n"];
 
   cls();
-  stdout.writeln("Willkommen zur Haushaltsbuchführung!\n\nBitte wählen Sie eine der folgenden Optionen:");
+  stdout.writeln("💰 Willkommen zur Haushaltsbuchführung!\n\nBitte wählen Sie eine der folgenden Optionen:");
   stdout.writeAll(menuOptions, "\n");
 }
 
@@ -154,7 +152,8 @@ bool getChoices() {
       case "S": saveAll();
       case "L": load();
       case "I": infos();
-      case "E": 
+      case "P": listEntries(paged: false);
+      case "E" || "X": 
         shouldEnd = true;
         if(notSaved) {
           stdout.writeln("Sie haben Änderungen vorgenommen, die noch nicht gespeichert wurden!");
@@ -423,7 +422,7 @@ String getInput(String statement) {
 }
 
 void infos({bool withoutBackToMenu = false}) {
-  List<String> _infos = ["Willkommen zu Haushalt V2\n","Dieses kleine Programm entstand als Projektaufgabe i.R. meiner Weiterbildung zum App-Entwickler "+
+  List<String> _infos = ["Willkommen zu 💰 Haushalt V2💰\n","Dieses kleine Programm entstand als Projektaufgabe i.R. meiner Weiterbildung zum App-Entwickler "+
                          "bei der App Akademie in Berlin in Anlehnung auf ein Programm, das ich schon Ende der 80er/Anfang der 90er auf einem Commodore "+
                          "C64 in Microsoft BASIC V2 (in Ermangelung eines PC's) entwickelt hatte, um damit meine Buchhaltung (Einnahmeüberschussrechnung) "+
                          "für meinen damals selbständigen Gebrauchtwagenhandel zu betreiben.","Im Gegensatz zu dieser moderneren Variante musste ich damals "+
@@ -438,7 +437,7 @@ void infos({bool withoutBackToMenu = false}) {
                          "gebildetem Übertrag (SOLL nach HABEN bzw. umgekehrt) ausgegeben werden. Zudem besteht die Möglichkeit, Datensätze zu suchen "+
                          "oder Datensätze nach deren Nummer zu löschen. Alle angelegten Datensätze können (als json-Datei) gespeichert und bei Programm"+
                          "start (über Terminalparameter) oder später im Programm selbst geladen werden.","Im Grunde sollte alles weitere intuitiv über das "+
-                         "Menü herauszufinden und entsprechend bedienbar sein :-)\n","Viel Spass beim Benutzen wünscht Euch euer\n\n --==> MICROWALKER <==--\n\n"];
+                         "Menü herauszufinden und entsprechend bedienbar sein :-)\n","😁 Viel Spass beim Benutzen wünscht Euch euer\n\n --==> MICROWALKER <==--\n\n"];
   cls();
   stdout.writeAll(_infos,"\n");
   if(!withoutBackToMenu) {
