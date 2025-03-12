@@ -1,5 +1,3 @@
-import 'dart:math';
-
 void printNumber(int number) => print(number);
 
 void triplePrint(String text) => print(text * 3);
@@ -81,3 +79,4 @@ void analyzeNumbers(List<int> numbers) {
   printNumberTypes(numbers);
   printDistribution(numbers);
 }
+

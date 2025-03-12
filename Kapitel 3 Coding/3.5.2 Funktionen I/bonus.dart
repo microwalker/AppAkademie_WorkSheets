@@ -1,4 +1,4 @@
-import 'funlib.dart';
+import 'lib/funlib.dart';
 
 void main(List<String> args) {
   // Bonusaufgabe 1

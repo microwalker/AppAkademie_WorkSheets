@@ -1,4 +1,5 @@
-import "funlib.dart";
+// import der funKTIONSlibRARY (funlib)
+import "lib/funlib.dart";
 
 void main(List<String> args) {
   // Aufgabe 1:
