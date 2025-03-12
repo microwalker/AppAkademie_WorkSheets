@@ -8,13 +8,13 @@ void reverseInitials(String forename, String lastname) {
   print(forename[forename.length-1].toUpperCase() + ". " + lastname[lastname.length-1].toUpperCase() + "."); }
 
 void convertMinutesToTime(int minutes) {
-  print("${minutes ~/ 60} Stunden, ${minutes % 60}"); }
+  print("[$minutes Minuten sind:] ${minutes ~/ 60} Stunden und ${minutes % 60} Minuten"); }
 
 void printGrades(List<int> grades) {
   // Gibt alle Noten nacheinander aus
   // z.B.: Note 1: 2, Note 2: 1, Note 3: 3
   String noten = "";
-  for(int i = 0; i < grades.length; i++) noten+="Note $i: ${grades[i]}" + (i<grades.length-1?".":"");
+  for(int i = 0; i < grades.length; i++) noten+="Note ${i+1}: ${grades[i]}${i<grades.length-1?", ":""}";
   print(noten);
 }
 
