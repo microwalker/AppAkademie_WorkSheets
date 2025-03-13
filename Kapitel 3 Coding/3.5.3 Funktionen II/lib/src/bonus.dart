@@ -1,7 +1,7 @@
 import 'dart:math';
 
 abstract class bonus {
-  static num greaterNum(num x, num y) => x>y?y:y;
+  static num greaterNum(num x, num y) => x>y?x:y;
   static bool even(num x) => x%2==0;
   static num sumFromList(List<num> nums) => nums.fold(0, (p,e) => p + e);
   static num avgFromList(List<num> nums) => sumFromList(nums)/nums.length;
@@ -37,17 +37,18 @@ abstract class bonus {
     List<Map<String, int>> words = [];
     for(String s in sentences)
       new RegExp(r'\w+').allMatches(s).forEach((word) => 
-        words.add({word.toString(): word.toString().length}));
+        words.add({word.group(0).toString(): word.group(0)!.length}));
     return words;
   }
 
   static num changeTemperature(num t, [bool isF = false]) => isF ? (t-32)/1.8 : t*1.8+32;
   static String foldStrings(List<String> texts) => texts.fold("", (p, e) => p + e);
   static bool isPrime(int number) { 
+    bool erg = true;
     for(int d=2;d<number;d++)
       if(number % d == 0)
-        return true;
-    return false;
+        return false;
+    return erg;
   }
 
   static int reverseNumber(int number) {
@@ -80,6 +81,49 @@ abstract class bonus {
       for(int i=0; i<w1.length; i++)
         if(w1[i] != w2[i])
           return false;
+    
+    
+    return true;
+  }
+
+  static num multiplicateWithoutMultiplicationOperator(num zahl1, num zahl2) {
+    num zahl = zahl1;
+    for(int i=2; i<=zahl2; i++) 
+      zahl += zahl1;
+    return zahl;
+  }
+
+  static List<String> getWords(String text) {
+    List<String> words = [];
+    String _word = "";
+    for(int i=0; i<text.length;i++) {
+      _word += text[i] != " " ? text[i] : "";
+      if(text[i] == " " || i == text.length-1) {
+        words.add(_word);
+        _word = "";
+      }
+    }
+    return words;
+  }
+
+  static bool isPalindrom(String word) {
+    String reversedWord = "";
+    for(int i=word.length;i>0;i--) {
+      reversedWord += word[i-1];
+    }
+    
+    return reversedWord.toLowerCase() == word.toLowerCase();
+  }
+
+  static bool checkBrackets(String line) {
+    int opened = 0;
+    int closed = 0;
+    for(int i=0;i<line.length;i++) {
+      opened += line[i] == "(" ? 1 : 0;
+      closed += line[i] == ")" ? 1 : 0;
+      if(closed>opened) return false;
+    }
+    if(opened>closed) return false;
     return true;
   }
 }
