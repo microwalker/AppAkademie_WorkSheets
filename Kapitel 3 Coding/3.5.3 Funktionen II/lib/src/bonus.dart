@@ -5,7 +5,7 @@ abstract class bonus {
   static bool even(num x) => x%2==0; 
   static num sumFromList(List<num> nums) => nums.fold(0, (p,e) => p + e); // num sum = 0; nums.forEach((n) => sum+=n);
   static num avgFromList(List<num> nums) => sumFromList(nums)/nums.length; 
-  static int countChars(String text, String char) => new RegExp('[$char]').allMatches(text).length;
+  static int countChars(String text, String char) => new RegExp('[${char.toLowerCase()}]').allMatches(text.toLowerCase()).length;
   static bool contains(String text, String char) => text.contains(char);
   static int valence(num number) => number < 0 ? -1 : number > 0 ? 1 : 0;
   
@@ -82,8 +82,14 @@ abstract class bonus {
         if(w1[i] != w2[i])
           return false;
     
-    
     return true;
+  }
+
+  static bool isAnagramLINQ(String word1, String word2) {
+    List w1 = [for(int i=0;i <word1.length;i++) word1[i].toUpperCase()]..sort();
+    List w2 = [for(int i=0;i <word2.length;i++) word2[i].toUpperCase()]..sort();
+    
+    return w1.length == w2.length && List.generate(w1.length, (int i) => i).every((i) => w1[i] == w2[i]);
   }
 
   static num multiplicateWithoutMultiplicationOperator(num zahl1, num zahl2) {

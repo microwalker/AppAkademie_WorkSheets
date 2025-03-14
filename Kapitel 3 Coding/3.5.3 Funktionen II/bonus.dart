@@ -33,9 +33,9 @@ void main(List<String> args) {
   // Aufgabe 5
   print("\nAufgabe 5:");
   print("- Anzahl eines Zeichens innerhalb eines Wortes ermitteln");
-  print(bonus.countChars("Kartoffel", "f"));
+  print(bonus.countChars("Kartoffel", "F"));
   print(bonus.countChars("Flötotto", "t"));
-  print(bonus.countChars("Repository", "i"));
+  print(bonus.countChars("Repository", "I"));
 
   // Aufgabe 6
   print("\nAufgabe 6:");
@@ -134,6 +134,11 @@ void main(List<String> args) {
   print(bonus.isAnagram("Tor", "Rot"));
   print(bonus.isAnagram("Ferien", "Reifen"));
   print(bonus.isAnagram("Tastatur", "Maus"));
+
+  print("- Prüfen, ob zwei Worte ein Anagramm sind (mit isAnagram2)");
+  print(bonus.isAnagramLINQ("Tor", "Rot"));
+  print(bonus.isAnagramLINQ("Ferien", "Reifen"));
+  print(bonus.isAnagramLINQ("Tastatur", "Maus"));
 
   // Aufgabe 20
   print("\nAufgabe 20:");
