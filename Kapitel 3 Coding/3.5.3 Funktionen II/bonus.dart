@@ -34,8 +34,8 @@ void main(List<String> args) {
   print("\nAufgabe 5:");
   print("- Anzahl eines Zeichens innerhalb eines Wortes ermitteln");
   print(bonus.countChars("Kartoffel", "f"));
-  print(bonus.countChars("Flötotto", "l"));
-  print(bonus.countChars("Repository", "v"));
+  print(bonus.countChars("Flötotto", "t"));
+  print(bonus.countChars("Repository", "i"));
 
   // Aufgabe 6
   print("\nAufgabe 6:");

@@ -1,10 +1,10 @@
 import 'dart:math';
 
 abstract class bonus {
-  static num greaterNum(num x, num y) => x>y?x:y;
-  static bool even(num x) => x%2==0;
-  static num sumFromList(List<num> nums) => nums.fold(0, (p,e) => p + e);
-  static num avgFromList(List<num> nums) => sumFromList(nums)/nums.length;
+  static num greaterNum(num x, num y) => x>y?x:y; // max(x,y);
+  static bool even(num x) => x%2==0; 
+  static num sumFromList(List<num> nums) => nums.fold(0, (p,e) => p + e); // num sum = 0; nums.forEach((n) => sum+=n);
+  static num avgFromList(List<num> nums) => sumFromList(nums)/nums.length; 
   static int countChars(String text, String char) => new RegExp('[$char]').allMatches(text).length;
   static bool contains(String text, String char) => text.contains(char);
   static int valence(num number) => number < 0 ? -1 : number > 0 ? 1 : 0;
