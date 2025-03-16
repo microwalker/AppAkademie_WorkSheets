@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'data.dart';
+import 'ansi.dart';
 
 class terminal {
   Stdin termIn = stdin;
@@ -62,8 +63,8 @@ class terminal {
       " E (oder X) - Programm beenden","\n"];
 
     cls();
-    lineOut("💰 Willkommen zur Haushaltsbuchführung!\n\nBitte wählen Sie eine der folgenden Optionen:");
-    lineOut(menuOptions.join("\n"));
+    lineOut(setANSI_Colour(ANSI_Colours.MAGENTA) + "💰 Willkommen zur Haushaltsbuchführung!\n\nBitte wählen Sie eine der folgenden Optionen:");
+    lineOut(setANSI_Colour(ANSI_Colours.GREEN) + menuOptions.join("\n"));
   }
 
   /**
