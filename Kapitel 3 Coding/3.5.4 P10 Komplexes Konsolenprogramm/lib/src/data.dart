@@ -5,6 +5,21 @@ typedef Entry = Map<String, dynamic>;
 Entry emptyEntry = {"Datum":null, "Text":null, "Soll":null, "Haben":null};
 typedef Entries = List<dynamic>; // List<Entry> wird von JsonDecode nicht akzeptiert...
 
+/**
+ * Bookings-Klasse
+ *
+ * © 2025 Microwalker
+ * ==================
+ *
+ * Datenverwaltungsklasse für das Konsolenprogramm "Haushalt V3"
+ * - Verwaltet die dynamische Liste mit Buchungseinträgen (als Type definiert)
+ *   - Einträge erstellen oder Löschen
+ *   - Einträge suchen
+ *   - Alle Einträge (nach Datum) sortieren
+ *   - Alle Einträge speichern oder laden (als json)
+ * 
+ * ...sowie einiger kleiner weiterer Funktionen
+ */
 class Bookings {
   // privater Datentyp für Datenspeicherung
   Entries _entries = [];
@@ -24,7 +39,8 @@ class Bookings {
   Entry getEntry(int i) => _entries[i];
   sortByDate() => _entries.sort((e1, f1) { var e2 = toDateTime(e1["Datum"]); var f2 = toDateTime(f1["Datum"]); return e2.compareTo(f2); }); 
   Iterable<dynamic> searchText(String text) => _entries.where((element) => element["Text"].toString().toLowerCase().contains(text.toLowerCase()));
-
+  empty() => emptyEntry;
+  
   /**
    * Das Datum im Format "dd.mm.jjjj" in DateTime kovertieren, um bspw. die Sortierung nach Datum durchführen zu können
    */

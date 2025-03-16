@@ -1,12 +1,14 @@
+import 'dart:developer';
 import 'dart:io';
 import 'lib/haushalt_libs.dart';
+import 'lib/src/ansi.dart';
 
 bool notSaved = false;
 // List<dynamic> Entries = [];
 Bookings haushalt = Bookings();
 // Map<String, Map<String, dynamic>> Entries = {"Entries":{}}; // Test als mögliche Lösung für korrektes Json-Laden
 int entriesPerPage = 10;
-terminal term = terminal();
+Terminal term = Terminal();
 
 /**
  * Haushaltbuchführung als Konsolenprogramm
@@ -24,6 +26,7 @@ terminal term = terminal();
  *   - die Bedienung und deren Steuerung
  *   - dem Datenmanagement in der Bookings-Klasse
  *   - der Steuerung der Ein- und Ausgaben über die Terminal-Klasse
+ *   - Integration meiner ANSI-Library für formatierte, farbige Ausgaben
  * 
  * VIEL SPASS BEIM AUSPROBIEREN!
  * 
@@ -112,7 +115,7 @@ bool getChoices() {
       case "E" || "X": 
         shouldEnd = true;
         if(notSaved) {
-          term.lineOut("Sie haben Änderungen vorgenommen, die noch nicht gespeichert wurden!");
+          term.lineOut("${term.red+term.blink}Sie haben Änderungen vorgenommen, die noch nicht gespeichert wurden!${term.reset}");
           if(term.input("Wollen Sie das Programm trotzdem verlassen (j/n)") != "j") { shouldEnd = false; }
         }
       default:
@@ -129,7 +132,7 @@ bool getChoices() {
  * Zudem besteht die Möglichkeit, mehrere Einträge nacheinander vorzunehmen.
  */
 bool addEntry() {
-  Entry newEntry = emptyEntry;
+  Entry newEntry = emptyEntry; // oder auch möglich: haushalt.empty();
   // Map<String, dynamic> newEntry = {"Datum":null, "Text":null, "Soll":null, "Haben":null};
 
   term.lineOut("\nBitte geben Sie nun die Daten des Vorgangs nacheinander ein.\nNach Eingabe des Betrags können Sie wählen, "+
@@ -159,7 +162,7 @@ bool addEntry() {
       
       betrag = double.tryParse(input.replaceAll(",", "."));
       if(betrag == null || betrag < 0) {
-        term.lineOut("Betrag ungültig oder negativ. Bitte erneut eingeben oder Return zum Abbruch!");
+        term.lineOut("${term.red+term.blink}Betrag ungültig oder negativ. Bitte erneut eingeben oder Return zum Abbruch!${term.reset}");
       }
     }
     
@@ -183,7 +186,7 @@ bool addEntry() {
     }
   } 
   catch(e) {
-    term.lineOut("Fehler: $e, Eintrag konnte nicht hinzugefügt werden! Bitte wiederholen...");
+    term.lineOut("${term.red}Fehler: $e, Eintrag konnte nicht hinzugefügt werden! Bitte wiederholen...${term.reset}");
     added = false;
   }
 
@@ -220,15 +223,15 @@ bool deleteEntry() {
       if(nr>=0 && nr<haushalt.length) {
         term.lineOut("Dieser Eintrag wurde zu Ihrer Eingabe gefunden:");
         term.printBookingsEntry(nr, haushalt.getEntry(nr));
-        if(term.input("Soll dieser Eintrag gelöscht werden")=="j") {
+        if(term.input("${term.red}Soll dieser Eintrag gelöscht werden")=="j") {
           haushalt.remove(haushalt.entries[nr]);
-          term.lineOut("Der gewünschte Eintrag wurde entfernt.");
+          term.lineOut("${term.green}Der gewünschte Eintrag wurde entfernt.");
           notSaved = true;
         }
       }
     }
   } else { 
-    term.lineOut("Es gibt keine Einträge, also kann auch kein Eintrag gelöscht werden!"); 
+    term.lineOut("${term.red}Es gibt keine Einträge, also kann auch kein Eintrag gelöscht werden!"); 
   }
   term.input("Return um zum Hauptmenue zurückzukehren...");
   return false;
@@ -240,9 +243,9 @@ bool deleteEntry() {
  */
 void listEntries({bool withoutBackToMenu = false, bool paged = true}) {
   if(haushalt.length>0) {
-    term.printTerminalEntries(haushalt, entriesPerPage, true);
+    term.printTerminalEntries(haushalt, entriesPerPage, paged);
   } else { 
-    term.lineOut("Keine Einträge vorhanden!");
+    term.lineOut("${term.red}Keine Einträge vorhanden!");
   }
   if(!withoutBackToMenu) {
     term.input("Return, um zum Hauptmenue zurückzukehren...");
@@ -268,7 +271,7 @@ void changePagesize() {
  */
 void searchEntry() {
   term.cls();
-  term.lineOut("Aktuell steht nur die Textsuche für die Vorgangsbeschreibung zur Verfügung!\n");
+  term.lineOut("${term.green}Ihnen steht eine Volltextsuche innerhalb der Vorgangsbeschreibung zur Verfügung:\n");
   String input = term.input("Nach welchem Text soll gesucht werden (unabhängig von Groß- und Kleinschreibung)");
   term.printBookingsHeader();
   haushalt.searchText(input).forEach((element) { term.printBookingsEntry(haushalt.indexOf(element), element); });
@@ -283,10 +286,11 @@ bool saveAll() {
   String fn = term.input("Bitte Dateinamen angeben (.json wird - falls nicht angegeben - automatisch angehängt)");
 
   try {
-    if(haushalt.saveToJson(fn))
-      term.input("Speicherung erfolgreich!\nReturn, um zum Hauptmenue zurückzukehren...");
+    if(haushalt.saveToJson(fn)) {
+      term.lineOut("${term.green}Speicherung erfolgreich!\n");
+      term.input("Return, um zum Hauptmenue zurückzukehren..."); }
   } catch(e) {
-    term.lineOut("Speichern fehlgeschlagen: $e");
+    term.lineOut("${term.red}Speichern fehlgeschlagen: $e");
     notSaved = true;
     return false;
   }
@@ -306,10 +310,10 @@ bool load({String? filename = null, bool withoutBackToMenu = false}) {
   bool loaded = true;
   try {
     if(haushalt.loadFromJson(filename))
-      term.lineOut("Daten wurden erfolgreich geladen!");
+      term.lineOut("${term.green}Daten wurden erfolgreich geladen!");
   } 
   catch(e) { 
-    term.lineOut("Fehler beim Laden: $e");
+    term.lineOut("${term.red}Fehler beim Laden: $e");
     loaded = false;
   }
   
