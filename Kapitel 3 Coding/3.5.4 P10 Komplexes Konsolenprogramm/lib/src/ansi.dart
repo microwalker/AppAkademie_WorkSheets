@@ -28,11 +28,13 @@ void main() {
   print("\n");
   for(int c=0;c<256;c++) 
     stdout.write(setANSI_ForegroundColour256(c)+" $c ");
-  print("\n");
-  for(int b=0;b<256;b+=32) {
-    for(int g=0;g<256;g+=32) {
-      for(int r=0;r<256;r+=32) 
-        stdout.write(setANSI_BackgroundColourRGB(r, g, b)+"${r.toRadixString(16).padLeft(2, "0")+g.toRadixString(16).padLeft(2, "0")+b.toRadixString(16).padLeft(2, "0")} "); }}
+  print("\n" + setANSI_ForegroundColourRGB(0xff,0xff,0xff));
+  for(int r=0;r<256;r+=16)
+    for(int g=0;g<256;g+=16) {
+      for(int b=0;b<256;b+=16) 
+        stdout.write(setANSI_BackgroundColourRGB(r, g, b)+"${r.toRadixString(16).padLeft(2, "0")+g.toRadixString(16).padLeft(2, "0")+b.toRadixString(16).padLeft(2, "0")} "); 
+    stdout.writeln();
+    }
   print(resetAllANSI_TextModes());
 }
 

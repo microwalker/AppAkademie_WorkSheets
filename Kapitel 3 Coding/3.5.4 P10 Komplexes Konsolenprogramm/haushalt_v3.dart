@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
 import 'lib/haushalt_libs.dart';
-import 'lib/src/ansi.dart';
 
 bool notSaved = false;
 // List<dynamic> Entries = [];
