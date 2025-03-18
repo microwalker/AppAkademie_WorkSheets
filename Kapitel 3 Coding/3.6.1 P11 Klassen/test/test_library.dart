@@ -13,9 +13,12 @@ void main() {
   Transaction t = Transaction("bitcoin", DateTime(2010, 4, 11), 5000, 1234.56, TransactionType.Buy);
   print(t);
   
-  a.transactions.add(t);
+  a.addTransaction(t);
   print(a);
-  
+
+  a.addTransaction(Transaction("ethereum", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Transfer));
+  print(a);
+
   List<Coin> coins = [];
   print(coins);
 

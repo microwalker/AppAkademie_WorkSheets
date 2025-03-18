@@ -17,13 +17,13 @@ final class Account {
     if(transaction.coinId == this.coinId)
       this.transactions.add(transaction);
     else 
-      throw(FormatException("Dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} hinzugefügt werden."));
+      throw(FormatException("Dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} hinzugefügt werden.", this, 18));
   }
   
   void removeTransaction(Transaction transaction) {
     if(transaction.coinId == this.coinId)
       this.transactions.remove(transaction);
-    else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.")); 
+    else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.", this, 25)); 
   }
 
   String toString() => "Account($userId, $name, $coinId)";
