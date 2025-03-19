@@ -3,7 +3,7 @@
  * 
  * ID, Name und Symbol kommen aus API-Call "CoinList", die restlichen Werte aus einer separaten API-Abfrage!
  */
-sealed class CoinData {
+class CoinData {
   final String id; 
   final String name;
   final String symbol;

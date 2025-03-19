@@ -4,7 +4,7 @@ import 'transaction_data.dart';
  * Klasse "Account" wird benötigt, um Transaktionen für einen Coin zu sammeln... 
  * wird aber ggf. doch durch eine einfache Liste ersetzt!!! 
  */
-final class AccountData {
+class AccountData {
   final String id; // für Datenbank ? ...wird dann ja wahrscheinlich nicht gebraucht!?
   final String userId; // = Kontoinhaber ... wird wohl auch garnicht benötigt!?
   final String name;

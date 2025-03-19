@@ -1,5 +1,5 @@
 import '../lib/coin_library.dart';
-import '../lib/data/coin_data.dart';
+import '../lib/coin_data_model.dart';
 
 void main() {
   List<Coin> coins = [Coin("terra_classic","Terra Classic","LUNC"), Coin("uniswap", "Uniswap", "UNI"), Coin("iota","Miota","IOTA"), Coin("shiba_inu","SHIBA INU","SHIB")];
@@ -49,6 +49,8 @@ void main() {
   i
   ..toString();
 
+  CoinData cd = CoinData(id: "bitcoin",name: "Bitcoin",symbol: "BTC");
+  // cd.currentPrice = 80000; nicht möglich, da currentPrice final ist...
 }
 
 class CoinTest {
