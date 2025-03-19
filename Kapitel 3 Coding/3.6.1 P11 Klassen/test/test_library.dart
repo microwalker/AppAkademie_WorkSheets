@@ -15,9 +15,13 @@ void main() {
   
   a.addTransaction(t);
   print(a);
+  
+  try {
+    a.addTransaction(Transaction("ethereum", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Transfer));
+    print(a);
+  } catch(_e) {print(_e);}
 
-  a.addTransaction(Transaction("ethereum", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Transfer));
-  print(a);
+  a.forEach((e) => print(e));    
 
   List<Coin> coins = [];
   print(coins);
