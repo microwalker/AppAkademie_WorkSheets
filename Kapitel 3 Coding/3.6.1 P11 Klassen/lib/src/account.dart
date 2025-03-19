@@ -9,26 +9,24 @@ final class Account extends Iterable {
   String userId; // = Kontoinhaber
   String name;
   String coinId; // entspricht der Coin.id aus dem Datenimport
-  List<Transaction> _transactions = [];
+  List<Transaction> transactions = [];
 
   Account(this.userId, this.name, this.coinId); // für Datenbank
 
   @override
-  Iterator get iterator => _transactions.iterator;
+  Iterator get iterator => transactions.iterator;
   
-  get () => _transactions;
-
   void addTransaction(Transaction transaction) {
     if(transaction.coinId == this.coinId)
-      this._transactions.add(transaction);
+      this.transactions.add(transaction);
     else 
-      throw(FormatException("Dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} hinzugefügt werden.", this.runtimeType, 18));
+      throw(FormatException("Dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} hinzugefügt werden.", this.runtimeType, 23));
   }
   
   void removeTransaction(Transaction transaction) {
     if(transaction.coinId == this.coinId)
-      this._transactions.remove(transaction);
-    else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.", this.runtimeType, 25)); 
+      this.transactions.remove(transaction);
+    else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.", this.runtimeType, 30)); 
   }
 
   String toString() => "Account($userId, $name, $coinId)";

@@ -1,4 +1,4 @@
-library coin.library;
+library coin_libraries;
 
 export 'src/coin.dart';
 export 'src/account.dart';
