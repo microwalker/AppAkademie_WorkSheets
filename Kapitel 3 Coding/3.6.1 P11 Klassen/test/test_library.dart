@@ -48,10 +48,10 @@ Future<void> test() async {
 
   print(coins);
 
-  cg_coins.forEach((c) => print(c));
+  // cg_coins.forEach((c) => print(c));
   print("Insgesamt ${cg_coins.length} Coins geladen!");
 
-  cg_coins.forEach((c) => print(c.marketRank ?? "No rank yet!"));
+  cg_coins.where((c) => c.isFavorite ?? false).forEach((c) => print("${c.name} (Rang:${c.marketRank}): Current Price = ${c.currentPrice} €"));
 
   Coin c = Coin("bitcoin", "Bitcoin", "BTC");
   print(c);

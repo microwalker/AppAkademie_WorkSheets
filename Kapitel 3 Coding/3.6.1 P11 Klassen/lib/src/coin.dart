@@ -5,7 +5,7 @@ final class Coin {
   final String id; // aus Datenimport über Json
   final String name;
   final String symbol;
-  final bool? isFavorite; 
+  bool? isFavorite; 
   String? imageUrl;
   num? currentPrice;
   int? marketRank;
@@ -18,6 +18,8 @@ final class Coin {
 
   String toString() => "Coin($id, $name, $symbol)";
 
-  void setMarketData(Map<String, dynamic> m) => this ..imageUrl = m["image"] ..currentPrice = m["current_price"] ..marketRank = m["market_cap_rank"];
+  void setMarketData(Map<String, dynamic> m) => 
+    this ..imageUrl = m["image"] ..currentPrice = m["current_price"] ..marketRank = m["market_cap_rank"]  // wichtige Werte !!!
+      ..isFavorite = (this.isFavorite ?? (this.marketRank != null));  // Auf isFovorite setzen (zum Test!) wenn Rang vorhanden...
 }
 
