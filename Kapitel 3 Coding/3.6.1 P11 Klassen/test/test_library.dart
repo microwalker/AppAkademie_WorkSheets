@@ -1,13 +1,31 @@
+import 'package:http/http.dart';
+import 'dart:convert';
+
 import '../lib/coin_library.dart';
 import '../lib/coin_data_model.dart';
 
 void main() {
-  List<Coin> coins = [Coin("terra_classic","Terra Classic","LUNC"), Coin("uniswap", "Uniswap", "UNI"), Coin("iota","Miota","IOTA"), Coin("shiba_inu","SHIBA INU","SHIB")];
+  test();
+}
 
+Future<void> test() async {
   User u = User("Microwalker");
   u.id = "234k2nhuop34b32pb4jn43otu64n"; 
   print(u);
 
+  List<Coin> coins = [Coin("terra_classic","Terra Classic","LUNC"), Coin("uniswap", "Uniswap", "UNI"), Coin("iota","Miota","IOTA"), Coin("shiba_inu","SHIBA INU","SHIB")];
+  List<Coin> cg_coins = [];
+
+  List<dynamic> responseList = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/list')));
+  responseList.forEach((m) => cg_coins.add(Coin.fromMap(m)));
+
+  String favCoins = "";
+  cg_coins.forEach((c) => favCoins += c.isFavorite ?? false ? c.id + (cg_coins.last != c ? "," : "") : "");
+  print(favCoins);
+  
+  List<dynamic> responseMap = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/markets?vs_currency=${u.currency}&ids=$favCoins')));
+  responseMap.forEach((e) => cg_coins.firstWhere((c) => c.id == e["id"]).setMarketData(e));
+  
   Account a = Account(u.id, "Bitcoin 1", "bitcoin");
   print(a);
 
@@ -26,9 +44,14 @@ void main() {
   } catch(e) { print("Transaktion konnte keinem Konto hinzugefügt werden: $e"); }
   print(a);
 
-  accounts.forEach((_a) => _a.transactions.forEach((_t) => print(_t)));    
+  accounts.forEach((t) => t.forEach((_t) => print(_t)));    
 
   print(coins);
+
+  cg_coins.forEach((c) => print(c));
+  print("Insgesamt ${cg_coins.length} Coins geladen!");
+
+  cg_coins.forEach((c) => print(c.marketRank ?? "No rank yet!"));
 
   Coin c = Coin("bitcoin", "Bitcoin", "BTC");
   print(c);
@@ -50,7 +73,7 @@ void main() {
   ..toString();
 
   CoinData cd = CoinData(id: "bitcoin",name: "Bitcoin",symbol: "BTC");
-  // cd.currentPrice = 80000; nicht möglich, da currentPrice final ist...
+  // cd.currentPrice = 80000; // nicht möglich, da currentPrice final ist...
 }
 
 class CoinTest {

@@ -2,17 +2,22 @@
  * Klasse "Coin" wird benötigt, um Coins aufzulisten, deren Id zu ermitteln oder Marktinformationen zu erhalten
  */
 final class Coin {
-  String id; // aus Datenimport
-  String name;
-  String symbol;
+  final String id; // aus Datenimport über Json
+  final String name;
+  final String symbol;
+  final bool? isFavorite; 
   String? imageUrl;
-  double? currentPrice;
+  num? currentPrice;
   int? marketRank;
 
-  Coin(this.id, this.name, this.symbol, [this.imageUrl = null, this.currentPrice = null, this.marketRank = null]);
+  Coin(this.id, this.name, this.symbol, [this.isFavorite, this.imageUrl, this.currentPrice, this.marketRank ]);
+
+  factory Coin.fromMap(Map<String, dynamic> c) => Coin(c["id"], c["name"], c["symbol"]);
 
   bool operator ==(Object other) => other is Coin && this.id == other.id;
 
   String toString() => "Coin($id, $name, $symbol)";
+
+  void setMarketData(Map<String, dynamic> m) => this ..imageUrl = m["image"] ..currentPrice = m["current_price"] ..marketRank = m["market_cap_rank"];
 }
 

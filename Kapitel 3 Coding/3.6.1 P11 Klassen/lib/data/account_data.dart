@@ -13,3 +13,4 @@ class AccountData {
 
   AccountData({required this.id, required this.userId, required this.name, required this.coinId, required this.transactions});
 }
+
