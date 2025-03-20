@@ -5,7 +5,22 @@ import '../lib/coin_library.dart';
 import '../lib/coin_data_model.dart';
 
 void main() {
-  test();
+  // test();
+  test2();
+}
+
+Future<void> test2() async {
+  Data data = Data(User("Microwalker"));
+  print("${data.user} => isIdentified: ${data.user!.isIdentified}");
+
+  await data.getCoinsFromAPI();
+
+  data.favorites.addAll({"bitcoin","ethereum","atom","bonk","dogecoin","injective"});
+  await data.updateCoinDatas("eur");
+
+  print(data.coins);
+  
+  data.coins.where((c) => data.favorites.contains(c.id)).forEach((c) => print("$c => ${c.currentPrice} €"));
 }
 
 Future<void> test() async {
@@ -26,10 +41,10 @@ Future<void> test() async {
   List<dynamic> responseMap = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/markets?vs_currency=${u.currency}&ids=$favCoins')));
   responseMap.forEach((e) => cg_coins.firstWhere((c) => c.id == e["id"]).setMarketData(e));
   
-  Account a = Account(u.id, "Bitcoin 1", "bitcoin");
+  Account a = Account(u.id!, "Bitcoin 1", "bitcoin");
   print(a);
 
-  List<Account> accounts = [a, Account(u.id, "Bitcoin 2", "bitcoin"), Account(u.id, "Shibas", "shiba_inu")];
+  List<Account> accounts = [a, Account(u.id!, "Bitcoin 2", "bitcoin"), Account(u.id!, "Shibas", "shiba_inu")];
   print(accounts);
 
   Transaction t = Transaction("bitcoin", DateTime(2010, 4, 11), 5000, 1234.56, TransactionType.Buy);

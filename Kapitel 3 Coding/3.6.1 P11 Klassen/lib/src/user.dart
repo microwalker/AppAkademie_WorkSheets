@@ -2,22 +2,13 @@
  * Klasse "User", dient nur zur (lokalen) Sicherheit mit Passwortschutz
  */
 final class User {
-  String? _id; // für Datenbank
-  String _username;
-  String _currency = "EUR"; // Standardeinstellung der, vom User genutzen, Währung
+  String? id; // für Datenbank
+  String username;
+  String currency = "eur"; // Standardeinstellung der, vom User genutzen, Währung
 
-  String get username => this._username;
-  set username(String name) => this.username = name;
+  User(this.username, [this.currency = "eur"]);
 
-  String get id => this._id ?? "";
-  set id(String id) => this._id = id;
+  bool get isIdentified => this.id != null;
 
-  String get currency => this._currency;
-  set currency(String currency) => this.currency = currency;
-
-  bool get isIdentified => this._id != null;
-
-  User(this._username, {currency = "EUR"}) { this._currency = currency; }
-
-  String toString() => "User($_username, $_currency)";
+  String toString() => "User(ID: $id, Name: $username, Currency: $currency)";
 }

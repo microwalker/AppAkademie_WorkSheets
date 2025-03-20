@@ -1,4 +1,4 @@
-import '../src/commons.dart';
+import 'commons.dart';
 
 /**
  * Klasse "Transaction" zum Erfassen von (u.a.) An- und Verkäufen von Coins
