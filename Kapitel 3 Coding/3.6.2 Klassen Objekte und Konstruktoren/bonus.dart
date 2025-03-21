@@ -6,6 +6,7 @@ void main() {
 
 void bonusAufg2() {
   Button b = Button("In den Warenkorb", width: 96, height: 32, radius: 4, fontSize: 14, padding: 8);
+  print(b.text);
 }
 
 void bonusAufg3bis5() {

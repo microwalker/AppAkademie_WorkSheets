@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 import '../lib/coin_library.dart';
-import '../lib/coin_data_model.dart';
+// import '../lib/coin_data_model.dart';
 
 void main() {
   // test();
@@ -10,15 +10,15 @@ void main() {
 }
 
 Future<void> test2() async {
-  Data data = Data(User("Microwalker"));
+  UserData data = UserData(User("Microwalker"));
   print("${data.user} => isIdentified: ${data.user!.isIdentified}");
 
   await data.getCoinsFromAPI();
 
-  data.favorites.addAll({"bitcoin","ethereum","atom","bonk","dogecoin","injective"});
+  data.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge",r"trump_official"});
   await data.updateCoinDatas("eur");
 
-  print(data.coins);
+  // print(data.coins);
   
   data.coins.where((c) => data.favorites.contains(c.id)).forEach((c) => print("$c => ${c.currentPrice} €"));
 }
@@ -76,25 +76,4 @@ Future<void> test() async {
   coins.add(Coin("ethereum", "Ethereum", "ETH"));
   coins.addAll([Coin("atom", "Cosmos Atom", "ATOM"), Coin("solana", "Solana", "SOL")]);
   print(coins);
-
-  CoinTest ct = CoinTest()
-    ..id = "xyz" 
-    ..name = "Testcoin"
-    ..symbol = "TST";
-  print(ct);
-
-  int i = 12;
-  i
-  ..toString();
-
-  CoinData cd = CoinData(id: "bitcoin",name: "Bitcoin",symbol: "BTC");
-  // cd.currentPrice = 80000; // nicht möglich, da currentPrice final ist...
-}
-
-class CoinTest {
-  String? id;
-  String? name;
-  String? symbol;
-
-  String toString() => "CoinTest: $id - $name ($symbol)";
 }
