@@ -7,7 +7,7 @@ void bonusAufg1() {
   List<Tool> tools = [Hammer(HammerType.Vorschlaghammer, 2500, "Zerstörer", false)];
   tools.add(Saw("Wood", "Baumvernichter", false));
   Saw s = Saw("Bones", "Der Zerteiler", false);
-  Hammer h = Hammer(HammerType.Tischlerhammer, 300, "Tischi 😜", false);
+  Hammer h = Hammer(HammerType.Zimmermannshammer, 300, "Tischi 😜", false);
   tools.addAll([s, h]);
 
   for(Tool t in tools) t.use();
@@ -22,7 +22,7 @@ class Tool {
   void use() => print("Using my Cool Tool '$name'");
 }
 
-enum HammerType { Tischlerhammer, Vorschlaghammer }
+enum HammerType { Zimmermannshammer, Vorschlaghammer }
 
 final class Hammer extends Tool {
   int weight;
