@@ -10,17 +10,24 @@ void main() {
 }
 
 Future<void> test2() async {
-  UserData data = UserData(User("Microwalker"));
-  print("${data.user} => isIdentified: ${data.user!.isIdentified}");
+  User user = User("Microwalker");
+  user.id = "sdi536i2oih34h6i3h6u3h22hp46236";
+  
+  AppData aData = AppData(user: user);
+  UserData uData = UserData(userID: user.id!);
+  print("${aData.user} => isIdentified: ${aData.user.isIdentified}");
 
-  await data.getCoinsFromAPI();
+  await aData.getCoinsFromAPI();
 
-  data.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge",r"trump_official"});
-  await data.updateCoinDatas("eur");
+  uData.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge",r"trump_official"});
+  await aData.updateCoinDatas("eur");
 
   // print(data.coins);
-  
-  data.coins.where((c) => data.favorites.contains(c.id)).forEach((c) => print("$c => ${c.currentPrice} €"));
+  List<Coin> favCoins = aData.getTop100Coins().toList();
+  favCoins.sort((p, e) => p.marketRank! <= e.marketRank! ? -1 : 1);
+  favCoins.forEach((e) => print(e));
+
+  // data.coins.where((c) => data.favorites.contains(c.id)).forEach((c) => print("$c => ${c.currentPrice} €"));
 }
 
 Future<void> test() async {
@@ -28,17 +35,20 @@ Future<void> test() async {
   u.id = "234k2nhuop34b32pb4jn43otu64n"; 
   print(u);
 
+  AppData aData = AppData(user: u);
+  UserData uData = UserData(userID: u.id!);
+
   List<Coin> coins = [Coin("terra_classic","Terra Classic","LUNC"), Coin("uniswap", "Uniswap", "UNI"), Coin("iota","Miota","IOTA"), Coin("shiba_inu","SHIBA INU","SHIB")];
   List<Coin> cg_coins = [];
 
   List<dynamic> responseList = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/list')));
   responseList.forEach((m) => cg_coins.add(Coin.fromMap(m)));
 
-  String favCoins = "";
-  cg_coins.forEach((c) => favCoins += c.isFavorite ?? false ? c.id + (cg_coins.last != c ? "," : "") : "");
+  String favCoins = ""; 
+  cg_coins.forEach((c) => favCoins += uData.isFavoriteCoin(c.id) ? c.id + (cg_coins.last != c ? "," : "") : "");
   print(favCoins);
   
-  List<dynamic> responseMap = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/markets?vs_currency=${u.currency}&ids=$favCoins')));
+  List<dynamic> responseMap = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=$favCoins')));
   responseMap.forEach((e) => cg_coins.firstWhere((c) => c.id == e["id"]).setMarketData(e));
   
   Account a = Account(u.id!, "Bitcoin 1", "bitcoin");
@@ -55,18 +65,18 @@ Future<void> test() async {
   print(a);
   
   try {
-    accounts.firstWhere((e) => e.coinId == "ethereum").addTransaction(Transaction("ethereum", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Transfer));
+    accounts.firstWhere((e) => e.coinId == "ethereum").addTransaction(Transaction("ethereum", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Reward));
   } catch(e) { print("Transaktion konnte keinem Konto hinzugefügt werden: $e"); }
   print(a);
 
-  accounts.forEach((t) => t.forEach((_t) => print(_t)));    
+  accounts.forEach((t) => t.transactions.forEach((t) => print(t)));    
 
   print(coins);
 
   // cg_coins.forEach((c) => print(c));
   print("Insgesamt ${cg_coins.length} Coins geladen!");
 
-  cg_coins.where((c) => c.isFavorite ?? false).forEach((c) => print("${c.name} (Rang:${c.marketRank}): Current Price = ${c.currentPrice} €"));
+  cg_coins.where((c) => uData.isFavoriteCoin(c.id)).forEach((c) => print("${c.name} (Rang:${c.marketRank}): Current Price = ${c.currentPrice} €"));
 
   Coin c = Coin("bitcoin", "Bitcoin", "BTC");
   print(c);

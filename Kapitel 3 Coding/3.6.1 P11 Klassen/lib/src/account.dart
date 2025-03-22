@@ -1,21 +1,23 @@
 import 'transaction.dart';
+import 'commons.dart';
 
 /**
  * Klasse "Account" wird benötigt, um Transaktionen für einen Coin zu sammeln... 
- * wird aber ggf. doch durch eine einfache Liste ersetzt!!! 
+ * wird aber ggf. doch durch eine einfache Liste ersetzt!?!?
  */
-final class Account extends Iterable {
-  String? id; // für Datenbank
+class Account {
+  String? id; // KontoID für FireStore-Datenbank
   String userId; // = Kontoinhaber
   String name;
   String coinId; // entspricht der Coin.id aus dem Datenimport
   List<Transaction> transactions = [];
 
+  double get avgPrice => transactions.fold(0.0, (p, e) => p + (e.amount / e.value) * commons.polarityOfTransactionType(e.type)) / transactions.length;
+  double get totalAmount => transactions.fold(0.0, (p, e) => p + e.amount * commons.polarityOfTransactionType(e.type));
+  double get totalValue => transactions.fold(0.0, (p, e) => p + e.value * commons.polarityOfTransactionType(e.type));
+
   Account(this.userId, this.name, this.coinId); // für Datenbank
 
-  @override
-  Iterator get iterator => this.transactions.iterator;
-  
   void addTransaction(Transaction transaction) {
     if(transaction.coinId == this.coinId)
       this.transactions.add(transaction);
@@ -28,7 +30,4 @@ final class Account extends Iterable {
       this.transactions.remove(transaction);
     else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.", this.runtimeType, 30)); 
   }
-
-  String toString() => "Account($userId, $name, $coinId)";
-  
 }

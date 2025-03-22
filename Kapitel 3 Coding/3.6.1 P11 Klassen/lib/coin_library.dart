@@ -1,5 +1,6 @@
 library coin_libraries;
 
+export 'src/app_data.dart';
 export 'src/coin.dart';
 export 'src/account.dart';
 export 'src/transaction.dart';
