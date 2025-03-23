@@ -6,7 +6,7 @@ final class Coin {
   final String name;
   final String symbol;
   String? imageUrl;
-  num? currentPrice;
+  double? currentPrice;
   int? marketRank;
 
   Coin(this.id, this.name, this.symbol, [this.imageUrl, this.currentPrice, this.marketRank ]);
@@ -18,7 +18,7 @@ final class Coin {
   void setMarketData(Map<String, dynamic> m) => 
     this 
       ..imageUrl = m["image"]
-      ..currentPrice = m["current_price"] 
+      ..currentPrice = (m["current_price"] as num).toDouble()
       ..marketRank = m["market_cap_rank"];
 
   String toString() => "Coin($id, $name, $symbol, $marketRank)";

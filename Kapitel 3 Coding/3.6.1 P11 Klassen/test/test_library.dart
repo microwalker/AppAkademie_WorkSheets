@@ -19,13 +19,18 @@ Future<void> test2() async {
 
   await aData.getCoinsFromAPI();
 
-  uData.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge",r"trump_official"});
+  uData.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge","trump-official","shiba-inu"});
   await aData.updateCoinDatas("eur");
 
   // print(data.coins);
   List<Coin> favCoins = aData.getTop100Coins().toList();
   favCoins.sort((p, e) => p.marketRank! <= e.marketRank! ? -1 : 1);
   favCoins.forEach((e) => print(e));
+
+  print(aData.getFavoriteCoins(aData.userData!.favorites));
+
+  List<Coin> erg = await aData.searchCoinAPI("bit");
+  print("Suche nach 'bit' => $erg");
 
   // data.coins.where((c) => data.favorites.contains(c.id)).forEach((c) => print("$c => ${c.currentPrice} €"));
 }
@@ -51,13 +56,13 @@ Future<void> test() async {
   List<dynamic> responseMap = json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=$favCoins')));
   responseMap.forEach((e) => cg_coins.firstWhere((c) => c.id == e["id"]).setMarketData(e));
   
-  Account a = Account(u.id!, "Bitcoin 1", "bitcoin");
+  Account a = Account(u.id!, "Bitcoin 1", "bitcoin", "eur");
   print(a);
 
-  List<Account> accounts = [a, Account(u.id!, "Bitcoin 2", "bitcoin"), Account(u.id!, "Shibas", "shiba_inu")];
+  List<Account> accounts = [a, Account(u.id!, "Bitcoin 2", "bitcoin", "eur"), Account(u.id!, "Shibas", "shiba_inu", "eur")];
   print(accounts);
 
-  Transaction t = Transaction("bitcoin", DateTime(2010, 4, 11), 5000, 1234.56, TransactionType.Buy);
+  Transaction t = Transaction("bitcoin", "eur", DateTime(2010, 4, 11), 5000, 1234.56, TransactionType.Buy);
   print(t);
   
   accounts.firstWhere((e) => e.coinId == t.coinId).addTransaction(t);
@@ -65,7 +70,7 @@ Future<void> test() async {
   print(a);
   
   try {
-    accounts.firstWhere((e) => e.coinId == "ethereum").addTransaction(Transaction("ethereum", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Reward));
+    accounts.firstWhere((e) => e.coinId == "ethereum").addTransaction(Transaction("ethereum", "eur", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Reward));
   } catch(e) { print("Transaktion konnte keinem Konto hinzugefügt werden: $e"); }
   print(a);
 

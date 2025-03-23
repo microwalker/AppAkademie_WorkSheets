@@ -11,7 +11,7 @@ abstract class commons {
         return 1;
       case TransactionType.Sell || TransactionType.Out:
         return -1;
-      default:
+      default: // offen für weitere Implementierungen...
         return 0;
     }
   } 

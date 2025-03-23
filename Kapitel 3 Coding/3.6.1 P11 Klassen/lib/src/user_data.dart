@@ -1,10 +1,11 @@
 import 'account.dart';
 import 'transaction.dart';
+
 class UserData {
   String userID; // Instanz für den angemeldeten User (FireStore Authentification)
   List<Account> accounts = []; // Speichert die Konten für Coins und deren Transaktionen (FireStore)
   Set<String> favorites = {}; // Speichert die favorisierten Coins anhand ihrer ID (String) (FireStore)
-  String currency = "eur";
+  String userCurrency = "eur";
 
   UserData({required this.userID});
 
@@ -12,21 +13,35 @@ class UserData {
   // TODO: Accounts aus FireStore holen 
   // TODO: Currency (oder mehrere???) aus FireStore holen
   
-  /// Prüft, ob ein Coin als Favorit gespeichert wurde
-  bool isFavoriteCoin(String coinID) => favorites.contains(coinID);
+  void addAccount(String name, String coinID, [String currency = "eur"]) {
+     Account account = Account(this.userID, name, coinID, currency);
+     // Speichern und ID ermitteln ...
+     account.id = name; // TODO: name durch FireStore-ID ersetzen
+     accounts.add(account);
+  }
 
-  /// Alle Transaktionen (über alle Konten hinweg) als Liste zurückgeben
+  void removeAccount(String accountId) {
+    Account account = accounts.singleWhere((a) => a.id == accountId);
+    // Löschen des Accounts in FireStore ...
+    accounts.remove(account);
+  }
+
+  /// Prüft, ob ein Coin als Favorit gespeichert wurde
+  bool isFavoriteCoin(String coinId) => favorites.contains(coinId);
+
+  /// Alle Transaktionen (unsortiert, über alle Konten hinweg) als Liste zurückgeben
   List<Transaction> allTransactions() => this.accounts.fold([], (p, e) => p + e.transactions);
 
-  /// Alle Transaktionen für einen Coinzurückgeben (ggf. über mehrere Konten)
-  List<Transaction> coinTransactions(String coinID) => accounts.where((e) => e.coinId == coinID).fold([], (p, e) => p + e.transactions);
+  /// Alle Transaktionen (unsortiert) für einen Coinzurückgeben (ggf. über mehrere Konten)
+  List<Transaction> coinTransactions(String coinId) => accounts.where((e) => e.coinId == coinId).fold([], (p, e) => p + e.transactions);
 
   /// Den Durchschnittspreis für einen Coin ermitteln (ggf. über mehrere Konten!)
-  double getAccountAvgPrice(String coinID) => accounts.where((e) => e.coinId == coinID).fold(0.0, (p, e) => p + e.avgPrice) / accounts.where((e) => e.coinId == coinID).length;
-
+  double getCoinsAvgPrice(String coinId) => accounts.where((e) => e.coinId == coinId).fold(0.0, (p, e) => p + e.avgPrice) / accounts.where((e) => e.coinId == coinId).length;
+  
   /// Gesamtmenge für einen Coin ermitteln (ggf. über mehrere Konten!)
-  double getAccountTotalAmount(String coinID) => accounts.where((e) => e.coinId == coinID).fold(0.0, (p, e) => p + e.totalAmount);
+  double getCoinsTotalAmount(String coinId) => accounts.where((e) => e.coinId == coinId).fold(0.0, (p, e) => p + e.totalAmount);
 
   /// Gesamtwert für einen Coin ermitteln (ggf. über mehrere Konten)
-  double getAccountTotalValue(String coinID) => accounts.where((e) => e.coinId == coinID).fold(0.0, (p, e) => p + e.totalValue);
+  double getCoinsTotalValue(String coinId) => accounts.where((e) => e.coinId == coinId).fold(0.0, (p, e) => p + e.totalValue);
+  
 }
