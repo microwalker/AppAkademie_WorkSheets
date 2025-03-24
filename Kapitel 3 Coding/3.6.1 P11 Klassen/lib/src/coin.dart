@@ -22,5 +22,9 @@ final class Coin {
       ..marketRank = m["market_cap_rank"];
 
   String toString() => "Coin($id, $name, $symbol, $marketRank)";
+  Map<String, dynamic> toMap() => {"id":id, "name":name, "symbol":symbol}; 
+
+  /// Methode dient lediglich dem Export von Testdaten!!!
+  Map<String, dynamic> datasToMap() => {"id":id,"current_price":currentPrice,"market_cap_rank":marketRank};
 }
 

@@ -14,25 +14,51 @@ Future<void> test2() async {
   user.id = "sdi536i2oih34h6i3h6u3h22hp46236";
   
   AppData aData = AppData(user: user);
-  UserData uData = UserData(userID: user.id!);
-  print("${aData.user} => isIdentified: ${aData.user.isIdentified}");
+  aData.userData = await UserData(userID: user.id!);
+  // print("${aData.user} => isIdentified: ${aData.user.isIdentified}");
 
-  await aData.getCoinsFromAPI();
+  await aData.getCoinsFromRepository();
 
-  uData.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge","trump-official","shiba-inu"});
-  await aData.updateCoinDatas("eur");
+  aData.userData!.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge","trump-official","shiba-inu"});
+  await aData.updateCoinFromRepository("eur");
+
+  // print("Top 100: ${await aData.getTop100Coins()}");
 
   // print(data.coins);
-  List<Coin> favCoins = aData.getTop100Coins().toList();
-  favCoins.sort((p, e) => p.marketRank! <= e.marketRank! ? -1 : 1);
-  favCoins.forEach((e) => print(e));
+  List<Coin> topCoins = await aData.getTop100Coins().toList();
+  topCoins.sort((p, e) => p.marketRank! <= e.marketRank! ? -1 : 1);
+  topCoins.forEach((e) => print(e));
 
-  print(aData.getFavoriteCoins(aData.userData!.favorites));
+  // print("JSON-Encoded:");
+  // List<Map<String, dynamic>> coinMap = [];
+  // topCoins.forEach((c) => coinMap.add(c.toMap()));
+  // print(coinMap);
 
-  List<Coin> erg = await aData.searchCoinAPI("bit");
-  print("Suche nach 'bit' => $erg");
+  print("Marktdaten:");
+  List<dynamic> cData = [];
+  topCoins.forEach((c) => cData.add(c.datasToMap()));
+  print(cData);
+
+  // List<Coin> favCoins = await aData.getFavoriteCoins(aData.userData!.favorites).toList();
+  // print(favCoins); 
+
+  // // Suche: funktioniert!
+  // List<Coin> results = await aData.searchCoinAPI("bit");
+  // print("Suche nach 'bit' => $results");
+
+  // aData.userData!.addAccount("Bitcoin 1", "bitcoin");
+  // aData.userData!.accounts.singleWhere((a) => a.id == "Bitcoin 1").addTransaction(Transaction("bitcoin", "eur", DateTime.now(), 0.5, 37826.44, TransactionType.Buy));
+
+  // print(aData);
 
   // data.coins.where((c) => data.favorites.contains(c.id)).forEach((c) => print("$c => ${c.currentPrice} €"));
+
+  DatabaseRepository db = MockingRepository();
+  AppData appData = AppData(user: User.fromMap(await db.getUser("")));
+  
+  Map<String, dynamic> userData = await db.getUserDatas("");
+  print(userData); // Ausgabe als iterables Map-Objekt
+  print(json.encode(userData)); // kodierte Ausgabe (Speicherformat)
 }
 
 Future<void> test() async {

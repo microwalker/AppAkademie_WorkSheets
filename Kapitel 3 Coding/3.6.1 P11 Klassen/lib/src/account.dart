@@ -31,4 +31,6 @@ class Account {
       this.transactions.remove(transaction);
     else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.", this.runtimeType, 30)); 
   }
+
+  
 }

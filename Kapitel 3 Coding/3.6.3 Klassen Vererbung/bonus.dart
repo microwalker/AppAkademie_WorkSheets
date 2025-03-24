@@ -62,6 +62,8 @@ class Grocery {
 
   /// Preis pro Kilogramm
   double pricePerKg() => (1000 / weight) * price;
+
+  void afterMHD() => print("Artikel ist verdorben!");
 }
 
 class Milk extends Grocery {
@@ -69,7 +71,8 @@ class Milk extends Grocery {
 
   Milk(this.millilitres, super.name, super.producer, super.weight, super.price);
 
-  // mir fällt nix ein, was Milch "overriden" könnte... Ideenblockade???
+  @override
+  void afterMHD() => print("Milch ist sauer!");
 }
 
 class Butter extends Grocery {
@@ -77,6 +80,6 @@ class Butter extends Grocery {
 
   Butter(super.name, super.producer, super.weight, super.price);
 
-
-  // mir fällt nix ein, was Milch "overriden" könnte... Ideenblockade???
+  @override
+  void afterMHD() => print("Butter wird ranzig!");
 }

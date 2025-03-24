@@ -6,6 +6,7 @@ class UserData {
   List<Account> accounts = []; // Speichert die Konten für Coins und deren Transaktionen (FireStore)
   Set<String> favorites = {}; // Speichert die favorisierten Coins anhand ihrer ID (String) (FireStore)
   String userCurrency = "eur";
+  bool hasToHold1Year = true;
 
   UserData({required this.userID});
 
