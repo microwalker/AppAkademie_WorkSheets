@@ -1,0 +1,9 @@
+name: test
+description: test.dart
+version: 1.0.0
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  http: ^1.3.0
