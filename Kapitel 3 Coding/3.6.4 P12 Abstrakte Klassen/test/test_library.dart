@@ -1,6 +1,3 @@
-import 'package:http/http.dart';
-import 'dart:convert';
-
 import '../lib/coin_library.dart';
 // import '../lib/coin_data_model.dart';
 
