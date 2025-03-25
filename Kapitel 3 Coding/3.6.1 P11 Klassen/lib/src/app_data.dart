@@ -1,6 +1,8 @@
 import 'repos/mocking_api_repository.dart';
 import 'repos/mocking_repository.dart';
+
 import 'repos/database_repository.dart';
+import 'repos/firestore_repository.dart';
 import 'repos/api_repository.dart';
 import 'repos/coingecko_api_repository.dart';
 import 'account.dart';
@@ -8,8 +10,10 @@ import 'user_data.dart';
 import 'user.dart';
 import 'coin.dart';
 
-DatabaseRepository db = MockingRepository(); // ApiRepository();
-ApiRepository api = CoingeckoApiRepository(); // MockingApiRepository();
+const bool isMocking = true;
+
+DatabaseRepository db = isMocking ? MockingRepository() : FirestoreRepository();  
+ApiRepository api = isMocking ? MockingApiRepository() : CoingeckoApiRepository(); 
 
 class AppData {
   final User user;
@@ -20,24 +24,30 @@ class AppData {
   /// Instanziert die Basis-Datenklasse der App !!!
   /// Dieser enthält sowohl den User selbst als auch deren Daten (Konten, Transaktionen etc.), 
   /// aber auch eine globale Liste der Coins, App-weite Einstellungen etc.
-  AppData({required this.user}) {
+  AppData({required this.user}); 
+
+  Future<void> initialize() async {
     if(user.isIdentified && this.user.id != null ) {
-      this.userData = UserData(userID: this.user.id!);
+      this.userData = await UserData.fromMap(await db.getUserDatas(this.user.id!));
     }
-    // getCoinsFromRepository(); --> Liefert bei Aufruf über API keine Daten...
-    // updateCoinFromRepository(appCurrency, false); -->   auch nicht...
+    await _getCoinsFromRepository(); 
+    await _updateCoinFromRepository(appCurrency, false); 
   }
 
+  Future<bool> updateMarketDatas(String currency, bool onlyFavorites) {
+    return _updateCoinFromRepository(currency, onlyFavorites); }
+
   /// Holt eine Liste aller verfügbaren Coins mit deren ID, dem Namen und dessen Symbol
-  Future<bool> getCoinsFromRepository() async {
+  Future<bool> _getCoinsFromRepository() async {
     List<dynamic> responseList = await api.getCoins();
+;
     responseList.forEach((m) => coins.add(Coin.fromMap(m)));
 
     return responseList.isNotEmpty;
   }
 
   /// Ermittelt weitere Daten (image, Marktrang, Preis) und ergänzt diese in der Liste der Coins
-  Future<bool> updateCoinFromRepository([String? currency = null, bool onlyFavorites = false]) async {
+  Future<bool> _updateCoinFromRepository([String? currency = null, bool onlyFavorites = false]) async {
     currency ??= userData!.userCurrency;
 
     Set<String> favs = userData!.favorites;

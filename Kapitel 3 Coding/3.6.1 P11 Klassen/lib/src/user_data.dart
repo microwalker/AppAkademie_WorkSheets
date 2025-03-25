@@ -10,27 +10,11 @@ class UserData {
 
   UserData({required this.userID});
 
-  /*
-{
-  "user_id": "kfd98uz4odjf8844ß39jggj9043", 
-  "hold_1year": true,
-  "currency": "eur",
-  "favorites": [
-    "bitcoin","ethereum","iota","bonk","doge","shiba-inu"], 
-  "accounts": [
-    {"name": "Bitcoin (EURO)", "coin_id": "bitcoin", "currency": "eur", "transactions": []},
-    {"name": "Bitcoin (USD)", "coin_id": "bitcoin", "currency": "usd", "transactions": []},
-    {"name": "Ethereum", "coind_id": "ethereum", "currency": "eur", "transactions": []}] 
-};  */
   factory UserData.fromMap(Map<String, dynamic> m) => UserData(userID: m["user_id"]) 
     ..userCurrency = m["currency"]
     ..favorites = { for(String s in m["favorites"]) s }
     ..accounts = [ for(Map<String, dynamic> a in m["accounts"]) Account.fromMap(a) ];
-
-  // TODO: Favoriten aus FireStore holen
-  // TODO: Accounts aus FireStore holen 
-  // TODO: Currency (oder mehrere???) aus FireStore holen
-  
+ 
   void addAccount(String name, String coinID, [String currency = "eur"]) {
      Account account = Account(this.userID, name, coinID, currency);
      // Speichern und ID ermitteln ...
