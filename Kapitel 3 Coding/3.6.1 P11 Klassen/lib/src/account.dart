@@ -19,6 +19,12 @@ class Account {
 
   Account(this.userId, this.name, this.coinId, this.accountCurrency); // für Datenbank
 
+  factory Account.fromMap(Map<String, dynamic> m) => 
+    /*["coin_id"], t["id"], t["currency_id"], t["date"], t["amount"], t["value"], t["type"])*/
+    Account(m["user_id"], m["name"], m["coin_id"], m["currency"]) 
+      ..id = m["id"] 
+      ..transactions = [for(Map<String, dynamic> t in m["transactions"]) Transaction.fromMap(t)];
+
   void addTransaction(Transaction transaction) {
     if(transaction.coinId == this.coinId)
       this.transactions.add(transaction);
@@ -31,6 +37,4 @@ class Account {
       this.transactions.remove(transaction);
     else throw(FormatException("Aus dem Konto für $coinId können keine Transaktionen für ${transaction.coinId} entfernt werden.", this.runtimeType, 30)); 
   }
-
-  
 }

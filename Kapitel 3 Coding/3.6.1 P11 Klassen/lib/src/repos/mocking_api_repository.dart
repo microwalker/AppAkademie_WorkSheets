@@ -1,14 +1,8 @@
-import 'database_repository.dart';
+import 'api_repository.dart';
 import 'mocking_datas.dart';
 
-class MockingRepository implements DatabaseRepository{
-  @override
-  Future<Map<String, dynamic>> getUser(String userId) async => mockingUser;
-  
-  @override
-  Future<Map<String, dynamic>> getUserDatas(String userId) async => mockingUserDatas;
- 
-  @override
+class MockingApiRepository implements ApiRepository{
+    @override
   Future<List<dynamic>> getCoins() async => mockingCoins;
   
   @override
@@ -16,5 +10,5 @@ class MockingRepository implements DatabaseRepository{
    
   @override
   Future<List<dynamic>> searchCoins(String query) async => mockingCoins.where((m) => m["id"].contains(query) || m["name"].contains(query)).toList();
-  
+
 }

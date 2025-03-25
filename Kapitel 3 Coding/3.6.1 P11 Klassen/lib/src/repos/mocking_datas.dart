@@ -7,9 +7,9 @@ Map<String, dynamic> mockingUserDatas = {
   "favorites": [
     "bitcoin","ethereum","iota","bonk","doge","shiba-inu"], 
   "accounts": [
-    {"name": "Bitcoin (EURO)", "coin_id": "bitcoin", "currency": "eur", "transactions": []},
-    {"name": "Bitcoin (USD)", "coin_id": "bitcoin", "currency": "usd", "transactions": []},
-    {"name": "Ethereum", "coind_id": "ethereum", "currency": "eur", "transactions": []}] 
+    {"user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Bitcoin (EURO)", "coin_id": "bitcoin", "currency": "eur", "transactions": []},
+    {"user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Bitcoin (USD)", "coin_id": "bitcoin", "currency": "usd", "transactions": []},
+    {"user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Ethereum", "coin_id": "ethereum", "currency": "eur", "transactions": []}] 
 };
 
 List<dynamic> mockingCoins = [

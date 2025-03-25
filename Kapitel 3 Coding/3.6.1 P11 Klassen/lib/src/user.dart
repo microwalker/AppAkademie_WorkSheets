@@ -8,7 +8,9 @@ final class User {
   
   User(this.username);
 
-  factory User.fromMap(Map m) => User(m["name"]) ..id = m["id"] ..isAuthentificated = m["is_authentificated"];
+  factory User.fromMap(Map m) => User(m["name"]) 
+    ..id = m["id"] 
+    ..isAuthentificated = m["is_authentificated"];
 
   bool get isIdentified => this.id != null;
 

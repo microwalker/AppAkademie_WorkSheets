@@ -10,17 +10,17 @@ void main() {
 }
 
 Future<void> test2() async {
-  User user = User("Microwalker");
+  User user = User.fromMap(mockingUser);
   user.id = "sdi536i2oih34h6i3h6u3h22hp46236";
   
   AppData aData = AppData(user: user);
-  aData.userData = await UserData(userID: user.id!);
+  await aData.getCoinsFromRepository();
+  await aData.updateCoinFromRepository("eur");
+
+  aData.userData = await UserData.fromMap(mockingUserDatas);
   // print("${aData.user} => isIdentified: ${aData.user.isIdentified}");
 
-  await aData.getCoinsFromRepository();
-
-  aData.userData!.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge","trump-official","shiba-inu"});
-  await aData.updateCoinFromRepository("eur");
+  // aData.userData!.favorites.addAll({"bitcoin","ethereum","iota","bonk","doge","trump-official","shiba-inu"});
 
   // print("Top 100: ${await aData.getTop100Coins()}");
 
@@ -59,6 +59,9 @@ Future<void> test2() async {
   Map<String, dynamic> userData = await db.getUserDatas("");
   print(userData); // Ausgabe als iterables Map-Objekt
   print(json.encode(userData)); // kodierte Ausgabe (Speicherformat)
+
+  print(aData);
+  print(aData.userData);
 }
 
 Future<void> test() async {
@@ -88,17 +91,16 @@ Future<void> test() async {
   List<Account> accounts = [a, Account(u.id!, "Bitcoin 2", "bitcoin", "eur"), Account(u.id!, "Shibas", "shiba_inu", "eur")];
   print(accounts);
 
-  Transaction t = Transaction("bitcoin", "eur", DateTime(2010, 4, 11), 5000, 1234.56, TransactionType.Buy);
-  print(t);
+  // Transaction t = Transaction("bitcoin", "eur", DateTime(2010, 4, 11), 5000, 1234.56, TransactionType.Buy);
+  // print(t);
+  // accounts.firstWhere((e) => e.coinId == t.coinId).addTransaction(t);
+  // a.addTransaction(t);
+  // print(a);
   
-  accounts.firstWhere((e) => e.coinId == t.coinId).addTransaction(t);
-  a.addTransaction(t);
-  print(a);
-  
-  try {
-    accounts.firstWhere((e) => e.coinId == "ethereum").addTransaction(Transaction("ethereum", "eur", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Reward));
-  } catch(e) { print("Transaktion konnte keinem Konto hinzugefügt werden: $e"); }
-  print(a);
+  // try {
+  //   accounts.firstWhere((e) => e.coinId == "ethereum").addTransaction(Transaction("ethereum", "eur", DateTime(2016, 5, 18), 50, 5678.90, TransactionType.Reward));
+  // } catch(e) { print("Transaktion konnte keinem Konto hinzugefügt werden: $e"); }
+  // print(a);
 
   accounts.forEach((t) => t.transactions.forEach((t) => print(t)));    
 

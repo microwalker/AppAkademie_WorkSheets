@@ -1,12 +1,16 @@
-import 'mocking_repository.dart';
-import 'api_repository.dart';
-import 'database_repository.dart';
+import 'repos/mocking_api_repository.dart';
+import 'repos/mocking_repository.dart';
+import 'repos/database_repository.dart';
+import 'repos/api_repository.dart';
+import 'repos/coingecko_api_repository.dart';
 import 'account.dart';
 import 'user_data.dart';
 import 'user.dart';
 import 'coin.dart';
 
-DatabaseRepository database = MockingRepository(); // ApiRepository();
+DatabaseRepository db = MockingRepository(); // ApiRepository();
+ApiRepository api = CoingeckoApiRepository(); // MockingApiRepository();
+
 class AppData {
   final User user;
   UserData? userData;
@@ -20,14 +24,13 @@ class AppData {
     if(user.isIdentified && this.user.id != null ) {
       this.userData = UserData(userID: this.user.id!);
     }
-
-    // getCoinsFromRepository();
-    // updateCoinFromRepository(appCurrency, false);
+    // getCoinsFromRepository(); --> Liefert bei Aufruf über API keine Daten...
+    // updateCoinFromRepository(appCurrency, false); -->   auch nicht...
   }
 
   /// Holt eine Liste aller verfügbaren Coins mit deren ID, dem Namen und dessen Symbol
   Future<bool> getCoinsFromRepository() async {
-    List<dynamic> responseList = await database.getCoins();
+    List<dynamic> responseList = await api.getCoins();
     responseList.forEach((m) => coins.add(Coin.fromMap(m)));
 
     return responseList.isNotEmpty;
@@ -40,7 +43,7 @@ class AppData {
     Set<String> favs = userData!.favorites;
     userData!.accounts.forEach((a) => favs.add(a.coinId));
 
-    List<dynamic> responseList = await database.getCoinMarketDatas(currency, onlyFavorites, favs);
+    List<dynamic> responseList = await api.getCoinMarketDatas(currency, onlyFavorites, favs);
     responseList.forEach((e) { 
       if(getCoin(e["id"]) != null) 
         getCoin(e["id"])!.setMarketData(e);
@@ -53,7 +56,7 @@ class AppData {
   Future<List<Coin>> searchCoinAPI(String query) async { 
     List<Coin> foundCoins = [];
     
-    List<dynamic> responseList = await database.searchCoins(query); 
+    List<dynamic> responseList = await api.searchCoins(query); 
     responseList.forEach((m) => foundCoins.add(Coin.fromMap(m)));
     
     return foundCoins;

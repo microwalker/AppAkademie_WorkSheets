@@ -7,7 +7,11 @@ export 'src/transaction.dart';
 export 'src/commons.dart';
 export 'src/user.dart';
 export 'src/user_data.dart';
-export 'src/database_repository.dart';
-export 'src/mocking_repository.dart';
-export 'src/mocking_datas.dart';
-export 'src/api_repository.dart';
+
+export 'src/repos/database_repository.dart';
+export 'src/repos/mocking_repository.dart';
+
+export 'src/repos/coingecko_api_repository.dart';
+export 'src/repos/mocking_api_repository.dart';
+
+export 'src/repos/mocking_datas.dart';
