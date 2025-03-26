@@ -16,7 +16,7 @@ class UserData {
     ..accounts = [ for(Map<String, dynamic> a in m["accounts"]) Account.fromMap(a) ];
  
   void addAccount(String name, String coinID, [String currency = "eur"]) {
-     Account account = Account(this.userID, name, coinID, currency);
+     Account account =  Account(this.userID, name, coinID, currency);
      // Speichern und ID ermitteln ...
      account.id = name; // TODO: name durch FireStore-ID ersetzen
      accounts.add(account);

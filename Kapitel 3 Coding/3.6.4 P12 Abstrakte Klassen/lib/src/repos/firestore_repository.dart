@@ -12,5 +12,17 @@ class FirestoreRepository implements DatabaseRepository {
     // TODO: implement getUserDatas
     throw UnimplementedError();
   }
+  
+  @override
+  List getAccounts(String userId) {
+    // TODO: implement getAccounts
+    throw UnimplementedError();
+  }
+  
+  @override
+  List getTransactions(String userId, String accountID) {
+    // TODO: implement getTransactions
+    throw UnimplementedError();
+  }
 
 }

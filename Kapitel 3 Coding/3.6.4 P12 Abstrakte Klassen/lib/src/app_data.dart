@@ -6,6 +6,7 @@ import 'repos/firestore_repository.dart';
 import 'repos/api_repository.dart';
 import 'repos/coingecko_api_repository.dart';
 import 'account.dart';
+import 'transaction.dart';
 import 'user_data.dart';
 import 'user.dart';
 import 'coin.dart';
@@ -15,6 +16,12 @@ const bool isMocking = true; // legt fest, ob reale Daten oder Mockingdaten verw
 DatabaseRepository db = isMocking ? MockingRepository() : FirestoreRepository();  
 ApiRepository api = isMocking ? MockingApiRepository() : CoingeckoApiRepository(); 
 
+/// Klasse AppData bildet die Basisdatenklasse für die zu entwickelnde App
+/// ----------------------------------------------------------------------
+/// - Sie speichert sowohl die (insgesamt verfügbaren) Coins und deren (Markt-)Daten als auch die
+/// des User mit seinen benötigten Daten, seinen Konten und deren Transaktionen
+/// - Um die Klasse zu veranlassen die Daten der Coins abzurufen wird die Methode "initialize()"
+/// benötigt (Aufruf mit "await", da die Daten asynchron aus einer API ermittelt werden!).
 class AppData {
   final User user;
   UserData? userData;
@@ -29,12 +36,20 @@ class AppData {
   Future<void> initialize() async {
     if(user.isIdentified && this.user.id != null ) {
       this.userData = await UserData.fromMap(await db.getUserDatas(this.user.id!));
+
+      // Neue Benutzerdaten anlegen, wenn keine Userdaten zum User existieren
+      if(userData == null && this.user.id != null)
+        this.userData = UserData(userID: this.user.id!) ..userCurrency = appCurrency; 
     }
     await _getCoinsFromRepository(); 
     await _updateCoinFromRepository(appCurrency, false); 
   }
 
-  Future<bool> updateMarketDatas(String currency, bool onlyFavorites) {
+  // Zum TESTEN !!!
+  List<dynamic> getAccounts() => db.getAccounts(user.id!);
+  List<dynamic> getTransactions() => db.getTransactions(user.id!, "o5b943uvj8v39849v8er");
+
+  Future<bool> refreshMarketDatas(String currency, bool onlyFavorites) {
     return _updateCoinFromRepository(currency, onlyFavorites); }
 
   /// Holt eine Liste aller verfügbaren Coins mit deren ID, dem Namen und dessen Symbol

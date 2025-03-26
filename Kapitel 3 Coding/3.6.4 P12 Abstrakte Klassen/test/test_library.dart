@@ -1,5 +1,4 @@
 import '../lib/coin_library.dart';
-// import '../lib/coin_data_model.dart';
 
 void main() {
   test();
@@ -12,6 +11,9 @@ Future<void> test() async {
   AppData aData =  await AppData(user: user);
   await aData.initialize();
   print("\nCoin-Daten und Userdaten (inkl. Konten und Transaktionen) geladen...");
+
+  print(aData.getAccounts());
+  print(aData.getTransactions());
 
   // Top 100 Coins ausgeben:
   List<Coin> topCoins = await aData.getTop100Coins().toList();
