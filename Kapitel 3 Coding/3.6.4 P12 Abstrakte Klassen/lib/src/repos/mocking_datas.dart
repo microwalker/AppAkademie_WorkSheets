@@ -12,6 +12,31 @@ Map<String, dynamic> mockingUserDatas = {
     {"account_id": "390vm23u09u9umvev0v0", "user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Ethereum", "coin_id": "ethereum", "currency": "eur", "transactions": []}] 
 };
 
+Map<String, dynamic> mockingSettings = {
+  "user_id": "kfd98uz4odjf8844ß39jggj9043", 
+  "hold_1year": true, 
+  "user_currency": "eur"
+};
+
+Map<String, dynamic> mockingFavorites = {
+  "user_id": "kfd98uz4odjf8844ß39jggj9043", 
+  "favorites": ["bitcoin","ethereum","iota","bonk","doge","shiba-inu"]
+};
+
+Map<String, dynamic> mockingAccounts = {
+  "user_id": "kfd98uz4odjf8844ß39jggj9043", 
+  "accounts": [
+    {"account_id": "9zg94vn0nhfijomtov54", "user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Bitcoin (EURO)", "coin_id": "bitcoin", "currency": "eur"},
+    {"account_id": "o5b943uvj8v39849v8er", "user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Bitcoin (USD)", "coin_id": "bitcoin", "currency": "usd"},
+    {"account_id": "390vm23u09u9umvev0v0", "user_id": "kfd98uz4odjf8844ß39jggj9043", "name": "Ethereum", "coin_id": "ethereum", "currency": "eur"}] 
+};
+
+Map<String, dynamic> mockingTransactions = {
+  "user_id": "kfd98uz4odjf8844ß39jggj9043", 
+  "account_id": "9zg94vn0nhfijomtov54", 
+  "transactions": []
+};
+
 List<dynamic> mockingCoins = [
   {"id": "bitcoin", "name": "Bitcoin", "symbol": "btc"}, 
   {"id": "ethereum", "name": "Ethereum", "symbol": "eth"}, 

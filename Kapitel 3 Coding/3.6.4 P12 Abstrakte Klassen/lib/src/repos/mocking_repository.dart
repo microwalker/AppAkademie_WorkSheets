@@ -4,10 +4,11 @@ import '../account.dart';
 import '../transaction.dart';
 
 class MockingRepository implements DatabaseRepository{
-  @override
+
+  @override 
   Future<Map<String, dynamic>> getUser(String userId) async => mockingUser;
   
-  @override
+  @override 
   Future<Map<String, dynamic>> getUserDatas(String userId) async => mockingUserDatas;
  
   // TODO: Methode im interface deklarieren
@@ -25,10 +26,10 @@ class MockingRepository implements DatabaseRepository{
     mockingUserDatas["accounts"].where((a) => a["account_id"] == accountId)["transactions"].add(transaction);
   }
   
-  @override
+  @override 
   List<dynamic> getAccounts(String userId) => mockingUserDatas["accounts"];
   
-  @override
+  @override 
   List<dynamic> getTransactions(String userId, String accountId) {
     Map<String, dynamic> account = getAccounts(userId).singleWhere((a) => (a as Map)["account_id"] == accountId);
     return account["transactions"];
