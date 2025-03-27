@@ -1,5 +1,6 @@
 Map<String, dynamic> mockingUser = {"id": "kfd98uz4odjf8844ß39jggj9043", "name": "Testuser", "is_authentificated": null};
 
+// WIRD Obsolet (sobald die weiteren Datenmodelle integriert sind) !!!
 Map<String, dynamic> mockingUserDatas = {
   "user_id": "kfd98uz4odjf8844ß39jggj9043", 
   "hold_1year": true,
@@ -19,6 +20,7 @@ Map<String, dynamic> mockingSettings = {
   "favorites": ["bitcoin","ethereum","iota","bonk","doge","shiba-inu"]
 };
 
+// Obsolet, da Favoriten jetzt in den Settings mit gespeichert werden
 Map<String, dynamic> mockingFavorites = {
   "user_id": "kfd98uz4odjf8844ß39jggj9043", 
   "favorites": ["bitcoin","ethereum","iota","bonk","doge","shiba-inu"]
