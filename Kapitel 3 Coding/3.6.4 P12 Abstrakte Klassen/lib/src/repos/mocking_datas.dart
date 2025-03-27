@@ -15,7 +15,8 @@ Map<String, dynamic> mockingUserDatas = {
 Map<String, dynamic> mockingSettings = {
   "user_id": "kfd98uz4odjf8844ß39jggj9043", 
   "hold_1year": true, 
-  "user_currency": "eur"
+  "user_currency": "eur", 
+  "favorites": ["bitcoin","ethereum","iota","bonk","doge","shiba-inu"]
 };
 
 Map<String, dynamic> mockingFavorites = {

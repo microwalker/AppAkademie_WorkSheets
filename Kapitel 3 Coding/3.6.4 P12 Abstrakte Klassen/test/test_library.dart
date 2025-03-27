@@ -25,4 +25,6 @@ Future<void> test() async {
   List<Coin> results = await aData.searchCoinAPI("bit");
   print("\nSuche nach 'bit':\nErgebnisse:");
   results.forEach((r) => print(r));
+
+  
 }
