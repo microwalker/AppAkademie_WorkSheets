@@ -12,16 +12,20 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('This is my first Flutter-App!', 
+          child: Text("Golden times dor Developers!", 
             style: TextStyle(
-              fontFamily: "Acme", 
-              fontSize: 27,
+              fontFamily: "CupertinoSystemDisplay", 
+              fontFeatures: [FontFeature.randomize()],
+              fontSize: 24,
               fontStyle: FontStyle.italic, 
-              color: Color.fromARGB(255, 169, 109, 21)
-            )
-          )
-        ),
+              fontWeight: FontWeight.w500,
+              color: Color.fromARGB(255, 184, 210, 111)
+            ), 
+          ), 
+        ), 
+        backgroundColor: Color.fromARGB(243, 26, 88, 40), 
       ),
     );
   }
+
 }
