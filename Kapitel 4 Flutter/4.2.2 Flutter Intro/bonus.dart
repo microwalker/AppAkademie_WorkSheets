@@ -56,5 +56,5 @@ void main() {
 
   MaterialApp myApp = MaterialApp(home: Scaffold(body: Center(child: Column(children: [Text(text1) , Text(text2)]))));
   
-  print(myApp);
+  print("myApp = $myApp");
 }
