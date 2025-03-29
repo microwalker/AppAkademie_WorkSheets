@@ -1,4 +1,4 @@
-class Settings {
+final class Settings {
   final String userId;
   final bool hold1year;
   final String userCurrency;

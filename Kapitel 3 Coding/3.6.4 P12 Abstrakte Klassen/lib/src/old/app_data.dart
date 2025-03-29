@@ -1,15 +1,16 @@
-import 'repos/mocking_api_repository.dart';
-import 'repos/mocking_repository.dart';
+import 'package:test/src/account.dart';
 
-import 'repos/database_repository.dart';
-import 'repos/firestore_repository.dart';
-import 'repos/api_repository.dart';
-import 'repos/coingecko_api_repository.dart';
-import 'account.dart';
-import 'transaction.dart';
+import '../repos/mocking_api_repository.dart';
+import '../repos/mocking_repository.dart';
+
+import '../repos/database_repository.dart';
+import '../repos/firestore_repository.dart';
+import '../repos/api_repository.dart';
+import '../repos/coingecko_api_repository.dart';
+import 'account_with_transaktions.dart';
 import 'user_data.dart';
-import 'user.dart';
-import 'coin.dart';
+import '../user.dart';
+import '../coin.dart';
 
 const bool isMocking = true; // legt fest, ob reale Daten oder Mockingdaten verwendet werden sollen !!!
 
@@ -46,8 +47,8 @@ class AppData {
   }
 
   // Zum TESTEN !!!
-  List<dynamic> getAccounts() => db.getAccounts(user.id!);
-  List<dynamic> getTransactions() => db.getTransactions(user.id!, "o5b943uvj8v39849v8er");
+  Future<List<dynamic>> getAccounts() async => await db.getAccounts(user.id!);
+  Future<List<dynamic>> getTransactions() async => await db.getTransactions(user.id!, "o5b943uvj8v39849v8er");
 
   Future<bool> refreshMarketDatas(String currency, bool onlyFavorites) {
     return _updateCoinFromRepository(currency, onlyFavorites); }
@@ -118,7 +119,7 @@ class AppData {
   
   /// Ermittelt die Preisdifferenz eines Accounts (und dessen Coin)
   double getAccountDifference(String accountId) {
-    Account account = userData!.accounts.singleWhere((a) => a.id == accountId);
+    accountWithTransaktions account = userData!.accounts.singleWhere((a) => a.id == accountId);
     if(getCoin(account.coinId) != null)
       return getCoin(account.coinId)!.currentPrice ?? 0.0 - account.avgPrice;
     else

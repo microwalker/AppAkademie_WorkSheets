@@ -1,6 +1,6 @@
 import 'database_repository.dart';
 import 'mocking_datas.dart';
-import '../account.dart';
+import '../old/account_with_transaktions.dart';
 import '../transaction.dart';
 
 class MockingRepository implements DatabaseRepository{
@@ -19,7 +19,7 @@ class MockingRepository implements DatabaseRepository{
   }
 
   // TODO: Methode im interface deklarieren
-  void addAccount(String userId, Account account) => mockingUserDatas["accounts"].add(account);
+  void addAccount(String userId, accountWithTransaktions account) => mockingUserDatas["accounts"].add(account);
 
   // TODO: Methode im interface deklarieren
   void addTransaction(String userId, String accountId, Transaction transaction) {
@@ -27,11 +27,11 @@ class MockingRepository implements DatabaseRepository{
   }
   
   @override 
-  List<dynamic> getAccounts(String userId) => mockingUserDatas["accounts"];
+  Future<List<dynamic>> getAccounts(String userId) async => mockingUserDatas["accounts"];
   
   @override 
-  List<dynamic> getTransactions(String userId, String accountId) {
-    Map<String, dynamic> account = getAccounts(userId).singleWhere((a) => (a as Map)["account_id"] == accountId);
-    return account["transactions"];
-  }
+  Future<List<dynamic>> getTransactions(String userId, String? accountId) async => mockingTransactions["transactions"];
+  
+  @override
+  Future<Map<String, dynamic>> getSettings(String userId) async => mockingSettings;
 }

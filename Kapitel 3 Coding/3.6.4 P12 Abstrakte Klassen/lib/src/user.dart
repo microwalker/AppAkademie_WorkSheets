@@ -2,15 +2,13 @@
  * Klasse "User", dient nur zur (lokalen) Sicherheit mit Passwortschutz
  */
 final class User {
-  String? id; // für Datenbank
-  String username;
-  bool? isAuthentificated = false;
+  final String? id; // für Datenbank
+  final String username;
+  final bool? isAuthentificated = false;
   
-  User(this.username);
+  User({required this.id, required this.username});
 
-  factory User.fromMap(Map m) => User(m["name"]) 
-    ..id = m["id"] 
-    ..isAuthentificated = m["is_authentificated"];
+  factory User.fromMap(Map<String, dynamic> m) => User(id: m["id"], username: m["name"]);
 
   bool get isIdentified => this.id != null;
 

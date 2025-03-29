@@ -14,14 +14,20 @@ class FirestoreRepository implements DatabaseRepository {
   }
   
   @override
-  List getAccounts(String userId) {
+  Future<List<dynamic>> getAccounts(String userId) {
     // TODO: implement getAccounts
     throw UnimplementedError();
   }
   
   @override
-  List getTransactions(String userId, String accountID) {
+  Future<List<dynamic>> getTransactions(String userId, String? accountID) {
     // TODO: implement getTransactions
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Map<String, dynamic>> getSettings(String userId) {
+    // TODO: implement getSettings
     throw UnimplementedError();
   }
 

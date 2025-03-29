@@ -1,9 +1,9 @@
-import 'account.dart';
-import 'transaction.dart';
+import 'account_with_transaktions.dart';
+import '../transaction.dart';
 
 class UserData {
   String userID; // Instanz für den angemeldeten User (FireStore Authentification)
-  List<Account> accounts = []; // Speichert die Konten für Coins und deren Transaktionen (FireStore)
+  List<accountWithTransaktions> accounts = []; // Speichert die Konten für Coins und deren Transaktionen (FireStore)
   Set<String> favorites = {}; // Speichert die favorisierten Coins anhand ihrer ID (String) (FireStore)
   String userCurrency = "eur";
   bool hasToHold1Year = true;
@@ -13,17 +13,17 @@ class UserData {
   factory UserData.fromMap(Map<String, dynamic> m) => UserData(userID: m["user_id"]) 
     ..userCurrency = m["currency"]
     ..favorites = { for(String s in m["favorites"]) s }
-    ..accounts = [ for(Map<String, dynamic> a in m["accounts"]) Account.fromMap(a) ];
+    ..accounts = [ for(Map<String, dynamic> a in m["accounts"]) accountWithTransaktions.fromMap(a) ];
  
   void addAccount(String name, String coinID, [String currency = "eur"]) {
-     Account account =  Account(this.userID, name, coinID, currency);
+     accountWithTransaktions account =  accountWithTransaktions(this.userID, name, coinID, currency);
      // Speichern und ID ermitteln ...
      account.id = name; // TODO: name durch FireStore-ID ersetzen
      accounts.add(account);
   }
 
   void removeAccount(String accountId) {
-    Account account = accounts.singleWhere((a) => a.id == accountId);
+    accountWithTransaktions account = accounts.singleWhere((a) => a.id == accountId);
     // Löschen des Accounts in FireStore ...
     accounts.remove(account);
   }
