@@ -1,21 +1,17 @@
-import 'package:test/src/account.dart';
+import 'repos/mocking_api_repository.dart';
+import 'repos/mocking_repository.dart';
 
-import '../repos/mocking_api_repository.dart';
-import '../repos/mocking_repository.dart';
-
-import '../repos/database_repository.dart';
-import '../repos/firestore_repository.dart';
-import '../repos/api_repository.dart';
-import '../repos/coingecko_api_repository.dart';
-import 'account_with_transaktions.dart';
+import 'repos/database_repository.dart';
+import 'repos/firestore_repository.dart';
+import 'repos/api_repository.dart';
+import 'repos/coingecko_api_repository.dart';
+import 'fullAccount.dart';
 import 'user_data.dart';
-import '../user.dart';
-import '../coin.dart';
+import 'user.dart';
+import 'coin.dart';
 
-const bool isMocking = true; // legt fest, ob reale Daten oder Mockingdaten verwendet werden sollen !!!
-
-DatabaseRepository db = isMocking ? MockingRepository() : FirestoreRepository();  
-ApiRepository api = isMocking ? MockingApiRepository() : CoingeckoApiRepository(); 
+const bool useMockingDB = true;
+const bool useMockingAPI = true;
 
 /// Klasse AppData bildet die Basisdatenklasse für die zu entwickelnde App
 /// ----------------------------------------------------------------------
@@ -23,16 +19,22 @@ ApiRepository api = isMocking ? MockingApiRepository() : CoingeckoApiRepository(
 /// des User mit seinen benötigten Daten, seinen Konten und deren Transaktionen
 /// - Um die Klasse zu veranlassen die Daten der Coins abzurufen wird die Methode "initialize()"
 /// benötigt (Aufruf mit "await", da die Daten asynchron aus einer API ermittelt werden!).
-class AppData {
+class MyCoinsData {
+  DatabaseRepository db = useMockingDB ? MockingRepository() : FirestoreRepository();  
+  ApiRepository api = useMockingAPI ? MockingApiRepository() : CoingeckoApiRepository(); 
+
   final User user;
   UserData? userData;
   List<Coin> coins = []; // Speichert die verfügbaren Coins (aus API)
   String appCurrency = "eur";
 
+  @override
+  String toString() => "MyCoinsData($user, $userData, $coins, $appCurrency)";
+
   /// Instanziert die Basis-Datenklasse der App !!!
   /// Dieser enthält sowohl den User selbst als auch deren Daten (Konten, Transaktionen etc.), 
   /// aber auch eine globale Liste der Coins, App-weite Einstellungen etc.
-  AppData({required this.user}); 
+  MyCoinsData({required this.user}); 
 
   Future<void> initialize() async {
     if(user.isIdentified && this.user.id != null ) {
@@ -55,7 +57,7 @@ class AppData {
 
   /// Holt eine Liste aller verfügbaren Coins mit deren ID, dem Namen und dessen Symbol
   Future<bool> _getCoinsFromRepository() async {
-    List<dynamic> responseList = await api.getCoins();
+    List<dynamic> responseList = await api.getCoinsList();
 ;
     responseList.forEach((m) => coins.add(Coin.fromMap(m)));
 
@@ -70,10 +72,10 @@ class AppData {
     userData!.accounts.forEach((a) => favs.add(a.coinId));
 
     List<dynamic> responseList = await api.getCoinMarketDatas(currency, onlyFavorites, favs);
-    responseList.forEach((e) { 
-      if(getCoin(e["id"]) != null) 
-        getCoin(e["id"])!.setMarketData(e);
-    });
+    for(Map<String, dynamic> m in responseList)
+      if(coins.contains(Coin(m["id"], "", "")))
+        coins.singleWhere((c) => c.id == m["id"]).setMarketData(m);
+    // responseList.forEach((e) => coins.singleWhere((c) => c.id == e["id"]).setMarketData(e)); // <= FEHLER, wenn responselist einen Coin nicht enthält !!!
 
     return responseList.isNotEmpty;
   }
@@ -119,7 +121,7 @@ class AppData {
   
   /// Ermittelt die Preisdifferenz eines Accounts (und dessen Coin)
   double getAccountDifference(String accountId) {
-    accountWithTransaktions account = userData!.accounts.singleWhere((a) => a.id == accountId);
+    FullAccount account = userData!.accounts.singleWhere((a) => a.id == accountId);
     if(getCoin(account.coinId) != null)
       return getCoin(account.coinId)!.currentPrice ?? 0.0 - account.avgPrice;
     else

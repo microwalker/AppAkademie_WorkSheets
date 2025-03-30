@@ -1,29 +1,41 @@
-import 'account_with_transaktions.dart';
-import '../transaction.dart';
+import 'fullAccount.dart';
+import 'transaction.dart';
 
 class UserData {
   String userID; // Instanz für den angemeldeten User (FireStore Authentification)
-  List<accountWithTransaktions> accounts = []; // Speichert die Konten für Coins und deren Transaktionen (FireStore)
+  List<FullAccount> accounts = []; // Speichert die Konten für Coins und deren Transaktionen (FireStore)
   Set<String> favorites = {}; // Speichert die favorisierten Coins anhand ihrer ID (String) (FireStore)
   String userCurrency = "eur";
   bool hasToHold1Year = true;
 
   UserData({required this.userID});
 
+  @override
+  String toString() => "UserData($userID, $accounts, $favorites, $userCurrency, $hasToHold1Year)";
+
   factory UserData.fromMap(Map<String, dynamic> m) => UserData(userID: m["user_id"]) 
     ..userCurrency = m["currency"]
+    ..hasToHold1Year = m["hold_1year"]
     ..favorites = { for(String s in m["favorites"]) s }
-    ..accounts = [ for(Map<String, dynamic> a in m["accounts"]) accountWithTransaktions.fromMap(a) ];
+    ..accounts = [ for(Map<String, dynamic> a in m["accounts"]) FullAccount.fromMap(a) ];
+
+  Map<String, dynamic> toMap() => {
+    "user_id": userID,
+    "currency": userCurrency,
+    "hold_1year": hasToHold1Year,
+    "favorites": [ favorites.toList() ],
+    "accounts": [ for(FullAccount a in accounts) a.toMap() ]
+  };
  
   void addAccount(String name, String coinID, [String currency = "eur"]) {
-     accountWithTransaktions account =  accountWithTransaktions(this.userID, name, coinID, currency);
+     FullAccount account =  FullAccount(null, userId: this.userID, name: name, coinId: coinID, accountCurrency: currency);
      // Speichern und ID ermitteln ...
-     account.id = name; // TODO: name durch FireStore-ID ersetzen
+     account.id = account.hashCode.toString(); // TODO: name durch FireStore-ID ersetzen
      accounts.add(account);
   }
 
   void removeAccount(String accountId) {
-    accountWithTransaktions account = accounts.singleWhere((a) => a.id == accountId);
+    FullAccount account = accounts.singleWhere((a) => a.id == accountId);
     // Löschen des Accounts in FireStore ...
     accounts.remove(account);
   }
@@ -45,5 +57,5 @@ class UserData {
 
   /// Gesamtwert für einen Coin ermitteln (ggf. über mehrere Konten)
   double getCoinsTotalValue(String coinId) => accounts.where((e) => e.coinId == coinId).fold(0.0, (p, e) => p + e.totalValue);
-  
+
 }

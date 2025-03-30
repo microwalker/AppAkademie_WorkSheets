@@ -1,6 +1,6 @@
 library coin_library;
 
-// export 'src/old/app_data.dart';
+export 'src/mycoins_data.dart';
 export 'src/coin.dart';
 // export 'src/old/account_with_transaktions.dart';
 export 'src/account.dart';

@@ -17,4 +17,7 @@ class Account {
       name: m["name"], 
       coinId: m["coin_id"], 
       currency: m["currency"]) ;
+
+  @override
+  String toString() => "Account($id, $userId, $name, $coinId, $currency)";
 }

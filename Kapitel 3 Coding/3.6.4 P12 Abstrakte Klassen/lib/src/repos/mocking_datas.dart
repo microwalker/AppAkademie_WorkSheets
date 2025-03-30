@@ -1,5 +1,10 @@
 Map<String, dynamic> mockingUser = {"id": "kfd98uz4odjf8844ß39jggj9043", "name": "Testuser", "is_authentificated": null};
 
+List<String> mockingCurrencyIds = ["btc","eth","ltc","bch","bnb","eos","xrp","xlm","link","dot","yfi","usd","aed","ars","aud",
+  "bdt","bhd","bmd","brl","cad","chf","clp","cny","czk","dkk","eur","gbp","gel","hkd","huf","idr","ils","inr","jpy","krw","kwd",
+  "lkr","mmk","mxn","myr","ngn","nok","nzd","php","pkr","pln","rub","sar","sek","sgd","thb","try","twd","uah","vef","vnd","zar",
+  "xdr","xag","xau","bits","sats"];
+
 // WIRD Obsolet (sobald die weiteren Datenmodelle integriert sind) !!!
 Map<String, dynamic> mockingUserDatas = {
   "user_id": "kfd98uz4odjf8844ß39jggj9043", 

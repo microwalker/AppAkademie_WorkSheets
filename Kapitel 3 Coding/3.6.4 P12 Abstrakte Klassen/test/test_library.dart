@@ -1,20 +1,34 @@
 import '../lib/coin_library.dart';
 
 void main() {
-  test();
+  testWithMyCoinsData();
+  // testWithGranulatedData();
 }
 
-Future<void> test() async {
+void testWithMyCoinsData() async {
   User user = User.fromMap(mockingUser);
     print("\nUser ${user.username} angemeldet...");
 
-    MyApp myApp = MyApp();
+  MyCoinsData mcd = MyCoinsData(user: user);
+  await mcd.initialize();
+
+  print(mcd);
+
+  mcd.coins.where((c) => c.currentPrice != null).forEach((e) => print(e));
+}
+
+void testWithGranulatedData() async {
+  User user = User.fromMap(mockingUser);
+    print("\nUser ${user.username} angemeldet...");
+
+  MyApp myApp = MyApp();
 
   await myApp.initialize();
   print("\nCoin-Daten und Userdaten (inkl. Konten und Transaktionen) geladen...");
 
-  print(myApp.getAccounts());
-  print(myApp.getTransactions());
+  print(myApp.settings);
+  print(myApp.accounts);
+  print(myApp.transactions);
 
   // Top 100 Coins ausgeben:
   List<Coin> topCoins = await myApp.getTop100Coins().toList();
@@ -28,10 +42,10 @@ Future<void> test() async {
   results.forEach((r) => print(r));
  
 }
-
-DatabaseRepository db = MockingRepository();
-ApiRepository api = MockingApiRepository();
 class MyApp {
+  DatabaseRepository db = MockingRepository();
+  ApiRepository api = MockingApiRepository();
+
   User? user;
   List<Coin> coins = [];
   Settings? settings;
@@ -59,7 +73,7 @@ class MyApp {
 
   /// Holt eine Liste aller verfügbaren Coins mit deren ID, dem Namen und dessen Symbol
   Future<bool> getCoinsFromRepository() async {
-    List<dynamic> responseList = await api.getCoins();
+    List<dynamic> responseList = await api.getCoinsList();
 ;
     responseList.forEach((m) => coins.add(Coin.fromMap(m)));
 

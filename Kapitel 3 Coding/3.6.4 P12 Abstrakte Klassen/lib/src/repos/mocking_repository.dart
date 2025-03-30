@@ -1,6 +1,6 @@
 import 'database_repository.dart';
 import 'mocking_datas.dart';
-import '../old/account_with_transaktions.dart';
+import '../fullAccount.dart';
 import '../transaction.dart';
 
 class MockingRepository implements DatabaseRepository{
@@ -19,7 +19,7 @@ class MockingRepository implements DatabaseRepository{
   }
 
   // TODO: Methode im interface deklarieren
-  void addAccount(String userId, accountWithTransaktions account) => mockingUserDatas["accounts"].add(account);
+  void addAccount(String userId, FullAccount account) => mockingUserDatas["accounts"].add(account);
 
   // TODO: Methode im interface deklarieren
   void addTransaction(String userId, String accountId, Transaction transaction) {

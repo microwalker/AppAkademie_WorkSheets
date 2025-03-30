@@ -13,4 +13,6 @@ final class Settings {
     userCurrency: m["user_currency"], 
     favorites: m["favorites"]);
 
+  @override
+  String toString() => "Settings($userId, $hold1year, $userCurrency, $favorites)";
 }

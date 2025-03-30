@@ -1,7 +1,7 @@
 /**
  * Klasse "Coin" wird benötigt, um Coins aufzulisten, deren Id zu ermitteln oder Marktinformationen zu erhalten
  */
-final class Coin {
+class Coin {
   final String id; // aus Datenimport über Json
   final String name;
   final String symbol;
@@ -15,13 +15,14 @@ final class Coin {
 
   bool operator ==(Object other) => other is Coin && this.id == other.id;
 
-  void setMarketData(Map<String, dynamic> m) => 
-    this 
-      ..imageUrl = m["image"]
-      ..currentPrice = (m["current_price"] as num).toDouble()
-      ..marketRank = m["market_cap_rank"];
+  void setMarketData(Map<String, dynamic> m) {
+    imageUrl = m["image"];
+    currentPrice = (m["current_price"] as num).toDouble();
+    marketRank = m["market_cap_rank"];
+  }
 
   String toString() => "Coin($id, $name, $symbol, $marketRank)";
+  
   Map<String, dynamic> toMap() => {"id":id, "name":name, "symbol":symbol}; 
 
   /// Methode dient lediglich dem Export von Testdaten!!!

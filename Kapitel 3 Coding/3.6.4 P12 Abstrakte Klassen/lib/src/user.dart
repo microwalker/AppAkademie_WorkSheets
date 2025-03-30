@@ -10,6 +10,8 @@ final class User {
 
   factory User.fromMap(Map<String, dynamic> m) => User(id: m["id"], username: m["name"]);
 
+  Map<String, dynamic> toMap() => { if(id != null) "id": id, "username": username };
+
   bool get isIdentified => this.id != null;
 
   String toString() => "User(ID: $id, Name: $username)";
