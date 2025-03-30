@@ -2,9 +2,11 @@ import '../lib/coin_library.dart';
 
 void main() {
   testWithMyCoinsData();
-  // testWithGranulatedData();
+  testWithGranulatedData();
 }
 
+// Dieser Test nutzt die Funktionalität der MyCoinsData-Klasse, die ALLE benötigten Daten (Coins, 
+// User (+Daten) und Konten (+Transaktionen)) ineinander verschachtelt verwaltet und zur Verfügung stellt
 void testWithMyCoinsData() async {
   User user = User.fromMap(mockingUser);
     print("\nUser ${user.username} angemeldet...");
@@ -17,6 +19,9 @@ void testWithMyCoinsData() async {
   mcd.coins.where((c) => c.currentPrice != null).forEach((e) => print(e));
 }
 
+// Dieser Test verwendet die Klasse MyApp (s.u.), die alle benötigten Daten in einzelnen Datenklassen
+// hält. Die Abhängigkeiten dieser Daten zueinander müssen vom Programm zur Laufzeit selbst hergestellt
+// werden (Settings zu User, Coins, Accounts zu User, Transaktionen zu Accounts und User etc.)...
 void testWithGranulatedData() async {
   User user = User.fromMap(mockingUser);
     print("\nUser ${user.username} angemeldet...");
@@ -131,15 +136,15 @@ class MyApp {
   /// Ermittelt die Preisdifferenz eines Coins (ggf. über mehrere Konten hinweg) 
   double getTotalDifference(String coinId) { 
     if(getCoin(coinId) != null) 
-      return getCoin(coinId)!.currentPrice ?? 0.0 - transactions!.where((t) => t.coinId == coinId).fold(0.0, (p, e) => (p + e.value)/2); 
+      return getCoin(coinId)!.currentPrice ?? 0.0 - transactions.where((t) => t.coinId == coinId).fold(0.0, (p, e) => (p + e.value)/2); 
     else 
       return 0.0; }
   
   /// Ermittelt die Preisdifferenz eines Accounts (und dessen Coin)
   double getAccountDifference(String accountId) {
-    Account account = accounts!.singleWhere((a) => a.id == accountId);
+    Account account = accounts.singleWhere((a) => a.id == accountId);
     if(getCoin(account.coinId) != null)
-      return getCoin(account.coinId)!.currentPrice ?? 0.0 - transactions!.where((t) => t.accountId == accountId).fold(0.0, (p, e) => (p + e.value)/2); 
+      return getCoin(account.coinId)!.currentPrice ?? 0.0 - transactions.where((t) => t.accountId == accountId).fold(0.0, (p, e) => (p + e.value)/2); 
     else
       return 0.0;
   }
