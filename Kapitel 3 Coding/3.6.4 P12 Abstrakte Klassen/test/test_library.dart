@@ -90,7 +90,7 @@ class MyApp {
     currency ??= settings!.userCurrency;
 
     Set<String> favs = settings!.favorites.toSet();
-    accounts!.forEach((a) => favs.add(a.coinId));
+    accounts.forEach((a) => favs.add(a.coinId));
 
     List<dynamic> responseList = await api.getCoinMarketDatas(currency, onlyFavorites, favs);
     responseList.forEach((e) { 

@@ -7,10 +7,9 @@ void main() {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(title: "MainApp",
       home: Scaffold(
         appBar: AppBar(
           title: Text("Flutter, Flatter..."), leading: IconButton.outlined(onPressed: null, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), centerTitle: true, backgroundColor: Color.fromARGB(197, 13, 86, 85),),
@@ -18,8 +17,7 @@ class MainApp extends StatelessWidget {
           FloatingActionButton.extended(
             onPressed: null, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
         body: Center(
-          child: Column(
-            children: [
+          child: Column(children: [
               Text("Golden times for Developers!", 
                 style: TextStyle(fontFamily: "CupertinoSystemDisplay", fontSize: 24, fontStyle: FontStyle.italic, 
                   fontWeight: FontWeight.w500, color: Color.fromARGB(255, 66, 60, 177))),
@@ -28,11 +26,11 @@ class MainApp extends StatelessWidget {
               TextButton(onPressed: null, child: Text("Ich bin ein TextButton")),
               FilledButton(onPressed: null, child: Text("Ich ein FilledButton")),
               FilledButton(onPressed: null, child: 
-                Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 8, 
-                  children: [Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13)), Text(" Mit Icon! Und voll Filled!")])),
+                SizedBox(width: 192, child: Row(children: [Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13)), Text(" Mit Icon! Und Filled!")]))),
               Spacer(flex: 1),
               ListBody(children: [ListTile(leading: Icon(Icons.face_5), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), ListTile(leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
               // ListView(children: [ListTile(leading: Icon(Icons.face_5), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), ListTile(leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
+              Divider(thickness: 3),
               Spacer(flex: 1),
               Transform.rotate(angle: .22, child: Image(image: NetworkImage('https://files.readme.io/31ab3f6-small-CoinGecko_API_Documentation_-_SuperGecko.png'), 
                 fit: BoxFit.contain, alignment: Alignment.topCenter, width: 300)),
@@ -45,6 +43,6 @@ class MainApp extends StatelessWidget {
       ),
     );
   }
-  
-
 }
+
+
