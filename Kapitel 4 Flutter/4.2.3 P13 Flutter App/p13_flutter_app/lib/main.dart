@@ -15,8 +15,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(title: "MainApp", debugShowCheckedModeBanner: kDebugMode,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Flutter, Flatter..."), leading: IconButton.outlined(onPressed: null, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), centerTitle: true, backgroundColor: Color.fromARGB(197, 13, 86, 85),),
+        appBar: AppBar(title: Text("Flutter, Flatter..."), leading: IconButton.outlined(onPressed: null, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), centerTitle: true, backgroundColor: Color.fromARGB(197, 13, 86, 85),),
         floatingActionButton: FloatingActionButton.extended(onPressed: () => Dialog(child: Text("Dialog")), icon: Icon(Icons.help_center_rounded), label: Text("What?")),
         bottomNavigationBar: BottomNavigationBar(backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
           BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: Colors.tealAccent)), 
@@ -34,8 +33,7 @@ class MainApp extends StatelessWidget {
               Switch(value: true, onChanged: null),
               TextButton(onPressed: null, child: Text("Ich bin ein TextButton")),
               FilledButton(onPressed: null, child: Text("Ich ein FilledButton")),
-              FilledButton(onPressed: null, child: 
-                SizedBox(width: 192, child: Row(children: [Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13)), Text(" Mit Icon! Und Filled!")]))),
+              FilledButton.icon(onPressed: null, label: Text(" Mit Icon! Und Filled!"), icon: Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13))),
               Spacer(flex: 1),
               ListBody(children: [ListTile(leading: Icon(Icons.face_5), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), ListTile(leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
               // ListView(children: [ListTile(leading: Icon(Icons.face_5), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), ListTile(leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
@@ -43,9 +41,7 @@ class MainApp extends StatelessWidget {
               MyTransform(),
               Spacer(flex: 1),
               IconButton.outlined(onPressed: null, icon: Icon(Icons.shopping_bag_outlined, color: Color.fromARGB(160, 160, 13, 13))),
-              Spacer(flex: 2)
-              
-            ]
+              Spacer(flex: 2)]
           ),
         ), 
         endDrawer: EndDrawerButton(),
@@ -55,7 +51,9 @@ class MainApp extends StatelessWidget {
   }
 }
 
-class MyTransform extends StatefulWidget { const MyTransform({super.key}); 
+class MyTransform extends StatefulWidget { 
+  const MyTransform({super.key}); 
+  
   @override
   State<StatefulWidget> createState() => _MyTransformState();
 }
