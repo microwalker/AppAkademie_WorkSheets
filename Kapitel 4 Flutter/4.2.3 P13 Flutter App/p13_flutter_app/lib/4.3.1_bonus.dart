@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(title: Text("Aufgabe 1"), backgroundColor: Colors.blue, centerTitle: true),
       body: Padding(padding: EdgeInsets.fromLTRB(8,48,8,48),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, spacing: 24, children: [
-          HelloAppAkademie(),
-          HelloAppAkademie(),
-          EdgedFilledButtonsRow(),
-          EdgedFilledButtonsRow(),
-          FacesInRow(),
-          FacesInRow()
+          _HelloAppAkademie(),
+          _HelloAppAkademie(),
+          _EdgedFilledButtonsRow(),
+          _EdgedFilledButtonsRow(),
+          _FacesInRow(),
+          _FacesInRow()
         ]),
       )
       
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HelloAppAkademie extends StatelessWidget {
+class _HelloAppAkademie extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
@@ -34,22 +34,23 @@ class HelloAppAkademie extends StatelessWidget {
   }
 }
 
-class EdgedFilledButtonsRow extends StatelessWidget {
+class _EdgedFilledButtonsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, spacing: 8, children: [
-            Container(color: Colors.red, padding: EdgeInsets.all(24), child: 
-              FilledButton(onPressed: null, style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.deepPurple)), child: Text("A", style: TextStyle(color: Colors.white)))),
-            Container(color: Colors.green, padding: EdgeInsets.all(24), child: 
-              FilledButton(onPressed: null, style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.deepPurple)), child: Text("B", style: TextStyle(color: Colors.white)))),
-            Container(color: Colors.blue, padding: EdgeInsets.all(24), child: 
-              FilledButton(onPressed: null, style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.deepPurple)), child: Text("C", style: TextStyle(color: Colors.white)))),
-          ]);
+    return 
+    Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, spacing: 8, children: [
+      Container(color: Colors.red, padding: EdgeInsets.all(24), child: 
+        FilledButton(onPressed: null, style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.deepPurple)), child: Text("A", style: TextStyle(color: Colors.white)))),
+      Container(color: Colors.green, padding: EdgeInsets.all(24), child: 
+        FilledButton(onPressed: null, style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.deepPurple)), child: Text("B", style: TextStyle(color: Colors.white)))),
+      Container(color: Colors.blue, padding: EdgeInsets.all(24), child: 
+        FilledButton(onPressed: null, style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.deepPurple)), child: Text("C", style: TextStyle(color: Colors.white)))),
+      ]);
   }
 }
 
-class FacesInRow extends StatelessWidget {
+class _FacesInRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
