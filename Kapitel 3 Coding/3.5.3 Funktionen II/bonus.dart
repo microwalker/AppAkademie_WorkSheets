@@ -119,7 +119,7 @@ void main(List<String> args) {
   print("- Zahlenwerte umkehren");
   print(bonus.reverseNumber(1234));
   print(bonus.reverseNumber(876543));
-  print(bonus.reverseNumber(24));
+  print(bonus.reverseNumber(00103));
 
   // Aufgabe 18
   print("\nAufgabe 18:");
