@@ -9,21 +9,30 @@ void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   final List<Map<String, dynamic>> _listElements = const [
     {"key": "u1", "icon": Icons.face, "title": "User 1", "subtitle": "Der allererste"},
     {"key": "u2", "icon": Icons.face_2, "title": "User 2", "subtitle": "Immerhin die Zweite"},
     {"key": "u3", "icon": Icons.face_3, "title": "User 3", "subtitle": "Naja, wenigstens die Dritte"},
     {"key": "u4", "icon": Icons.face_4, "title": "User 4", "subtitle": "Räbäh... nur Vierter"}];
+  
+  String text = "Golden Time for Developers";
+  bool? checked = false;
+  bool switchState = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: "MainApp", debugShowCheckedModeBanner: kDebugMode,
       home: Scaffold(
         appBar: AppBar(title: Text("Flutter, Flatter..."), leading: IconButton.outlined(onPressed: () {}, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), centerTitle: true, backgroundColor: Color.fromARGB(197, 13, 86, 85),),
-        floatingActionButton: FloatingActionButton.extended(onPressed: () {}, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
+        floatingActionButton: FloatingActionButton.extended(onPressed: () { print("Hallo!"); }, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
         bottomNavigationBar: BottomNavigationBar(onTap: (value) { print("Tabbed on $value");}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
           BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: Colors.tealAccent)), 
           BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
@@ -33,13 +42,13 @@ class MainApp extends StatelessWidget {
         persistentFooterButtons: [IconButton.outlined(onPressed: () {}, icon: Icon(Icons.adb))],
         body: Center(
           child: Column(children: [
-              Text("Golden times for Developers!", 
+              Text(text, 
                 style: TextStyle(fontFamily: "CupertinoSystemDisplay", fontSize: 24, fontStyle: FontStyle.italic, 
                   fontWeight: FontWeight.w500, color: Color.fromARGB(255, 66, 60, 177))),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Checkbox(value: false, onChanged:(value) {value ??= !value!;},side: BorderSide(width: 1.2), shape: StarBorder(innerRadiusRatio: 0.4, pointRounding: 0.5, rotation: 11, points: 6)), 
-                Switch(value: true, onChanged: (value) {}, thumbIcon: WidgetStatePropertyAll(Icon(Icons.face_sharp))), 
-                FilledButton(onPressed: () {}, child: Text("Ich ein FilledButton"))]),
+                Checkbox(value: checked, onChanged: (value) {checked = value; setState(() { _MainAppState(); });}, tristate: false, side: BorderSide(width: 1.2), splashRadius: 32, shape: StarBorder(innerRadiusRatio: 0.4, pointRounding: 0.5, rotation: 11, points: 6)), 
+                Switch(value: switchState, onChanged: (value) { switchState = value; setState(() { _MainAppState(); });}, thumbIcon: WidgetStatePropertyAll(Icon(Icons.face_sharp))), 
+                FilledButton(onPressed: () { }, child: Text("Ich ein FilledButton"))]),
               TextButton(onPressed: () {}, child: Text("Ich bin ein TextButton")),              
               MyTextInput(),
               // FilledButton.icon(onPressed: null, label: Text(" Mit Icon! Und Filled!"), icon: Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13))),
@@ -93,7 +102,7 @@ class _MyTransformState extends State<MyTransform> {
 class MyTextInput extends StatefulWidget {
   const MyTextInput({super.key});
 
-  
+  String get text => _MyTextInputState().text;
 
   @override
   State<MyTextInput> createState() => _MyTextInputState();
