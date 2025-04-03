@@ -10,6 +10,9 @@ void main() {
 }
 
 class MainApp extends StatefulWidget {
+
+  String get inputText => _MyTextInputState().text;
+
   const MainApp({super.key});
 
   @override
@@ -27,6 +30,7 @@ class _MainAppState extends State<MainApp> {
   String text = "Golden Time for Developers";
   bool? checked = false;
   bool switchState = false;
+  String? inputText;
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +55,14 @@ class _MainAppState extends State<MainApp> {
                 Switch(value: switchState, onChanged: (value) => setState(() => switchState = value), thumbIcon: WidgetStatePropertyAll(Icon(Icons.face_sharp))), 
                 FilledButton(onPressed: () { }, child: Text("Ich ein FilledButton"))]),
               TextButton(onPressed: () {}, child: Text("Ich bin ein TextButton")),              
-              MyTextInput(),
+              MyTextInput(onSubmitted: (value) { inputText=value; print(value); }),
               // FilledButton.icon(onPressed: null, label: Text(" Mit Icon! Und Filled!"), icon: Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13))),
               SizedBox(height: 250,
                 child: ClipRect(clipBehavior: Clip.antiAliasWithSaveLayer, 
                   child: SingleChildScrollView(
                     child: Padding(padding: EdgeInsets.only(left: 16, right: 16),
                       child: ListBody(children: [ for(Map m in _listElements) 
-                        ListTile(key: Key(m["key"]), dense: false, onTap: () => onElementTab(m["key"]), hoverColor: Colors.teal, leading: Icon(m["icon"]), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text(m["title"])), subtitle: Text(m["subtitle"])) ]),
+                        ListTile(key: Key(m["key"]), dense: false, onTap: () => onElementTap(m["key"]), hoverColor: Colors.teal, leading: Icon(m["icon"]), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text(m["title"])), subtitle: Text(m["subtitle"])) ]),
                         // ListTile(onTap: () {}, hoverColor: Colors.teal, leading: Icon(Icons.face_3), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), 
                         // ListTile(onTap: () {}, hoverColor: Colors.teal, leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
                     ),
@@ -68,7 +72,8 @@ class _MainAppState extends State<MainApp> {
               // ListView(children: [ListTile(leading: Icon(Icons.face_5), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), ListTile(leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
               Divider(thickness: 3),
               MyTransform(),
-              IconButton.outlined(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined, color: Color.fromARGB(160, 160, 13, 13))) ]
+              IconButton.outlined(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined, color: Color.fromARGB(160, 160, 13, 13))), 
+            ]
           ),
         ), 
         endDrawer: EndDrawerButton(),
@@ -77,11 +82,7 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  void onElementTab(String key) => print(key);
-
-  void getWidget(Key key) {
-    
-  }
+  void onElementTap(String key) => print(key); 
 }
 
 class MyTransform extends StatefulWidget { 
@@ -111,7 +112,8 @@ class _MyTransformState extends State<MyTransform> {
 }
 
 class MyTextInput extends StatefulWidget {
-  const MyTextInput({super.key});
+  const MyTextInput({super.key, this.onSubmitted});
+  final Function(String)? onSubmitted;
 
   String get text => _MyTextInputState().text;
 
@@ -126,8 +128,8 @@ class _MyTextInputState extends State<MyTextInput> {
   
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: 320,
-      child: TextField(onSubmitted: (value) => _text = value, style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
+    return SizedBox(width: 380,
+      child: TextField(onSubmitted: (value) { _text = value; widget.onSubmitted!(value); } , style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
         decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
         labelText: "Gib was ein!", filled: true, fillColor: Colors.teal, hintText: "...muss auch keinen Sinn ergeben!")),
     );
