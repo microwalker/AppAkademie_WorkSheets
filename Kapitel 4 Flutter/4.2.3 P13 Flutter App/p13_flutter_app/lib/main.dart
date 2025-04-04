@@ -10,8 +10,7 @@ void main() {
 }
 
 class MainApp extends StatefulWidget {
-
-  String get inputText => _MyTextInputState().text;
+  List<String> get inputText => _MyTextInputState().texte;
 
   const MainApp({super.key});
 
@@ -31,13 +30,22 @@ class _MainAppState extends State<MainApp> {
   bool? checked = false;
   bool switchState = false;
   String? inputText;
+  final GlobalKey<MyTransformState> _globalKey = GlobalKey(); // Globaler Key für das MyTransformState-Widget
+  
+  int? get transformAngle => _globalKey.currentState!._angle; // Zugriff auf getter/Attribute über den Key
+
+  @override
+  void initState() {
+    super.initState();
+    // print(transformAngle ?? "No Angle :-)");
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "MainApp", debugShowCheckedModeBanner: kDebugMode,
+    return MaterialApp(title: "MainApp", debugShowCheckedModeBanner: kDebugMode, 
       home: Scaffold(
         appBar: AppBar(title: Text("Flutter, Flatter..."), leading: IconButton.outlined(onPressed: () {}, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), centerTitle: true, backgroundColor: Color.fromARGB(197, 13, 86, 85),),
-        floatingActionButton: FloatingActionButton.extended(onPressed: () { print("Hallo!"); }, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
+        floatingActionButton: FloatingActionButton.extended(onPressed: () { print("aktueller Winkel: $transformAngle°"); }, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
         bottomNavigationBar: BottomNavigationBar(onTap: (value) { print("Tabbed on $value");}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
           BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: Colors.tealAccent)), 
           BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
@@ -55,7 +63,7 @@ class _MainAppState extends State<MainApp> {
                 Switch(value: switchState, onChanged: (value) => setState(() => switchState = value), thumbIcon: WidgetStatePropertyAll(Icon(Icons.face_sharp))), 
                 FilledButton(onPressed: () { }, child: Text("Ich ein FilledButton"))]),
               TextButton(onPressed: () {}, child: Text("Ich bin ein TextButton")),              
-              MyTextInput(onSubmitted: (value) { inputText=value; print(value); }),
+              MyTextInput(onSubmitted: (value) { inputText=value; print(value); }), Text("${widget.inputText}"),
               // FilledButton.icon(onPressed: null, label: Text(" Mit Icon! Und Filled!"), icon: Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13))),
               SizedBox(height: 250,
                 child: ClipRect(clipBehavior: Clip.antiAliasWithSaveLayer, 
@@ -71,8 +79,9 @@ class _MainAppState extends State<MainApp> {
               ),
               // ListView(children: [ListTile(leading: Icon(Icons.face_5), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), ListTile(leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
               Divider(thickness: 3),
-              MyTransform(),
-              IconButton.outlined(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined, color: Color.fromARGB(160, 160, 13, 13))), 
+                MyTransform(key: _globalKey), // mit App-weit eindeutigem Key
+                IconButton.outlined(onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined, color: Color.fromARGB(160, 160, 13, 13))),
+                Image.asset('assets/images/bitpanda-logo.gif', colorBlendMode: BlendMode.darken, width: 180)
             ]
           ),
         ), 
@@ -86,14 +95,15 @@ class _MainAppState extends State<MainApp> {
 }
 
 class MyTransform extends StatefulWidget { 
-  const MyTransform({super.key}); 
-  
-  @override
-  State<StatefulWidget> createState() => _MyTransformState();
-}
+  const MyTransform({super.key}); // optionaler eigener Key
 
-class _MyTransformState extends State<MyTransform> {
+  @override
+  State<StatefulWidget> createState() => MyTransformState();
+}
+class MyTransformState extends State<MyTransform> {
   int _angle = 0;
+  
+  int get angle => _angle;
 
   @override
   Widget build(BuildContext context) {
@@ -113,25 +123,36 @@ class _MyTransformState extends State<MyTransform> {
 
 class MyTextInput extends StatefulWidget {
   const MyTextInput({super.key, this.onSubmitted});
+  
   final Function(String)? onSubmitted;
 
-  String get text => _MyTextInputState().text;
+  String get joinedText => [_MyTextInputState()._text1, _MyTextInputState()._text2].join(" und ");
 
   @override
   State<MyTextInput> createState() => _MyTextInputState();
 }
 
 class _MyTextInputState extends State<MyTextInput> {
-  String _text = "";
+  String _text1 = "";
+  String _text2 = "";
 
-  String get text => _text;
+  List<String> get texte => [_text1, _text2];
   
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: 380,
-      child: TextField(onSubmitted: (value) { _text = value; widget.onSubmitted!(value); } , style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
-        decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
-        labelText: "Gib was ein!", filled: true, fillColor: Colors.teal, hintText: "...muss auch keinen Sinn ergeben!")),
+    return Column(spacing: 16,
+      children: [
+        SizedBox(width: 300,
+          child: TextField(onSubmitted: (value) { _text1 = value; widget.onSubmitted!(_text1); } , style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
+            labelText: "Gib was ein!", filled: true, fillColor: Colors.teal, hintText: "...muss auch keinen Sinn ergeben!")),
+        ),
+        SizedBox(width: 280,
+          child: TextField(onSubmitted: (value) { _text2 = value; widget.onSubmitted!(_text2); } , style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
+            labelText: "Gib noch was ein!", filled: true, fillColor: Colors.teal, hintText: "...sinnlos, oder!")),
+        ),
+      ],
     );
   }
 }
