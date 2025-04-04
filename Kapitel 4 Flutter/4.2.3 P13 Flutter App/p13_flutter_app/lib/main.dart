@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(const MainApp());
@@ -63,7 +62,7 @@ class _MainAppState extends State<MainApp> {
                 Switch(value: switchState, onChanged: (value) => setState(() => switchState = value), thumbIcon: WidgetStatePropertyAll(Icon(Icons.face_sharp))), 
                 FilledButton(onPressed: () { }, child: Text("Ich ein FilledButton"))]),
               TextButton(onPressed: () {}, child: Text("Ich bin ein TextButton")),              
-              MyTextInput(onSubmitted: (value) { inputText=value; print(value); }), Text("${widget.inputText}"),
+              MyTextInput(onSubmitted: (value) { inputText=value; print(value); }), Text("${_MyTextInputState().texte}"),
               // FilledButton.icon(onPressed: null, label: Text(" Mit Icon! Und Filled!"), icon: Icon(Icons.face_sharp, size: 36, color: Color.fromARGB(255, 173, 13, 13))),
               SizedBox(height: 250,
                 child: ClipRect(clipBehavior: Clip.antiAliasWithSaveLayer, 
@@ -143,7 +142,10 @@ class _MyTextInputState extends State<MyTextInput> {
     return Column(spacing: 16,
       children: [
         SizedBox(width: 300,
-          child: TextField(onSubmitted: (value) { _text1 = value; widget.onSubmitted!(_text1); } , style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
+          child: TextField(
+            onSubmitted: (value) { _text1 = value; widget.onSubmitted!(_text1); } , 
+            style: TextStyle(
+              color: Colors.limeAccent, fontWeight: FontWeight.bold),
             decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
             labelText: "Gib was ein!", filled: true, fillColor: Colors.teal, hintText: "...muss auch keinen Sinn ergeben!")),
         ),
@@ -152,6 +154,7 @@ class _MyTextInputState extends State<MyTextInput> {
             decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
             labelText: "Gib noch was ein!", filled: true, fillColor: Colors.teal, hintText: "...sinnlos, oder!")),
         ),
+
       ],
     );
   }
