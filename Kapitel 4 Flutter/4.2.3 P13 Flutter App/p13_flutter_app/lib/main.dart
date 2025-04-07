@@ -51,8 +51,8 @@ class _MainAppState extends State<MainApp> {
           leading: IconButton.outlined(onPressed: () {}, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), 
           backgroundColor: Color.fromARGB(197, 13, 86, 85)), 
        
-        floatingActionButton: FloatingActionButton.extended(onPressed: () { print("aktueller Winkel: $transformAngle°"); }, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
-        bottomNavigationBar: BottomNavigationBar(onTap: (value) { print("Tabbed on $value");}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
+        floatingActionButton: FloatingActionButton.extended(onPressed: () {}, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
+        bottomNavigationBar: BottomNavigationBar(onTap: (value) {}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
           BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: Colors.tealAccent)), 
           BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
           BottomNavigationBarItem(label: "Item 3", icon: Icon(Icons.ac_unit, color: Colors.tealAccent))]),
@@ -78,7 +78,7 @@ class _MainAppState extends State<MainApp> {
                       child: SingleChildScrollView(
                         child: Padding(padding: EdgeInsets.only(left: 16, right: 16),
                           child: ListBody(children: [ for(Map m in _listElements) 
-                            ListTile(key: Key(m["key"]), dense: false, onTap: () => onElementTap(m["key"]), hoverColor: Colors.teal, leading: Icon(m["icon"]), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text(m["title"])), subtitle: Text(m["subtitle"])) ]),
+                            ListTile(key: Key(m["key"]), dense: false, onTap: () {}, hoverColor: Colors.teal, leading: Icon(m["icon"]), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text(m["title"])), subtitle: Text(m["subtitle"])) ]),
                             // ListTile(onTap: () {}, hoverColor: Colors.teal, leading: Icon(Icons.face_3), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 1")), subtitle: Text("Weil ich der erste in der Liste bin!")), 
                             // ListTile(onTap: () {}, hoverColor: Colors.teal, leading: Icon(Icons.face_2), title: Title(color: Color.fromARGB(255, 20, 65, 5), child: Text("Listenelement 2")), subtitle: Text("Weil ich die zweite in der Liste bin!"))],),
                         ),
@@ -100,8 +100,6 @@ class _MainAppState extends State<MainApp> {
       )
     );
   }
-
-  void onElementTap(String key) => print(key); 
 }
 
 class MyTransform extends StatefulWidget { 
