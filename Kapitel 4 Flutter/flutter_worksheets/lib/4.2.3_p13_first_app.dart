@@ -6,19 +6,19 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ws423());
 }
 
-class MainApp extends StatefulWidget {
+class ws423 extends StatefulWidget {
   List<String> get inputText => _MyTextInputState().texte;
 
-  const MainApp({super.key});
+  const ws423({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<ws423> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<ws423> {
   final List<Map<String, dynamic>> _listElements = const [
     {"key": "u1", "icon": Icons.face, "title": "User 1", "subtitle": "Der allererste"},
     {"key": "u2", "icon": Icons.face_2, "title": "User 2", "subtitle": "Immerhin die Zweite"},

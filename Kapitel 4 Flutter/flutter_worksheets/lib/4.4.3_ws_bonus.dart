@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ws443b());
 }
 
-class MainApp extends StatefulWidget {
+class ws443b extends StatefulWidget {
 
-  const MainApp({super.key});
+  const ws443b({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<ws443b> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<ws443b> {
   List<int> sizes = [1,1,1];
   List<Color> colors = [Colors.red, Colors.green, Colors.blue];
 
@@ -20,7 +20,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(title: "MainApp", home: Scaffold(body: 
       Column(children: [
-        Slider(value: sizes[1].toDouble(), min: 1, max: 5, divisions: 5, onChanged: (value) => setState(() => sizes[1] = value.toInt() )),
+        Slider(value: sizes[1].toDouble(), min: 1, max: 5, divisions: 4, onChanged: (value) => setState(() => sizes[1] = value.toInt() )),
           Expanded(child: 
             Padding(padding: EdgeInsets.all(32), child: 
               Column(spacing: 8, children: [for(int i=0; i<sizes.length; i++) ExpandedBox(flexSize: sizes[i], color: colors[i])])

@@ -1,13 +1,13 @@
 
-class Widget {
-  // Cause all is a Widget !!! :-)
+class MyWidget {
+  // Cause all is a MyWidget !!! :-)
 
   @override
-  String toString() => "Widget:\n  ";
+  String toString() => "MyWidget:\n  ";
 }
 
 class MaterialApp {
-  final Widget? home;
+  final MyWidget? home;
 
   MaterialApp({required this.home});
   
@@ -15,47 +15,47 @@ class MaterialApp {
   String toString() => "MaterialApp( $home )";
 }
 
-class Scaffold extends Widget {
-  final Widget? body;
+class MyScaffold extends MyWidget {
+  final MyWidget? body;
 
-  Scaffold({required this.body});
-
-  @override
-  String toString() => "Scaffold( $body )";
-}
-
-class Center extends Widget {
-  final Widget? child;
-
-  Center({required this.child});
+  MyScaffold({required this.body});
 
   @override
-  String toString() => "Center( $child )";
+  String toString() => "MyScaffold( $body )";
 }
 
-class Column extends Widget {
-  final List<Widget>? children;
+class MyCenter extends MyWidget {
+  final MyWidget? child;
 
-  Column({required this.children});
+  MyCenter({required this.child});
 
   @override
-  String toString() => "Column( $children )";
+  String toString() => "MyCenter( $child )";
 }
 
-class Text extends Widget {
+class MyColumn extends MyWidget {
+  final List<MyWidget>? children;
+
+  MyColumn({required this.children});
+
+  @override
+  String toString() => "MyColumn( $children )";
+}
+
+class MyText extends MyWidget {
   final String? data;
 
-  Text(this.data);
+  MyText(this.data);
 
   @override
-  String toString() => "Text( '$data' )";
+  String toString() => "MyText( '$data' )";
 }
 
 void main() {
   String text1 = "Hallo";
   String text2 = "Welt";
 
-  MaterialApp myApp = MaterialApp(home: Scaffold(body: Center(child: Column(children: [Text(text1) , Text(text2)]))));
+  MaterialApp myApp = MaterialApp(home: MyScaffold(body: MyCenter(child: MyColumn(children: [MyText(text1) , MyText(text2)]))));
   
   print("myApp = $myApp");
 }
