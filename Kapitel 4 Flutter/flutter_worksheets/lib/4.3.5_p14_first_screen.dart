@@ -22,17 +22,17 @@ List<Map<String, String>> testdaten = [{"id": "bitcoin", "name": "Bitcoin", "sym
   {"id": "hedera-hashgraph", "name": "Hedera", "symbol": "hbar"}];
 
 void main() {
-  runApp(const ws435());
+  runApp(const Ws435());
 }
 
-class ws435 extends StatefulWidget {
-  const ws435({super.key});
+class Ws435 extends StatefulWidget {
+  const Ws435({super.key});
 
   @override
-  State<ws435> createState() => _MainAppState();
+  State<Ws435> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<ws435> {
+class _MainAppState extends State<Ws435> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: "MyCoins - CoinListPage",

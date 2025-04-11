@@ -1,24 +1,25 @@
 import 'dart:math' as math;
 
+import 'package:flutter_worksheets/src/my_text_input.dart';
+import 'package:flutter_worksheets/src/my_transform.dart';
+
 import 'src/styles.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ws423());
+  runApp(const Ws423());
 }
 
-class ws423 extends StatefulWidget {
-  List<String> get inputText => _MyTextInputState().texte;
+class Ws423 extends StatefulWidget {
 
-  const ws423({super.key});
+  const Ws423({super.key});
 
   @override
-  State<ws423> createState() => _MainAppState();
+  State<Ws423> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<ws423> {
+class _MainAppState extends State<Ws423> {
   final List<Map<String, dynamic>> _listElements = const [
     {"key": "u1", "icon": Icons.face, "title": "User 1", "subtitle": "Der allererste"},
     {"key": "u2", "icon": Icons.face_2, "title": "User 2", "subtitle": "Immerhin die Zweite"},
@@ -34,7 +35,7 @@ class _MainAppState extends State<ws423> {
 
   final GlobalKey<MyTransformState> _globalKey = GlobalKey(); // Globaler Key für das MyTransformState-Widget
   
-  int? get transformAngle => _globalKey.currentState!._angle; // Zugriff auf getter/Attribute über den Key
+  int? get transformAngle => _globalKey.currentState!.angle; // Zugriff auf getter/Attribute über den Key
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +43,16 @@ class _MainAppState extends State<ws423> {
       home: Scaffold(extendBodyBehindAppBar: true, 
         appBar: AppBar(title: Text("Flutter, Flatter..."), scrolledUnderElevation: 32, centerTitle: true, toolbarOpacity: 0.8, bottomOpacity: 0.4,
           shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.vertical(bottom: Radius.circular(24))), elevation: 24, shadowColor: Colors.green,
-          leading: IconButton.outlined(onPressed: () {}, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), 
+          // leading: IconButton.outlined(onPressed: () {}, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), 
           backgroundColor: Color.fromARGB(255, 13, 86, 85)), 
        
         floatingActionButton: FloatingActionButton.extended(onPressed: () {}, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
         bottomNavigationBar: BottomNavigationBar(onTap: (value) {}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
-          BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: Colors.tealAccent)), 
+          BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: const Color.fromARGB(255, 4, 8, 7))), 
           BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
           BottomNavigationBarItem(label: "Item 3", icon: Icon(Icons.ac_unit, color: Colors.tealAccent))]),
-        drawer: Drawer(backgroundColor: Colors.blueAccent[600], elevation: 80, clipBehavior: Clip.hardEdge , child: Text("Inside Drawer")),
-        drawerDragStartBehavior: DragStartBehavior.start,
+        drawer: Drawer(backgroundColor: Colors.blueAccent[600], elevation: 8, clipBehavior: Clip.hardEdge , child: Text("Inside Drawer")),
+        // drawerDragStartBehavior: DragStartBehavior.start,
         persistentFooterButtons: [IconButton.outlined(onPressed: () {},alignment: Alignment.topCenter, icon: Icon(Icons.adb))],
         body: SingleChildScrollView(scrollDirection: Axis.vertical, 
           child: Container(decoration: BoxDecoration(gradient: goldGradient),
@@ -98,68 +99,3 @@ class _MainAppState extends State<ws423> {
     );
   }
 }
-
-class MyTransform extends StatefulWidget { 
-
-  const MyTransform({super.key}); // optionaler eigener Key
-
-  @override
-  State<StatefulWidget> createState() => MyTransformState();
-}
-class MyTransformState extends State<MyTransform> {
-  int _angle = 0;
-  
-  int get angle => _angle;
-
-  @override
-  Widget build(BuildContext context) {
-    return 
-      Column(spacing: 8, children: [
-      Transform(transform: Matrix4.rotationY((_angle * (math.pi/180))), origin: Offset(150, 24),
-        child: Image.asset("assets/images/mycoins_medium.png", fit: BoxFit.contain, alignment: Alignment.topCenter, width: 300)),
-      Slider(value: _angle.toDouble(), onChanged: (value) => changeRotation(value), divisions: 64, thumbColor: Colors.green, label: "Drehung in Grad: $_angle", min: 0, max: 360, padding: EdgeInsets.fromLTRB(48, 8, 48, 8)),  
-      // Slider(value: _angle.toDouble(), onChanged: (value) => changeRotation(value), divisions: 180, thumbColor: Colors.green, label: "Drehung in Grad: $_angle", min: 0, max: 360, padding: EdgeInsets.fromLTRB(48, 8, 48, 8)),      
-      Text("Drehung aktuell bei $_angle Grad", style: TextStyle(color: Color(0xff333333)))
-      ]);
-  }
-
-  void changeRotation(double value) => setState(() {
-    _angle = value.toInt();
-  });
-}
-
-class MyTextInput extends StatefulWidget {
-  const MyTextInput({super.key, this.onSubmitted});
-  
-  final Function(List<String>)? onSubmitted;
-
-  @override
-  State<MyTextInput> createState() => _MyTextInputState();
-}
-
-class _MyTextInputState extends State<MyTextInput> {
-  List<String> texte = ["", ""];
-  
-  @override
-  Widget build(BuildContext context) {
-    return Column(spacing: 16,
-      children: [
-        SizedBox(width: 300,
-          child: TextField(
-            onSubmitted: (value) { texte[0] = value; widget.onSubmitted!(texte); } , 
-            style: TextStyle(
-              color: Colors.limeAccent, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
-            labelText: "Gib was ein!", filled: true, fillColor: Colors.teal, hintText: "...muss auch keinen Sinn ergeben!")),
-        ),
-        SizedBox(width: 280,
-          child: TextField(onSubmitted: (value) { texte[1] = value; widget.onSubmitted!(texte); } , style: TextStyle(color: Colors.limeAccent, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(16, 16))), 
-            labelText: "Gib noch was ein!", filled: true, fillColor: Colors.teal, hintText: "...sinnlos, oder!")),
-        ),
-
-      ],
-    );
-  }
-}
-

@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   '$_counter',
                   style: Theme.of(context).textTheme.headlineMedium,
                 )]))),
-                TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => worksheets())), child: Text("...skip this bullshit!")),
+                TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Worksheets())), child: Text("...skip this bullshit!")),
               ],
             ),
           ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ws443());
+  runApp(const Ws443());
 }
 
-class ws443 extends StatelessWidget {
-  const ws443({super.key});
+class Ws443 extends StatelessWidget {
+  const Ws443({super.key});
 
   @override
   Widget build(BuildContext context) {

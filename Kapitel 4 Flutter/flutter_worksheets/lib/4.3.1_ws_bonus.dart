@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ws431b());
+  runApp(Ws431b());
 }
 
-class ws431b extends StatelessWidget {
-  const ws431b({super.key});
+class Ws431b extends StatelessWidget {
+  const Ws431b({super.key});
 
   @override
   Widget build(BuildContext context) {

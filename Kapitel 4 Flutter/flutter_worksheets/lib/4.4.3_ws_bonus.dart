@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ws443b());
+  runApp(const Ws443b());
 }
 
-class ws443b extends StatefulWidget {
+class Ws443b extends StatefulWidget {
 
-  const ws443b({super.key});
+  const Ws443b({super.key});
 
   @override
-  State<ws443b> createState() => _MainAppState();
+  State<Ws443b> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<ws443b> {
+class _MainAppState extends State<Ws443b> {
   List<int> sizes = [1,1,1];
   List<Color> colors = [Colors.red, Colors.green, Colors.blue];
 
