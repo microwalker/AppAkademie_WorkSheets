@@ -54,8 +54,8 @@ class _MainAppState extends State<Ws435> {
                 labelText: "Suchen", filled: true, fillColor: Colors.teal, hintText: "SearchCoin"))),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,  
                   children: [ Text("Verfügbare Kryptowährungen:", style: TextStyle(color: Colors.white, fontSize: 16)), Text("TEST") ]), 
-              SizedBox(height: 500, child: ListView(scrollDirection: Axis.vertical, shrinkWrap: true, 
-                children: [ for(Map m in testdaten) ListTile(title: CoinItem(title: m["name"], subtitle: m["symbol"], value: 12345.67, change: -543.21, selectable: false))]))]),
+              Expanded(child: ListView(scrollDirection: Axis.vertical, 
+                children: [ for(Map m in testdaten) ListTile(title: CoinItem(title: m["name"], subtitle: m["symbol"], value: 12345.67, change: -543.21, selectable: true))]))]),
       ),
     );
   }
@@ -81,27 +81,48 @@ class _CoinItemState extends State<CoinItem> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      Container(color: Colors.red, padding: EdgeInsets.all(4),  
-        child: Expanded(
-          child: 
-            Row(mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.currency_bitcoin_rounded, size: 48), 
-                Expanded(flex: 1,  
-                  child: 
-                    Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text(widget.title), if(widget.subtitle != null) Text(widget.subtitle!)])
-            ), 
-                Expanded(flex: 1, 
-                  child: 
-                    Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [if (widget.value != null) Text(widget.value!.toStringAsFixed(2)), if(widget.change != null) Text(widget.change!.toStringAsFixed(2) )])
+    return
+      InkWell(onTap: () { showDialog(context: context, builder: (context) => AlertDialog(content: SizedBox(width: 200, height: 200, child: Center(child: Text("You clicked ${widget.title}")))));},
+        child: Card(elevation: 8, shadowColor: Colors.black, shape: RoundedRectangleBorder(side: BorderSide(width: 1), borderRadius: BorderRadius.circular(12)), color: Colors.greenAccent[600], margin: EdgeInsets.all(4), child: 
+          SizedBox(height: 80, width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: Row(spacing: 4, children: [
+                IconButton.filled(onPressed: () {}, iconSize:40, icon: Icon(Icons.currency_bitcoin, shadows: [Shadow(offset: Offset(4, 4), blurRadius: 2)], color: Colors.white), color: Colors.green), 
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Column(spacing: 4, mainAxisAlignment: MainAxisAlignment.center, children: [ 
+                      Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [ Expanded(child: Text(widget.title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), softWrap: true, maxLines: 2, overflow: TextOverflow.ellipsis)), FittedBox(fit: BoxFit.contain, child: Text(widget.value!.toStringAsFixed(2), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), maxLines: 1, softWrap: false)) ])),
+                      Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [ Expanded(child: Text(widget.subtitle!, maxLines: 1,)), FittedBox(child: Text(widget.change!.toStringAsFixed(2), maxLines: 1, softWrap: false)) ])) 
+                      ]),
+                  ),
+                ),
+                if(widget.selectable!) Checkbox(value: selected, onChanged: (value) => setState(() => selected = value!), activeColor: Color(0xff004000), tristate: false),
+              ],),
             ),
-            if(widget.selectable!) Checkbox(value: selected, onChanged: (value) => setState(() => selected = value!), tristate: false)
-          ])
-        )
-      );
+          ),),
+      ); 
+      // Container(color: Colors.red, padding: EdgeInsets.all(4),  
+      //   child: Expanded(
+      //     child: 
+      //       Row(mainAxisAlignment: MainAxisAlignment.start,
+      //         children: [
+      //           Icon(Icons.currency_bitcoin_rounded, size: 48), 
+      //           Expanded(flex: 1,  
+      //             child: 
+      //               Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: [Text(widget.title), if(widget.subtitle != null) Text(widget.subtitle!)])
+      //       ), 
+      //           Expanded(flex: 1, 
+      //             child: 
+      //               Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.end,
+      //                 children: [if (widget.value != null) Text(widget.value!.toStringAsFixed(2)), if(widget.change != null) Text(widget.change!.toStringAsFixed(2) )])
+      //       ),
+      //       if(widget.selectable!) Checkbox(value: selected, onChanged: (value) => setState(() => selected = value!), tristate: false)
+      //     ])
+      //   )
+      // );
   }
 }
 
