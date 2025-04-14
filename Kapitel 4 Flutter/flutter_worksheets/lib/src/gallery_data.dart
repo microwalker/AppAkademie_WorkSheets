@@ -140,10 +140,8 @@ class PicItem {
 
 Future<List<dynamic>> getApiPics(int page, int limit) async => json.decode(await Client().read(Uri.parse('https://picsum.photos/v2/list?page=$page&limit=$limit')));
 
-Future<List<PicItem>> getPicList() async {
-  List<PicItem> ret;
-  List<dynamic> pics = await getApiPics(1, 50);
-  ret = List.generate(pics.length, (int index) => PicItem.fromMap(pics[index]));
-  return ret;
+Future<List<PicItem>> getPicList({int page = 1, int limit = 50}) async {
+  List<dynamic> pics = await getApiPics(page, limit);
+  return List.generate(pics.length, (int index) => PicItem.fromMap(pics[index]));
 }
 

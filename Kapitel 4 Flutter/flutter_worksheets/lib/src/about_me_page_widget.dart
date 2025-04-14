@@ -10,20 +10,17 @@ class AboutMePageWidget extends StatelessWidget {
       child: Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.spaceAround, spacing: 16, children: [
           Text("About Me", style: carterBlue18),
-          Material(elevation: 12, shadowColor: Color(0xff4040c0), shape: CircleBorder(), child: CircleAvatar(radius: 128, backgroundImage: AssetImage("assets/images/kaya.jpeg"))),
-          Text("Kaya Müller", style: carterBlue18),
-          Text("Fotograf", style: carterBlue14),
+          Material(elevation: 12, shadowColor: Color(0xff4040c0), shape: CircleBorder(), child: CircleAvatar(radius: 128, backgroundImage: AssetImage("assets/images/carsten_und_co.jpeg"))),
+          Text("Carsten & Co.", style: carterBlue18),
+          Text("Freund aller Coder", style: carterBlue14),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Text("Mein Name ist Kaya Müller, ein Fotograf im Alter von 32 Jahren, der die Welt durch die Linse entdeckt. Mit einem Hintergrund in der visuellen "+
-              "Kunst und jahrelanger Erfahrung in der Fotografie habe ich einen Blick für die Schönheit im Alltäglichen entwickelt. Meine Spezialität liegt "+
-              "in der Sport- und Naturfotografie, wo ich das Spiel von Licht und Schatten einfange, um emotionale und aussagekräftige Bilder zu schaffen.\n\nIch "+
-              "glaube daran, dass jeder Moment einzigartig ist und seine eigene Geschichte erzählt. In meinen Arbeiten strebe ich danach, diese Geschichten visuell "+
-              "zu interpretieren und sie durch kreative Kompositionen und Nuancen zum Leben zu erwecken. Meine fotografische Reise hat mich durch verschiedene Länder "+
-              "geführt, wo ich die Vielfalt der Kulturen und Landschaften festhalte, immer auf der Suche nach neuen Perspektiven und Herausforderungen.\n\nMein "+
-              "Anspruch ist es, mit meinen Bildern nicht nur zu dokumentieren, sondern auch zu inspirieren und zu berühren. Jeder Auftrag und jedes Projekt ist "+
-              "für mich eine Möglichkeit, meine Leidenschaft und mein Können zu zeigen und eine Verbindung zwischen dem Betrachter und dem Bild herzustellen.",
+              child: Text("Hallo, ich bin der Carsten! Hier mit meiner Patchwork-Family...\n\nScheinbar bin ich schon sehr bekannt, sogar bei der App Akademie "+
+              "wurde ich schon oft, unter anderem von diesem Ibrahim, erwähnt! Warum, das verstehe ich selber nicht...\n\nAch ja, mit auf dem Foto ist meine kleine "+
+              "Tochter Integer, meine Frau Double und die große rechts ist 'Parsi'. Obwohl wir eine ganz normale Familie sind, fangen viele immer an zu lachen, "+
+              "wenn ich uns alle vorstelle! Scheinbar finden uns ganz besonders Programmierer oder so Leute aus dem IT-Bereich ganz ungeheuer witzig. Aber "+
+              "leider erklärt uns auf Nachfrage dann nie jemand, warum wir ständig ausgelacht werden.\n\nMan, hör auf zu lachen!!!!\n\nAch, legt Euch doch gehackt, Mensch...",
               style: carterBlue14),
             ),
           ),

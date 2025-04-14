@@ -13,13 +13,11 @@ class GalleryPageWidget extends StatefulWidget {
 }
 
 class _GalleryPageWidgetState extends State<GalleryPageWidget> {
-  List<PicItem>? pics;
 
   @override
   void initState() {
     galleryData.shuffle();
     super.initState();
-    // pics = getPicList() as List<PicItem>;
   }
 
   @override
@@ -31,4 +29,5 @@ class _GalleryPageWidgetState extends State<GalleryPageWidget> {
         itemBuilder: (context, index) => ImageCardWidget(item: galleryData[index], 
           onTap: (item) { Navigator.push(context, MaterialPageRoute(builder: (context) =>  GalleryDetailsPageWidget(item: item))); }));
   }
+
 }
