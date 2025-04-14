@@ -2,9 +2,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class MyTransform extends StatefulWidget { 
-  Color labelColor = Colors.white;
+  final Color labelColor;
 
-  MyTransform({super.key, this.labelColor = Colors.white}); // optionaler eigener Key
+  const MyTransform({super.key, this.labelColor = Colors.white}); // optionaler eigener Key
 
   @override
   State<StatefulWidget> createState() => MyTransformState();
