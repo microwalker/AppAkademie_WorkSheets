@@ -35,7 +35,7 @@ class _ApiGalleryPageWidgetState extends State<ApiGalleryPageWidget> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return ApiImageCardWidget(item: snapshot.data![index], onTap: (item) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  ApiGalleryDetailsPageWidget(item: item))); 
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ApiGalleryDetailsPageWidget(item: item))); 
               });
             },
           );

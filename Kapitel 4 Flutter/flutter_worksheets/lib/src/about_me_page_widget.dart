@@ -18,7 +18,7 @@ class AboutMePageWidget extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Text("Hallo, ich bin der Carsten! Hier mit meiner Patchwork-Family...\n\nScheinbar bin ich schon sehr bekannt, sogar bei der App Akademie "+
               "wurde ich schon oft, unter anderem von diesem Ibrahim, erwähnt! Warum, das verstehe ich selber nicht...\n\nAch ja, mit auf dem Foto ist meine kleine "+
-              "Tochter Integer, meine Frau Double und die große rechts ist 'Parsi'. Obwohl wir eine ganz normale Familie sind, fangen viele immer an zu lachen, "+
+              "Tochter 'Integer', meine Frau 'BigInt' und die große rechts ist 'Todouble'. Obwohl wir eine ganz normale Familie sind, fangen viele immer an zu lachen, "+
               "wenn ich uns alle vorstelle! Scheinbar finden uns ganz besonders Programmierer oder so Leute aus dem IT-Bereich ganz ungeheuer witzig. Aber "+
               "leider erklärt uns auf Nachfrage dann nie jemand, warum wir ständig ausgelacht werden.\n\nMan, hör auf zu lachen!!!!\n\nAch, legt Euch doch gehackt, Mensch...",
               style: carterBlue14),

@@ -22,8 +22,10 @@ class _ApiImageCardWidgetState extends State<ApiImageCardWidget> {
           child: Column(children: [Expanded(
             child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(12)), 
               child: Image.network(widget.item.downloadUrl, width: double.infinity, fit: BoxFit.cover))),
-            Padding(padding: EdgeInsets.all(16), 
-              child: Text("Bild #${widget.item.id} (${widget.item.width} x ${widget.item.height})", style: carterBlue14, maxLines: 1, overflow: TextOverflow.fade, softWrap: false ))]))),
+            Center(heightFactor: 0.5, child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text("Bild #${widget.item.id}", style: carterBlue14, maxLines: 1, overflow: TextOverflow.fade, softWrap: false ),
+            ))]))),
       onTap: () => widget.onTap!(widget.item));
   }
 }
