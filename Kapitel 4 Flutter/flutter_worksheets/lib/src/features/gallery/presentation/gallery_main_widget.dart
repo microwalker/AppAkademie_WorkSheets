@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/about_me_page_widget.dart';
-import 'package:flutter_worksheets/src/api_gallery_page_widget.dart';
-import 'package:flutter_worksheets/src/gallery_page_widget.dart';
-import 'package:flutter_worksheets/src/styles.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/about_me/about_me_page_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/api_gallery/api_gallery_page_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/mock_gallery/gallery_page_widget.dart';
+import 'package:flutter_worksheets/src/themes/styles.dart';
 
 class GalleryMainWidget extends StatefulWidget {
 
@@ -24,14 +24,16 @@ class _GalleryMainWidgetState extends State<GalleryMainWidget> {
         actions: [ if(_pIndex < 2) IconButton(onPressed: () => setState(() => _galleryCols = _galleryCols == 2 ? 3 : 2),  
           icon: Icon(_galleryCols == 2 ? Icons.view_column_outlined : Icons.grid_view), color: Color(0xff4040ff))]),
       bottomNavigationBar: NavigationBar(
+        labelTextStyle: WidgetStatePropertyAll(carterBlue11), 
         backgroundColor: Color(0xffe0e0ff), elevation: 8, shadowColor: Color(0xff8080ff), indicatorColor: Color(0xffb0b0e0), 
         onDestinationSelected: (value) => setState(() => _pIndex = value ), 
         selectedIndex: _pIndex,
         destinations: [ 
-          NavigationDestination(icon: Icon(Icons.image_rounded), label: "Images"),
-          NavigationDestination(icon: Icon(Icons.cloud_download), label: "Api Images"),
-          NavigationDestination(icon: Icon(Icons.person), label: "About Me")]), 
-      body: Padding(padding: EdgeInsets.all(8), child: <Widget>[GalleryPageWidget(cols: _galleryCols), ApiGalleryPageWidget(cols: _galleryCols), AboutMePageWidget()][_pIndex])
+          NavigationDestination(icon: Icon(Icons.image_rounded), tooltip: "Vorgegebene Bilder", label: "Images"),
+          NavigationDestination(icon: Icon(Icons.cloud_download), tooltip: "Zufällige Bilder von Picsum", label: "Api Images"),
+          NavigationDestination(icon: Icon(Icons.person), tooltip: "Über Carsten", label: "About Me")]), 
+      body: Padding(padding: EdgeInsets.all(8), 
+        child: <Widget>[GalleryPageWidget(cols: _galleryCols), ApiGalleryPageWidget(cols: _galleryCols), AboutMePageWidget()][_pIndex])
     );
   }
 }

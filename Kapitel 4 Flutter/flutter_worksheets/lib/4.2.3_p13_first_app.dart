@@ -2,12 +2,12 @@
 import 'package:flutter_worksheets/src/my_text_input.dart';
 import 'package:flutter_worksheets/src/my_transform.dart';
 
-import 'src/styles.dart';
+import 'src/themes/styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Ws423());
+  runApp(const MaterialApp(home: Ws423()));
 }
 
 class Ws423 extends StatefulWidget {
@@ -38,10 +38,9 @@ class _MainAppState extends State<Ws423> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "MainApp", debugShowCheckedModeBanner: kDebugMode, 
-      home: Scaffold(extendBodyBehindAppBar: true, 
+    return Scaffold(extendBodyBehindAppBar: true, 
         appBar: AppBar(title: Text("Flutter, Flatter..."), scrolledUnderElevation: 32, centerTitle: true, toolbarOpacity: 0.8, bottomOpacity: 0.4,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.vertical(bottom: Radius.circular(24))), elevation: 24, shadowColor: Colors.green,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.vertical(bottom: Radius.circular(12))), elevation: 24, shadowColor: Colors.green,
           // leading: IconButton.outlined(onPressed: () {}, icon: Icon(Icons.bathroom_outlined, color: Color.fromARGB(255, 213, 207, 22),)), 
           backgroundColor: Color.fromARGB(255, 13, 86, 85)), 
        
@@ -50,7 +49,7 @@ class _MainAppState extends State<Ws423> {
           BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: const Color.fromARGB(255, 4, 8, 7))), 
           BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
           BottomNavigationBarItem(label: "Item 3", icon: Icon(Icons.ac_unit, color: Colors.tealAccent))]),
-        drawer: Drawer(backgroundColor: Colors.blueAccent[600], elevation: 8, clipBehavior: Clip.hardEdge , child: Text("Inside Drawer")),
+        // drawer: Drawer(backgroundColor: Colors.blueAccent[600], elevation: 8, clipBehavior: Clip.hardEdge , child: Text("Inside Drawer")),
         // drawerDragStartBehavior: DragStartBehavior.start,
         persistentFooterButtons: [IconButton.outlined(onPressed: () {},alignment: Alignment.topCenter, icon: Icon(Icons.adb))],
         body: SingleChildScrollView(scrollDirection: Axis.vertical, 
@@ -94,7 +93,6 @@ class _MainAppState extends State<Ws423> {
         ), 
         endDrawer: EndDrawerButton(),
         backgroundColor: const Color.fromARGB(243, 165, 206, 175), 
-      )
-    );
+      );
   }
 }

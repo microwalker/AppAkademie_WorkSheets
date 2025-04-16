@@ -6,10 +6,10 @@ class MyWidget {
   String toString() => "MyWidget:\n  ";
 }
 
-class MaterialApp {
+class MyMaterialApp {
   final MyWidget? home;
 
-  MaterialApp({required this.home});
+  MyMaterialApp({required this.home});
   
   @override
   String toString() => "MaterialApp( $home )";
@@ -55,7 +55,7 @@ void main() {
   String text1 = "Hallo";
   String text2 = "Welt";
 
-  MaterialApp myApp = MaterialApp(home: MyScaffold(body: MyCenter(child: MyColumn(children: [MyText(text1) , MyText(text2)]))));
+  MyMaterialApp myApp = MyMaterialApp(home: MyScaffold(body: MyCenter(child: MyColumn(children: [MyText(text1) , MyText(text2)]))));
   
   print("myApp = $myApp");
 }

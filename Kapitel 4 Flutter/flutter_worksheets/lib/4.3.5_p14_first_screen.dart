@@ -22,7 +22,7 @@ List<Map<String, String>> testdaten = [{"id": "bitcoin", "name": "Bitcoin", "sym
   {"id": "hedera-hashgraph", "name": "Hedera", "symbol": "hbar"}];
 
 void main() {
-  runApp(const Ws435());
+  runApp(const MaterialApp(title: "MyCoins - CoinListPage", home: Ws435()));
 }
 
 class Ws435 extends StatefulWidget {
@@ -35,17 +35,16 @@ class Ws435 extends StatefulWidget {
 class _MainAppState extends State<Ws435> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "MyCoins - CoinListPage",
-      home: Scaffold(backgroundColor: Colors.green.shade900, primary: false,
-        // appBar: AppBar(backgroundColor: const Color.fromARGB(255, 15, 101, 17), elevation: 16, shadowColor: Colors.black,  
-        //   leading: BackButtonIcon(), 
-        //   title: Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 8, 
-        //   children: [
-        //     Image.asset("assets/images/mc_small.png", height: 28), 
-        //     Text("Kryptowährungen", style: TextStyle(fontWeight: FontWeight.w600))]), 
-        //   actions: [
-        //     IconButton(onPressed: () {}, icon: Icon(Icons.account_circle), color: Colors.black,)], actionsPadding: EdgeInsets.only(right: 8)),
-        // floatingActionButton: FloatingActionButton(onPressed: () {}, backgroundColor: Colors.yellow, child: Text("FAB")),
+    return Scaffold(backgroundColor: Colors.green.shade900, primary: false,
+        appBar: AppBar(backgroundColor: const Color.fromARGB(255, 15, 101, 17), elevation: 16, shadowColor: Colors.black,  
+          // leading: BackButtonIcon(), 
+          title: Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 8, 
+          children: [
+            Image.asset("assets/images/mc_small.png", height: 28), 
+            Text("Kryptowährungen", style: TextStyle(fontWeight: FontWeight.w600))]), 
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.account_circle), color: Colors.black,)], actionsPadding: EdgeInsets.only(right: 8)),
+        floatingActionButton: FloatingActionButton(onPressed: () {}, backgroundColor: Colors.yellow, child: Text("FAB")),
         body: 
           Column(spacing: 8,
             children: [ 
@@ -56,8 +55,7 @@ class _MainAppState extends State<Ws435> {
                   children: [ Text("Verfügbare Kryptowährungen:", style: TextStyle(color: Colors.white, fontSize: 16)), Text("TEST") ]), 
               Expanded(child: ListView(scrollDirection: Axis.vertical, 
                 children: [ for(Map m in testdaten) ListTile(title: CoinItem(title: m["name"], subtitle: m["symbol"], value: 12345.67, change: -543.21, selectable: true))]))]),
-      ),
-    );
+      );
   }
 }
 

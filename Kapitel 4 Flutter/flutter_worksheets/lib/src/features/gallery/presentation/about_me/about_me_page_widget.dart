@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/styles.dart';
+import 'package:flutter_worksheets/src/themes/styles.dart';
 
 class AboutMePageWidget extends StatelessWidget {
   const AboutMePageWidget({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/gallery_data.dart';
-import 'package:flutter_worksheets/src/styles.dart';
+import 'package:flutter_worksheets/src/features/gallery/datas/gallery_data.dart';
+import 'package:flutter_worksheets/src/themes/styles.dart';
 
 class ImageCardWidget extends StatefulWidget {
   final GalleryItem item;

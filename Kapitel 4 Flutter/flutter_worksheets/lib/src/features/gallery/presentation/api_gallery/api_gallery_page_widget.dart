@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/api_details_page_widget.dart';
-import 'package:flutter_worksheets/src/api_pic_card_widget.dart';
-import 'package:flutter_worksheets/src/gallery_data.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/api_gallery/api_details_page_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/api_gallery/widgets/api_pic_card_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/datas/gallery_data.dart';
 
 class ApiGalleryPageWidget extends StatefulWidget {
   final int cols;
@@ -34,9 +34,9 @@ class _ApiGalleryPageWidgetState extends State<ApiGalleryPageWidget> {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: widget.cols),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              return ApiImageCardWidget(item: snapshot.data![index], onTap: (item) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ApiGalleryDetailsPageWidget(item: item))); 
-              });
+              return Hero(tag: snapshot.data![index].id, child: ApiImageCardWidget(item: snapshot.data![index], onTap: (item) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Hero(tag: item.id, child: ApiGalleryDetailsPageWidget(item: item)))); 
+              }));
             },
           );
         } else {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Ws443b());
+  runApp(const MaterialApp(home: Ws443b()));
 }
 
 class Ws443b extends StatefulWidget {
@@ -18,7 +18,9 @@ class _MainAppState extends State<Ws443b> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "MainApp", home: Scaffold(body: 
+    return Scaffold(
+      appBar: AppBar(title: Text("Expanded Flex")),
+      body: 
       Column(children: [
         Slider(value: sizes[1].toDouble(), min: 1, max: 5, divisions: 4, onChanged: (value) => setState(() => sizes[1] = value.toInt() )),
           Expanded(child: 
@@ -26,7 +28,7 @@ class _MainAppState extends State<Ws443b> {
               Column(spacing: 8, children: [for(int i=0; i<sizes.length; i++) ExpandedBox(flexSize: sizes[i], color: colors[i])])
           ))
       ])
-    )); 
+    ); 
   }
 }
 

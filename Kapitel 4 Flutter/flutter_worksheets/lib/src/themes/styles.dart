@@ -6,6 +6,7 @@ const Gradient lightGreenGradient = LinearGradient(begin: Alignment(0.00, 0.00),
 const Gradient darkGreenGradient = LinearGradient(begin: Alignment(0.50, 0.00), end: Alignment(0.50, 1.00), colors: [Color(0xFF4D674A), Colors.black], stops: [0.00, 0.41]);
 const Color greenStroke = Color(0xFF75996E);
 const Color veryLightGreen = Color.fromRGBO(234, 238, 226, 1);
+TextStyle carterBlue11 = GoogleFonts.carterOne(fontSize: 11, color: Color(0xff4040a0));
 TextStyle carterBlue14 = GoogleFonts.carterOne(fontSize: 14, color: Color(0xff4040a0));
 TextStyle carterBlue18 = GoogleFonts.carterOne(fontSize: 18, color: Color(0xff4040a0));
 TextStyle carterBlue24 = GoogleFonts.carterOne(fontSize: 24, color: Color(0xff4040a0));

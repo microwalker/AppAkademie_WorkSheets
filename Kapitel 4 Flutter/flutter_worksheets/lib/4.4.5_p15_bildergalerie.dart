@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/gallery_main_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/gallery_main_widget.dart';
 
 void main() {
-  runApp(Ws445());
+  runApp(const MaterialApp(title: "P15 Bildergalerie", debugShowCheckedModeBanner: false,
+      home: Ws445()));
 }
 
 class Ws445 extends StatelessWidget {
@@ -10,7 +11,6 @@ class Ws445 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "P15 Bildergalerie", debugShowCheckedModeBanner: false,
-      home: GalleryMainWidget());
+    return GalleryMainWidget();
   }
 }

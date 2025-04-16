@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Ws431b());
+  runApp(const MaterialApp(home: Ws431b()));
 }
 
 class Ws431b extends StatelessWidget {
@@ -9,7 +9,7 @@ class Ws431b extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text("Aufgabe 1"), backgroundColor: Colors.blue, centerTitle: true),
       body: Padding(padding: EdgeInsets.fromLTRB(8,48,8,48),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, spacing: 24, children: [
@@ -20,9 +20,8 @@ class Ws431b extends StatelessWidget {
           _FacesInRow(),
           _FacesInRow()
         ]),
-      )
-      
-    ));
+      )  
+    );
   }
 }
 

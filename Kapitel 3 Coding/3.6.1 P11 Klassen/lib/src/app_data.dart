@@ -13,7 +13,7 @@ import 'coin.dart';
 const bool isMocking = true; // legt fest, ob reale Daten oder Mockingdaten verwendet werden sollen !!!
 
 DatabaseRepository db = isMocking ? MockingRepository() : FirestoreRepository();  
-ApiRepository api = isMocking ? MockingApiRepository() : CoingeckoApiRepository(); 
+ApiRepository api = CoingeckoApiRepository(); //  isMocking ? MockingApiRepository() : CoingeckoApiRepository(); 
 
 class AppData {
   final User user;

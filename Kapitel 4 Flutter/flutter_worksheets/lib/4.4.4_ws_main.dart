@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/my_transform.dart';
-import 'package:flutter_worksheets/src/styles.dart';
+import 'package:flutter_worksheets/src/themes/styles.dart';
 
 void main() {
-  runApp(const Ws444());
+  runApp(const MaterialApp(home: Ws444()));
 }
 
 class Ws444 extends StatefulWidget {
@@ -22,9 +22,7 @@ class _Ws444State extends State<Ws444> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      color: Colors.blueGrey,
-      home: Scaffold(backgroundColor: Color(0xff002000),
+    return Scaffold(backgroundColor: Color(0xff002000),
         
         appBar: AppBar(title: Text("Inside Screen Navigation"), backgroundColor: Color(0xff7f9f7f), elevation: 8, shadowColor: Color(0x7f3f5f3f),),
         drawer: material == Materials.material2 ? 
@@ -52,6 +50,7 @@ class _Ws444State extends State<Ws444> {
             onDestinationSelected: (value) => setState(() => pIndex = value) 
           ),
         body: Padding(padding: EdgeInsets.all(16), child: Column(spacing: 16, children: [
+          ElevatedButton.icon(onPressed: () => Navigator.pop(context), label: Text("Leave this..."), icon: Icon(Icons.arrow_back_rounded), style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(veryLightGreen))),
           MyTransform(),
           <Widget>[ MyHomepage(), MyAccount() ][pIndex],
           Expanded(child: Container(color: Colors.blueGrey, child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.center, children: [ 
@@ -59,7 +58,6 @@ class _Ws444State extends State<Ws444> {
             RadioListTile<Materials>(value: Materials.material2, groupValue: material, onChanged: (value) { setState(() { material = value!; }); }, title: Text("2"),), 
             RadioListTile<Materials>(value: Materials.material3, groupValue: material, onChanged: (value) { setState(() { material = value!; }); }, title: Text("3"),) ])))
         ]))
-      )
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Ws421());
+  runApp(const MaterialApp(title: "Hello World", home: Ws421()));
 }
 
 class Ws421 extends StatelessWidget {
@@ -9,12 +9,14 @@ class Ws421 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "MainApp", home: Scaffold(body: Center(child: Column(
+    return Scaffold(
+      appBar: AppBar(title: Text("${ModalRoute.settingsOf(context)!.name}"), backgroundColor: Colors.blueAccent),
+      body: Center(child: Column(
       children: [
         Text("Hello World", key: Key("hwText")),
         FilledButton(onPressed: () {}, child: Text("Klick!"))
       ],
-    ))));
+    )));
   }
 }
 

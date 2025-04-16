@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/gallery_data.dart';
-import 'package:flutter_worksheets/src/gallery_details_page_widget.dart';
-import 'package:flutter_worksheets/src/image_card_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/datas/gallery_data.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/mock_gallery/gallery_details_page_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/mock_gallery/widgets/image_card_widget.dart';
 
 class GalleryPageWidget extends StatefulWidget {
   final int cols;
