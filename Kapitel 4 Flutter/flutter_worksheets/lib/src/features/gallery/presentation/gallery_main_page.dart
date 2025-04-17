@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/features/gallery/presentation/about_me/about_me_page_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/gallery_about_page.dart';
 import 'package:flutter_worksheets/src/features/gallery/presentation/api_gallery/api_gallery_page_widget.dart';
 import 'package:flutter_worksheets/src/features/gallery/presentation/mock_gallery/gallery_page_widget.dart';
 import 'package:flutter_worksheets/src/themes/styles.dart';

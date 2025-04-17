@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/features/gallery/presentation/api_gallery/api_details_page_widget.dart';
 import 'package:flutter_worksheets/src/features/gallery/presentation/api_gallery/widgets/api_pic_card_widget.dart';
-import 'package:flutter_worksheets/src/features/gallery/datas/gallery_data.dart';
+import 'package:flutter_worksheets/src/data/gallery_data.dart';
 
 class ApiGalleryPageWidget extends StatefulWidget {
   final int cols;

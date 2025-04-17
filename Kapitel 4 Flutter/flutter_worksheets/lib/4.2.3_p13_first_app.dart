@@ -1,9 +1,8 @@
 
-import 'package:flutter_worksheets/src/my_text_input.dart';
-import 'package:flutter_worksheets/src/my_transform.dart';
+import 'package:flutter_worksheets/src/common/widgets/my_text_input.dart';
+import 'package:flutter_worksheets/src/common/widgets/my_transform.dart';
 
 import 'src/themes/styles.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {

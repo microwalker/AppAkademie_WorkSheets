@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/features/gallery/presentation/gallery_main_widget.dart';
+import 'package:flutter_worksheets/src/features/gallery/presentation/gallery_main_page.dart';
 
 void main() {
-  runApp(const MaterialApp(title: "P15 Bildergalerie", debugShowCheckedModeBanner: false,
+  runApp(const MaterialApp(title: "P15 Bildergalerie", debugShowCheckedModeBanner: false, 
       home: Ws445()));
 }
 
