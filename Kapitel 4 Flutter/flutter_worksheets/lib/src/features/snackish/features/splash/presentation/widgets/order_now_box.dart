@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_worksheets/src/themes/styles.dart';
 
 Decoration startBoxDecoration = ShapeDecoration(color: Colors.white.withValues(alpha: 0x3f), shape: RoundedRectangleBorder(side: BorderSide(width: 1, color: Colors.white.withValues(alpha: 77)), borderRadius: BorderRadius.circular(30)));
 Shadow fontShadow = Shadow(offset: Offset(0, 10), blurRadius: 60, color: Color(0xFF000000).withAlpha(0x7f));
@@ -21,10 +22,20 @@ class OrderNowBox extends StatelessWidget {
           Column(children: [
             Text('Feeling Snackish Today?', style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: 'Inter', fontWeight: FontWeight.w900, height: 1.27, letterSpacing: 0.35, shadows: [fontShadow])),
             Text('Explore Angi’s most popular snack selection and get instantly happy.', style: TextStyle(color: const Color(0x99EBEBF5), fontFamily: "SF Pro", fontSize: 13, fontWeight: FontWeight.w400, height: 1.38, letterSpacing: -0.08, shadows: [fontShadow])),
-            Container(width: 202, height: 48, padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 14), 
-              decoration: pinkButtonDecoration, child: 
-                Row(spacing: 10, children: [SizedBox(width: 121, child: 
-                  Text('Order Now', style: TextStyle(color: Colors.white, fontSize: 17, fontFamily: 'Inter', fontWeight: FontWeight.w600, height: 1.35, shadows: [fontShadowButton]))
-                )]))]))]);
+            // Container(width: 202, height: 48, padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 14), 
+            //   decoration: pinkButtonDecoration, child: 
+            //     Row(spacing: 10, children: [SizedBox(width: 121, child: 
+            //       Text('Order Now', style: TextStyle(color: Colors.white, fontSize: 17, fontFamily: 'Inter', fontWeight: FontWeight.w600, height: 1.35, shadows: [fontShadowButton]))
+            //   )])
+            // ),
+            Container(width: 202, height: 48, decoration: BoxDecoration(
+              border: Border.all(strokeAlign: 3, width: 1), backgroundBlendMode: BlendMode.lighten, borderRadius: BorderRadius.circular(30), 
+              boxShadow: [BoxShadow(color: Colors.blue, blurStyle: BlurStyle.inner, blurRadius: 5, spreadRadius: 0, offset: Offset(0, -3))],
+              color: Colors.red, gradient: buttonBlueViolet), child: 
+                Center(child: 
+                  Text("Hallo")))  
+              ])
+            )]);
+
   }
 }

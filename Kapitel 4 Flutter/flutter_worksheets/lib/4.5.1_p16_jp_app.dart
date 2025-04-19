@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/splash/splash_page4.dart';
+import 'package:flutter_worksheets/src/features/snackish/features/splash/jp_splash.dart';
 
 void main() {
   runApp(const MaterialApp(title: "P16 JP App", debugShowCheckedModeBanner: false, 
@@ -11,6 +11,6 @@ class Ws451 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SplashPage4();
+    return JPSplashPage();
   }
 }
