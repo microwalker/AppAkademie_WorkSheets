@@ -10,7 +10,7 @@ class SubCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: () => showDialog(context: context, builder: (context) => FoodOverlay(food: food)),
+    return GestureDetector(
       child: Container(width: 200, decoration: subcardDecoration, padding: EdgeInsets.fromLTRB(16, 16, 16, 20), child: 
         Column(spacing: 8, children: [
           Image.asset(food.imageUrl, width: 170, height: 170),
@@ -28,7 +28,17 @@ class SubCard extends StatelessWidget {
           ]),
         ])
       ),
+      onTap: () { showDialog(context: context, builder: (context) {
+        return FoodOverlay(food: food);
+        // OverlayEntry overlayEntry;
+        // overlayEntry = OverlayEntry(builder: (context) => Positioned(
+        //   top: 0,
+        //   left: 0,
+        //   child: FoodOverlay(food: food)),
+        //   opaque: false
+        // );
+        // Overlay.of(context).insert(overlayEntry);
+      }); }
     );
   }
 }
-
