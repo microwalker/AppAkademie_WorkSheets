@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/data/jp_app_data.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/category_button.dart';
@@ -29,7 +31,7 @@ class JPHomePage extends StatelessWidget {
                 CategoryButton(label: "Icy", selected: false)])),
               SizedBox(height: 40),
               Container(height: 270, width: 392,
-                child: PageView.builder(scrollDirection: Axis.horizontal,
+                child: PageView.builder(scrollDirection: Axis.horizontal, controller: PageController(initialPage: Random().nextInt(foods.length)),
                   itemCount: foods.length,
                   itemBuilder: (context, index) => FoodCard(food: foods[index])),
               ),

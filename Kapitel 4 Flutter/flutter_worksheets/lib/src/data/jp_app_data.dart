@@ -32,7 +32,7 @@ List<Food> foods = [
   Food(
     name: "Smiling David", 
     type: "Coffee ice cream",
-    description: "Lorem ipsum dolor sit amet consectetur. Non feugiat imperdiet a vel sit at amet. Mi accumsan feugiat magna aliquam feugiat ac et. Pulvinar hendrerit id arcu at sed etiam semper mi hendrerit. Id aliquet quis quam.", 
+    description: "Just take the power of a full cup of coffee in this fabulous ice cream on a stick, rounded with a sweet choc cover", 
     ingredients: Ingredients(noGluten: true, lowFat: true), 
     imageUrl: "assets/jp_app/grafiken/icecream_stick.png", 
     reviewCount: 310, 

@@ -19,8 +19,7 @@ class FoodOverlay extends StatelessWidget {
     return 
       Stack(fit: StackFit.expand, children: [
         Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          // Expanded(child: SizedBox(width: 1)),
-          Container(width: width, height: height - 220, // margin: EdgeInsets.only(top: 90),
+          Container(width: width, height: height -220, // - 220, // margin: EdgeInsets.only(top: 90),
             decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xff437f97), Color(0xff2f2b22)],
             end: Alignment(0, 0.3), begin: Alignment(0, 3.3), stops: [0, 1]),  
             borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))), 
@@ -66,7 +65,7 @@ class FoodOverlay extends StatelessWidget {
             ],
           ))
       ]
-    );
+          );
   }
 }
 
