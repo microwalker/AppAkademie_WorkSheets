@@ -29,7 +29,7 @@ class FoodCard extends StatelessWidget {
         ],),
       ),
       Positioned(top: 30, left: 136, child: Image.asset(food.imageUrl, width: 260, fit: BoxFit.cover,)),
-      Positioned(left: 20, bottom: 62, child: FoodCardButton())
+      Positioned(left: 20, bottom: 62, child: FoodCardButton(destFood: food))
     ],));
   }
 }
