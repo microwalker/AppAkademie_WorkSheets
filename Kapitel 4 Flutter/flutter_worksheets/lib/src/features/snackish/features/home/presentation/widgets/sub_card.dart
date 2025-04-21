@@ -28,8 +28,10 @@ class SubCard extends StatelessWidget {
           ]),
         ])
       ),
-      onTap: () { showDialog(context: context, builder: (context) {
-        return FoodOverlay(food: food);
+      onTap: () { showModalBottomSheet(context: context, builder: (context) => FoodOverlay(food: food), isScrollControlled: true, useSafeArea: true, backgroundColor: Color(0x01ffffff));
+        
+        // showDialog(context: context, builder: (context) {return FoodOverlay(food: food);
+        
         // OverlayEntry overlayEntry;
         // overlayEntry = OverlayEntry(builder: (context) => Positioned(
         //   top: 0,
@@ -38,7 +40,7 @@ class SubCard extends StatelessWidget {
         //   opaque: false
         // );
         // Overlay.of(context).insert(overlayEntry);
-      }); }
+      }
     );
   }
 }

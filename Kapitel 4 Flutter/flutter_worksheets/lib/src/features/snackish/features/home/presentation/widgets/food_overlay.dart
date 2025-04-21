@@ -4,22 +4,34 @@ import 'package:flutter_worksheets/src/features/snackish/features/splash/present
 import 'package:flutter_worksheets/src/themes/styles.dart';
 
 
-class FoodOverlay extends StatelessWidget {
+class FoodOverlay extends StatefulWidget {
   final Food food;
 
   const FoodOverlay({super.key, required this.food});
 
   @override
+  State<FoodOverlay> createState() => _FoodOverlayState();
+}
+
+class _FoodOverlayState extends State<FoodOverlay> {
+  FoodSizes size = FoodSizes.Large;
+  int amount = 1;
+
+  @override
+  void initState() {
+    size = widget.food.sizes.last;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
-    FoodSizes size = FoodSizes.Large;
-    int amount = 1;
 
     return 
       Stack(fit: StackFit.expand, children: [
         Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-          Container(width: width, height: height -220, // - 220, // margin: EdgeInsets.only(top: 90),
+          Container(width: width, height: height -160, // - 220, // margin: EdgeInsets.only(top: 90),
             decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xff437f97), Color(0xff2f2b22)],
             end: Alignment(0, 0.3), begin: Alignment(0, 3.3), stops: [0, 1]),  
             borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))), 
@@ -27,32 +39,34 @@ class FoodOverlay extends StatelessWidget {
             //   CloseButton( onPressed: () => Navigator.pop(context))],)],)
             )]),
         Positioned(top: -20, left: (width - 400)/2, child: 
-          Image(image: AssetImage(food.imageUrl), width: 400, alignment: Alignment.topCenter)),
+          Image(image: AssetImage(widget.food.imageUrl), width: 400, alignment: Alignment.topCenter)),
         Positioned(top: 286, left: 30, child: 
           GlassRect(width: 370, height: 330)),
         Positioned(top: 286, left: 30, child: 
-          FoodDetails(food: food)),
-        Positioned(right: 16, top: 140, child: SizedBox(height: 30, width: 30, child: 
-          IconButton.outlined(icon: Icon(Icons.close, size: 22, color: gSubText.color), padding: EdgeInsets.all(0), onPressed: () => Navigator.pop(context)))),
+          FoodDetails(food: widget.food)),
+        Positioned(right: 12, top: 112, child: 
+          IconButton.outlined(icon: 
+            Icon(Icons.close, size: 18, color: gSubText.color), padding: EdgeInsets.all(4), constraints: BoxConstraints(maxHeight: 32, maxWidth: 32), 
+              style: IconButton.styleFrom(backgroundColor: Color(0x17ffffff)), onPressed: () => Navigator.pop(context))),
         Positioned(bottom: 48, left: 30, width: width - 60, child: 
           Column(spacing: 24, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Row(children: [
-                SegmentedButton<FoodSizes>(segments: [for(FoodSizes s in food.sizes) ButtonSegment(value: s, label: Text(s.name.toString()))], 
-                  selected: <FoodSizes>{food.sizes.last},
-                  onSelectionChanged: (p0) {}, 
-                  showSelectedIcon: false, 
+                SegmentedButton<FoodSizes>(segments: [for(FoodSizes s in widget.food.sizes) ButtonSegment(value: s, label: Text(s.name.toString()))], 
+                  selected: {size},
+                  onSelectionChanged: (p0) => setState(() => size = p0.single ), 
+                  showSelectedIcon: false, multiSelectionEnabled: false,
                   style: SegmentedButton.styleFrom(backgroundColor: Color(0x3f767680), padding: EdgeInsets.all(4), foregroundColor: gSubText.color,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(style: BorderStyle.solid, 
                     color: Color(0x3f767680))), side: BorderSide(width: 3, color: Color(0x3f767680)),
                     selectedBackgroundColor: Color(0xff636366), 
                     selectedForegroundColor: gHeader.color))]),
               Row(children: [
-                IconButton.outlined(onPressed: () {}, icon: Icon(Icons.remove, size: 20, color: gHeader.color), 
+                IconButton.outlined(onPressed: () { setState(() { if(amount > 1) amount--; }); }, icon: Icon(Icons.remove, size: 20, color: gSubText.color), 
                   padding: EdgeInsets.all(2), constraints: BoxConstraints(maxHeight: 32, maxWidth: 32), 
                   style: IconButton.styleFrom(backgroundColor: Color(0x17ffffff)),),
                 Text("$amount", style: gSubText.copyWith(color: gHeader.color)),
-                IconButton.outlined(onPressed: () {}, icon: Icon(Icons.add, size: 20, color: gHeader.color), 
+                IconButton.outlined(onPressed: () {setState(() { if(amount < 99) amount++; });}, icon: Icon(Icons.add, size: 20, color: gSubText.color), 
                   padding: EdgeInsets.all(2), constraints: BoxConstraints(maxHeight: 32, maxWidth: 32), 
                   style: IconButton.styleFrom(backgroundColor: Color(0x17ffffff)),),
               ]),
@@ -61,7 +75,7 @@ class FoodOverlay extends StatelessWidget {
                   Center(child: Row(mainAxisAlignment: MainAxisAlignment.center, spacing: 4, children: [
                     Text('Add to order for', style: gHeader), 
                     Image.asset("assets/jp_app/details/currency_a.png", height: 18), 
-                    Text(food.prices[food.sizes.indexOf(size)].toStringAsFixed(2), style: gHeader)])))
+                    Text((widget.food.prices[widget.food.sizes.indexOf(size)] * amount).toStringAsFixed(2), style: gHeader)])))
             ],
           ))
       ]
