@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/themes/styles.dart';
+import 'package:flutter_worksheets/src/themes/jp_app_styles.dart';
 
 Decoration startBoxDecoration = ShapeDecoration(color: Colors.white.withValues(alpha: 0x3f), shape: RoundedRectangleBorder(side: BorderSide(width: 1, color: Colors.white.withValues(alpha: 77)), borderRadius: BorderRadius.circular(30)));
 Shadow fontShadow = Shadow(offset: Offset(0, 10), blurRadius: 60, color: Color(0xFF000000).withAlpha(0x7f));

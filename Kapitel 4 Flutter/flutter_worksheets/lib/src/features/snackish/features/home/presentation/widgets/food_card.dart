@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/data/jp_app_data.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/food_card_button.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/splash/presentation/widgets/glass_rect.dart';
-import 'package:flutter_worksheets/src/themes/styles.dart';
+import 'package:flutter_worksheets/src/themes/jp_app_styles.dart';
 
 class FoodCard extends StatelessWidget {
   final Food food;

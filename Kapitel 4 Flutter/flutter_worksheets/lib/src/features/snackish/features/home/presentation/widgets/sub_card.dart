@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/data/jp_app_data.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/food_overlay.dart';
-import 'package:flutter_worksheets/src/themes/styles.dart';
+import 'package:flutter_worksheets/src/themes/jp_app_styles.dart';
 
 class SubCard extends StatelessWidget {
   final Food food;

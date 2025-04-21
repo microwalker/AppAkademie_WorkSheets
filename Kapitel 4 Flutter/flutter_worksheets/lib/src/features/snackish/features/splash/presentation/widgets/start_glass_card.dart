@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/jp_home.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/splash/presentation/widgets/glass_rect.dart';
-import 'package:flutter_worksheets/src/themes/styles.dart';
+import 'package:flutter_worksheets/src/themes/jp_app_styles.dart';
 
 class StartGlassCard extends StatelessWidget {
   const StartGlassCard({

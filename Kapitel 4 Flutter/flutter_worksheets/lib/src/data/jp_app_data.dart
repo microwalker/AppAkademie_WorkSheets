@@ -4,7 +4,7 @@ List<Food> foods = [
     type: "Vegan cheese burger",
     description: "Delish vegan burger that tastes like heaven", 
     ingredients: Ingredients(noGluten: false, noSugar: true, lowFat: true), 
-    imageUrl: "assets/jp_app/grafiken/burger.png", 
+    imageUrl: "assets/jp_app/grafiken/burger2.png", 
     reviewCount: 321, 
     reviewAVG: 4.8, 
     sizes: [FoodSizes.Small, FoodSizes.Large], 
@@ -22,7 +22,7 @@ List<Food> foods = [
   Food(
     name: "Balu's Cup", 
     type: "Pistachio ice cream",
-    description: "Bearish great ice cream with the glory pistachio taste and choccy hair in a cup", 
+    description: "Bearish great ice cream with the glory pistachio taste and choccy hair in a crunchy eatable cup", 
     ingredients: Ingredients(noGluten: true, noSugar: true, lowFat: true), 
     imageUrl: "assets/jp_app/grafiken/icecream.png", 
     reviewCount: 165, 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/splash/presentation/widgets/order_now_box.dart';
 import 'package:flutter_worksheets/src/features/snackish/features/splash/presentation/widgets/start_glass_card.dart';
 
 class JPSplashPage extends StatelessWidget {
