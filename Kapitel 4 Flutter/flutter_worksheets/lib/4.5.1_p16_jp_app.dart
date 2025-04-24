@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/splash/jp_splash.dart';
+import 'package:flutter_worksheets/src/features/snackish/features/splash/presentation/jp_splash.dart';
 
 void main() {
   runApp(const MaterialApp(title: "P16 JP App", debugShowCheckedModeBanner: false, 

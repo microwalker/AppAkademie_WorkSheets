@@ -29,7 +29,7 @@ class SubCard extends StatelessWidget {
         ])
       ),
       onTap: () { 
-        showModalBottomSheet(context: context, builder: (context) => FoodOverlay(food: food), 
+        showModalBottomSheet(context: context, builder: (context) => FoodOverlay(food: food),  sheetAnimationStyle: AnimationStyle(duration: Duration(milliseconds: 1200)),
           isScrollControlled: true, useSafeArea: true, backgroundColor: Color(0x01ffffff));
         
         // showDialog(context: context, builder: (context) {return FoodOverlay(food: food);
