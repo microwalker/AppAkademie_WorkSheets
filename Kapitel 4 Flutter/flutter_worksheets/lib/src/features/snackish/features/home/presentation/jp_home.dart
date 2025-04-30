@@ -2,11 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets/src/data/jp_app_data.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/category_button.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/category_menu_button.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/food_card.dart';
-import 'package:flutter_worksheets/src/features/snackish/features/home/presentation/widgets/sub_card.dart';
-
+import 'jp_home_widgets.dart';
 class JPHomePage extends StatelessWidget {
 
   const JPHomePage({super.key});
@@ -14,9 +10,8 @@ class JPHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> categoryNames = ["Salty","Sweet","Dumpy","Burpsy","Puky","Icy"];
-    return Scaffold(
-      body: Stack(fit: StackFit.expand, children: [
-        DecoratedBox(decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/jp_app/hintergründe/bg_mainscreen.png"), fit: BoxFit.cover))),
+    return DecoratedBox(decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/jp_app/hintergründe/bg_mainscreen.png"), fit: BoxFit.cover)), child: 
+      Scaffold(backgroundColor: Colors.transparent, body:         
         Padding(padding: EdgeInsets.fromLTRB(0, 86, 0, 24), child: 
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(padding: const EdgeInsets.only(left: 18.0), width: 300, height: 80, child: 
@@ -42,8 +37,9 @@ class JPHomePage extends StatelessWidget {
                   itemBuilder: (context, index) => SubCard(food: foods[index]), 
                   separatorBuilder: (context, index) => SizedBox(width: 28)))
             ])
-          ]))
-      ],),
+          ])
+        )
+      )
     );
   }
 }

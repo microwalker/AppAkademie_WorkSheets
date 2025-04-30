@@ -29,3 +29,8 @@ ShapeDecoration subcardDecoration = ShapeDecoration(
   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30), side: BorderSide(width: 1, color: Color(0x7fffffff), style: BorderStyle.solid)), 
   gradient: LinearGradient(colors: [Color(0x00ffffff), Color(0xff908cf5), Color(0xff8c5bea)], stops: [0.07, 0.61, 1.0], begin: Alignment(0.8, -1.6), end: Alignment(0.7, 0.9)));
 
+ThemeData jpTheme = ThemeData.from(
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Colors.white).copyWith(
+      secondary: Colors.green), 
+  textTheme: TextTheme());
