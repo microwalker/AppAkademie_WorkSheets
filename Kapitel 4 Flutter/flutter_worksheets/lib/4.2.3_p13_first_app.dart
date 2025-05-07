@@ -44,13 +44,13 @@ class _MainAppState extends State<Ws423> {
           backgroundColor: Color.fromARGB(255, 13, 86, 85)), 
        
         floatingActionButton: FloatingActionButton.extended(onPressed: () {}, icon: Icon(Icons.help_center_rounded), label: Text("What?")),
-        bottomNavigationBar: BottomNavigationBar(onTap: (value) {}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
-          BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: const Color.fromARGB(255, 4, 8, 7))), 
-          BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
-          BottomNavigationBarItem(label: "Item 3", icon: Icon(Icons.ac_unit, color: Colors.tealAccent))]),
+        // bottomNavigationBar: BottomNavigationBar(onTap: (value) {}, backgroundColor: Colors.deepOrangeAccent[200], currentIndex: 1, type: BottomNavigationBarType.fixed, items: [
+        //   BottomNavigationBarItem(label: "Item 1", icon: Icon(Icons.access_alarm, color: const Color.fromARGB(255, 4, 8, 7))), 
+        //   BottomNavigationBarItem(label: "Item 2", icon: Icon(Icons.access_time, color: Colors.tealAccent)), 
+        //   BottomNavigationBarItem(label: "Item 3", icon: Icon(Icons.ac_unit, color: Colors.tealAccent))]),
         // drawer: Drawer(backgroundColor: Colors.blueAccent[600], elevation: 8, clipBehavior: Clip.hardEdge , child: Text("Inside Drawer")),
         // drawerDragStartBehavior: DragStartBehavior.start,
-        persistentFooterButtons: [IconButton.outlined(onPressed: () {},alignment: Alignment.topCenter, icon: Icon(Icons.adb))],
+        persistentFooterButtons: [ElevatedButton.icon(onPressed: () {}, label: Text("Bugs everywhere!"), iconAlignment: IconAlignment.start, icon: Icon(Icons.adb))], persistentFooterAlignment: AlignmentDirectional.bottomCenter, 
         body: SingleChildScrollView(scrollDirection: Axis.vertical, 
           child: Container(decoration: BoxDecoration(gradient: goldGradient),
             child: Center(
@@ -91,7 +91,7 @@ class _MainAppState extends State<Ws423> {
           ),
         ), 
         endDrawer: EndDrawerButton(),
-        backgroundColor: const Color.fromARGB(243, 165, 206, 175), 
+        backgroundColor: Colors.white  // const Color.fromARGB(243, 165, 206, 175), 
       );
   }
 }

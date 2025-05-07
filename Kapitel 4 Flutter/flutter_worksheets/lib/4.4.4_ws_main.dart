@@ -28,8 +28,7 @@ class _Ws444State extends State<Ws444> {
         drawer: material == Materials.material2 ? 
           Drawer(backgroundColor: veryLightGreen, child: 
             // Container(decoration: BoxDecoration(gradient: lightGreenGradient, borderRadius: BorderRadius.all(Radius.circular(8))), margin: EdgeInsets.all(12), child: 
-            Column(spacing: 16, children: [
-              DrawerHeader(curve: Curves.easeInOut, child: Container(decoration: BoxDecoration(gradient: goldGradient, borderRadius: BorderRadius.all(Radius.circular(8))), width: double.infinity, child: Center(child: Text("Menu (V2)")))),
+            Column(spacing: 16, children: [DrawerHeader(curve: Curves.easeInOut, child: Container(decoration: BoxDecoration(gradient: goldGradient, borderRadius: BorderRadius.all(Radius.circular(8))), width: double.infinity, child: Center(child: Text("Menu (V2)")))),
               TextButton.icon(onPressed: () => setState(() => pIndex = 0), iconAlignment: IconAlignment.start, label: Text("Homepage"), icon: Icon(Icons.home_filled)),
               TextButton.icon(onPressed: () => setState(() => pIndex = 1), iconAlignment: IconAlignment.start, label: Text("Balance"), icon: Icon(Icons.account_balance_wallet_rounded))])) :
           NavigationDrawer(backgroundColor: veryLightGreen, selectedIndex: pIndex, onDestinationSelected: (value) => setState(() => pIndex = value), children: [
@@ -49,15 +48,19 @@ class _Ws444State extends State<Ws444> {
             selectedIndex: pIndex,
             onDestinationSelected: (value) => setState(() => pIndex = value) 
           ),
-        body: Padding(padding: EdgeInsets.all(16), child: Column(spacing: 16, children: [
-          ElevatedButton.icon(onPressed: () => Navigator.pop(context), label: Text("Leave this..."), icon: Icon(Icons.arrow_back_rounded), style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(veryLightGreen))),
-          MyTransform(),
-          <Widget>[ MyHomepage(), MyAccount() ][pIndex],
-          Expanded(child: Container(color: Colors.blueGrey, child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.center, children: [ 
-            Text("Material-Style:"), 
-            RadioListTile<Materials>(value: Materials.material2, groupValue: material, onChanged: (value) { setState(() { material = value!; }); }, title: Text("2"),), 
-            RadioListTile<Materials>(value: Materials.material3, groupValue: material, onChanged: (value) { setState(() { material = value!; }); }, title: Text("3"),) ])))
-        ]))
+        body: SingleChildScrollView(scrollDirection: Axis.vertical,
+          child: Padding(padding: EdgeInsets.all(16), child: Column(spacing: 16, children: [
+            ElevatedButton.icon(onPressed: () => Navigator.pop(context), label: Text("Leave this..."), icon: Icon(Icons.arrow_back_rounded), style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(veryLightGreen))),
+            MyTransform(),
+            <Widget>[ MyHomepage(), MyAccount() ][pIndex],
+            Container(height: 152, decoration: BoxDecoration(gradient: goldGradient),
+              child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, spacing: 2, children: [ 
+                Text("Material-Style:"), 
+                RadioListTile<Materials>(isThreeLine: false, secondary: Icon(Icons.lock_clock), value: Materials.material2, groupValue: material, onChanged: (value) { setState(() { material = value!; }); }, title: Text("2")), 
+                RadioListTile<Materials>(isThreeLine: false, subtitle: Text("more modern"), value: Materials.material3, groupValue: material, onChanged: (value) { setState(() { material = value!; }); }, title: Text("3"))]),
+            )
+          ])),
+        )
     );
   }
 }
@@ -67,7 +70,7 @@ class MyHomepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(flex: 3, child: Container(decoration: BoxDecoration(gradient: goldGradient),child: Center(child: Image.asset('assets/images/mycoins_huge.png'),),)) ;
+    return Container(decoration: BoxDecoration(gradient: goldGradient),child: Center(child: Image.asset('assets/images/mycoins_huge.png'),),) ;
   }
 }
 
@@ -76,7 +79,7 @@ class MyAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(flex: 3, child: Container(decoration: BoxDecoration(gradient: darkGreenGradient),child: Center(child: Image.asset('assets/images/chart.png'),),)) ;
+    return Container(decoration: BoxDecoration(gradient: darkGreenGradient),child: Center(child: Image.asset('assets/images/chart.png'),),) ;
   }
 }
 
