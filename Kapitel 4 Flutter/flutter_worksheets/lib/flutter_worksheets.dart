@@ -3,6 +3,7 @@ import 'package:flutter_worksheets/4.4.5_p15_bildergalerie.dart';
 import 'package:flutter_worksheets/4.5.1_p16_jp_app.dart';
 import 'package:flutter_worksheets/src/features/five_times/main.dart';
 import 'package:flutter_worksheets/src/features/flattrige_liste/main.dart';
+import 'package:flutter_worksheets/src/features/practices/steckbrief_berlin.dart';
 import '4.2.1_hello_world.dart';
 // import '4.2.2_ws_bonus.dart';
 import '4.2.3_p13_first_app.dart';
@@ -21,7 +22,7 @@ class Worksheets extends StatelessWidget {
     List<(Widget, String)> dests = const [(Ws421(), "4.2.1 Hello World"), (Ws423(), "4.2.3 P13 First App"), (Ws431(), "4.3.1 Main"), (Ws431b(), "4.3.1 Bonus"), 
                                           (Ws435(), "4.3.5 P14 First Screen"), (Ws443(), "4.4.3 Main"), (Ws443b(), "4.4.3 Bonus"), (Ws444(), "4.4.4 Main"),
                                           (FlattrigeListe(), "Übung - Listen"), (FiveTimes(), "Übung - InkWell/GestureDetector"),
-                                          (Ws445(), "4.4.5 P15 Gallery App"), (Ws451(), "P16 JP App ('Snackish')")];
+                                          (Ws445(), "4.4.5 P15 Gallery App"), (Ws451(), "P16 JP App ('Snackish')"), (Sbb(), "Übung - Steckbrief Berlin")];
     
     return Scaffold(
       appBar: AppBar(
