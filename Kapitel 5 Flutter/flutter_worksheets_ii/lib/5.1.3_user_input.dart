@@ -21,6 +21,9 @@ class _Ws513State extends State<Ws513> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   WidgetStatesController loginController = WidgetStatesController();
+  String? nameError;
+  String? pwError;
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +33,15 @@ class _Ws513State extends State<Ws513> {
         loginController.update(WidgetState.disabled, nameController.text.isEmpty || passwordController.text.isEmpty); 
       }, child: Column(mainAxisAlignment: MainAxisAlignment.center, spacing: 12, 
         children: [
-          TextFormField(controller: nameController, decoration: InputDecoration(hintText: "Benutzername")),
-          TextFormField(controller: passwordController, decoration: InputDecoration(hintText: "Passwort"), obscureText: true),
-          ElevatedButton(onPressed: () { 
+          TextFormField(controller: nameController, decoration: InputDecoration(hintText: "Benutzername", errorText: nameError)),
+          TextFormField(controller: passwordController, decoration: InputDecoration(hintText: "Passwort", errorText: pwError), obscureText: true),
+          ElevatedButton(onPressed: () { setState(() {
             if(!loginController.value.contains(WidgetState.disabled)) {
               // print("Login: ${checkLogin(nameController.text, passwordController.text)}");
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Ws513_2(name: nameController.text)));
-            } }, statesController: loginController, child: Text("Login") )
+              if(checkLogin(nameController.text, passwordController.text)) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Ws513_2(name: nameController.text)));
+              }
+            } }); }, statesController: loginController, child: Text("Login") )
         ],
       ),),
     ));
@@ -51,7 +56,21 @@ class _Ws513State extends State<Ws513> {
   }
 
   bool checkLogin(String name, String pw) {
-    return users.map((e) => e["name"]).toList().contains(name) ? users.singleWhere((element) => element["name"] == name)["pw"] == pw : false;
+    nameError = null;
+    pwError = null;
+    
+    if(!users.map((e) => e["name"]).toList().contains(name)) { 
+      nameError = "Username unbekannt"; 
+      return false;} 
+    else { 
+      if(users.singleWhere((element) => element["name"] == name)["pw"] != pw) {
+        pwError = "Passwort inkorrekt";
+        return false;
+      }
+    }
+    return true;
+  
+    // return users.map((e) => e["name"]).toList().contains(nameCtrl.text) ? users.singleWhere((element) => element["name"] == nameCtrl.text)["pw"] == pwCtrl.text : false;
   }
 }
 
