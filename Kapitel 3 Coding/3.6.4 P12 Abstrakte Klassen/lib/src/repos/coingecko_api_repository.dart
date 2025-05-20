@@ -7,6 +7,16 @@ class CoingeckoApiRepository implements ApiRepository {
   @override
   Future<List<dynamic>> getCoinsList() async => json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/list')));
   
+  // ALTERNATIV: Direkte Umwandlung:
+  // @override
+  // Future<List<Coin>> getCoins() async {
+  //   final List<Map<String, dynamic>> c = await json.decode(await Client().read(Uri.parse('https://api.coingecko.com/api/v3/coins/list')));
+  //   return c.map((e) {
+  //     return Coin.fromMap(e);
+  //   },).toList();
+  // }
+
+
   /// Ermittelt weitere Daten (image, Marktrang, Preis) und ergänzt diese in der Liste der Coins
   @override
   Future<List<dynamic>> getCoinMarketDatas([String currency = 'eur', bool onlyFavorites = false, Set<String> favorites = const {}]) async =>

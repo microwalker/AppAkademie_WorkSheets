@@ -16,17 +16,19 @@ class ApiGalleryPageWidget extends StatefulWidget {
 
 class _ApiGalleryPageWidgetState extends State<ApiGalleryPageWidget> {
   int page = 1;
+  late Future<List<PicItem>> futurePicList; 
 
   @override
   void initState() {
-    page = Random().nextInt(20);
     super.initState();
+    page = Random().nextInt(20);
+    futurePicList = getPicList(page: page, limit: 50);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<PicItem>>(
-      future: getPicList(page: page, limit: 50),
+      future: futurePicList,
       builder: (context, snapshot) {
         if (snapshot.hasData &&
             snapshot.connectionState == ConnectionState.done) {
