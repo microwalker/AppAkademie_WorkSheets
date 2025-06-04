@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'src/features/call_back/cbf_screen.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const Ws516());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class Ws516 extends StatelessWidget {
+  const Ws516({super.key});
 
   @override
   Widget build(BuildContext context) {
