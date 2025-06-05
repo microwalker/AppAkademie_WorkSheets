@@ -11,8 +11,8 @@ class Ws516 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
+    return MaterialApp(theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent)),
+      // debugShowCheckedModeBanner: false,
       home: CbfScreen(),
     );
   }

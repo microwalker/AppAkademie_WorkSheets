@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets_ii/5.2.3_futurebuilder.dart';
+import 'package:flutter_worksheets_ii/5.3.2_shared_preferences.dart';
+import 'package:flutter_worksheets_ii/5.3.2_shared_prefs_bonus2.dart';
 import 'package:flutter_worksheets_ii/src/features/call_back/cbf_screen.dart';
 
 import '5.1.3_user_input.dart';
@@ -9,7 +11,8 @@ class Worksheets extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    List<(Widget, String)> dests = const [(Ws513(), "5.1.3 User Input"), (CbfScreen(), "5.1.6 Callback Funktionen"), (Ws523(), "5.2.3 Future Builder")];
+    List<(Widget, String)> dests = const [(Ws513(), "5.1.3 User Input"), (CbfScreen(), "5.1.6 Callback Funktionen"), (Ws523(), "5.2.3 Future Builder"),
+                                          (Ws532(), "5.3.2 Shared Preferences"), (Ws532b(), "5.3.2 Shared Prefs Bonus2")];
     
     return Scaffold(
       appBar: AppBar(

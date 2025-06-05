@@ -7,9 +7,8 @@ class Ws523 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent)),
-      home: const FutureBuilderExercise(),
+      theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigoAccent)),      
+      home: FutureBuilderExercise(),
     );
   }
 }
