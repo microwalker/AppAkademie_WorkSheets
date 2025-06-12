@@ -11,7 +11,7 @@ class SharedPrefsBonus2 extends StatefulWidget {
 }
 
 class _SharedPrefsBonus2State extends State<SharedPrefsBonus2> {
-  List<String> drinks = ["Rum", "Tequila", "Kao Liang", "Korn"];
+  List<String> drinks = ["Rum", "Tequila", "Kao Liang", "Korn", "Vodka", "Bier"];
   int anz = 0;
   DateTime date = DateTime.now();
   late SharedPreferences prefs;
@@ -45,8 +45,9 @@ class _SharedPrefsBonus2State extends State<SharedPrefsBonus2> {
     // await Future.delayed(Duration(seconds: 2));
     anz = prefs.getInt("sp_drinks") ?? 0;
     date = DateTime.tryParse(prefs.getString("sp_last_drink") ?? "") ?? date;
-    if(date.difference(DateTime.now()).inDays >= 1) { 
-      anz = 0; }
+    if(DateTime.now().day != date.day) { 
+      anz = 0; 
+    }
     setState(() { 
       anz; }); 
   }

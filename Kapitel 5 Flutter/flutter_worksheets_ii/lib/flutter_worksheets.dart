@@ -3,6 +3,7 @@ import 'package:flutter_worksheets_ii/5.2.3_futurebuilder.dart';
 import 'package:flutter_worksheets_ii/5.3.2_shared_preferences.dart';
 import 'package:flutter_worksheets_ii/5.3.2_shared_prefs_bonus2.dart';
 import 'package:flutter_worksheets_ii/src/features/call_back/cbf_screen.dart';
+import 'package:flutter_worksheets_ii/src/features/simple_checklist/checklist_app.dart';
 
 import '5.1.3_user_input.dart';
 
@@ -12,7 +13,7 @@ class Worksheets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<(Widget, String)> dests = const [(Ws513(), "5.1.3 User Input"), (CbfScreen(), "5.1.6 Callback Funktionen"), (Ws523(), "5.2.3 Future Builder"),
-                                          (Ws532(), "5.3.2 Shared Preferences"), (Ws532b(), "5.3.2 Shared Prefs Bonus2")];
+                                          (Ws532(), "5.3.2 Shared Preferences"), (Ws532b(), "5.3.2 Shared Prefs Bonus2"), (ChecklistApp(), "5.3.4 P19 Persistente Checkliste")];
     
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +23,7 @@ class Worksheets extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(padding: const EdgeInsets.all(16), scrollDirection: Axis.vertical, 
           children: [ for(int i=0;i<dests.length;i++) 
-            Container(height: 40, margin: const EdgeInsets.all(12), child:ElevatedButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => dests[i].$1)), 
+            Container(height: 40, margin: const EdgeInsets.all(12), child:ElevatedButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => dests[i].$1)), 
             style: const ButtonStyle(shadowColor: WidgetStatePropertyAll(Colors.pink), elevation: WidgetStatePropertyAll(4)), child: Text("${dests[i].$2}")))])
       ));
   }
