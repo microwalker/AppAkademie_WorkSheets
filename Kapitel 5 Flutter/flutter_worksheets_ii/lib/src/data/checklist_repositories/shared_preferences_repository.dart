@@ -19,7 +19,7 @@ class SharedPreferencesRepository implements DatabaseRepository {
   Future<List<String>> getItems() async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 1500));
     return await asyncPrefs.getStringList(key) ?? []; // then((value) => value ?? []); 
   }
 

@@ -31,10 +31,19 @@ class _ListScreenState extends State<ListScreen> {
     setState(() => isLoading = true ); // <- wurde komplett vergessen, nach dem 1. laden war isLoading IMMER false!
 
     // items.addAll(await widget.repository.getItems()); // .whenComplete(() => setState(() => isLoading = false )));
+    
+    // VARIANTE 1:
+    // items = await widget.repository.getItems();
+    // setState(() {
+    //   isLoading = false;
+    // });
+
+    // VARIANTE 2:
     widget.repository.getItems().then((value) {
       items = value;   // Liste erst nach erfolgreichem Auslesen der Werte wieder befüllen !!!
       setState(() => isLoading = false ); // ...und dann macht das Zurücksetzen der Statusvariable auch Sinn :-)
     });
+
     // isLoading = false;
     // setState(() {});
   }
