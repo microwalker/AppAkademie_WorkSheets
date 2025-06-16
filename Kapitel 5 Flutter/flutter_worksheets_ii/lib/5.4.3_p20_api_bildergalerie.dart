@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/gallery/presentation/gallery_main_page.dart';
+import 'src/features/gallery/presentation/gallery_main_page.dart';
 
 void main() {
   runApp(const MaterialApp(title: "P20 API Bildergalerie", debugShowCheckedModeBanner: false, 
