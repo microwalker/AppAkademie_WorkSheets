@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../themes/styles.dart';
 import 'api_gallery/api_gallery_page_widget.dart';
 import 'gallery_about_page.dart';
-import 'mock_gallery/gallery_page_widget.dart';
 
 class GalleryMainWidget extends StatefulWidget {
 

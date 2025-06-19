@@ -39,7 +39,9 @@ class _Ws513State extends State<Ws513> {
             if(!loginController.value.contains(WidgetState.disabled)) {
               // print("Login: ${checkLogin(nameController.text, passwordController.text)}");
               if(checkLogin(nameController.text, passwordController.text)) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Ws513_2(name: nameController.text)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Ws513_2(name: nameController.text))).whenComplete(
+                  () => setState(() {
+                }),);
               }
             } }); }, statesController: loginController, child: Text("Login") )
         ],
