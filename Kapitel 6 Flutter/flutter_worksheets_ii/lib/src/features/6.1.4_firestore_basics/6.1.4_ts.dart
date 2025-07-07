@@ -23,10 +23,10 @@ class _Ts614State extends State<Ts614> {
               return Column(mainAxisAlignment: MainAxisAlignment.center, spacing: 24, children: [
               Text("Die Collection 'Retrocomputer' hat ${snapshot.data?.size ?? "--"} Dokumente"),
               ListView.builder(padding: EdgeInsets.symmetric(horizontal: 32), shrinkWrap: true, itemCount: snapshot.data?.size, itemBuilder: (context, index) {
-                return Text("${snapshot.data?.docs[index].id}:");
+                return Text("Dokument $index mit der ID '${snapshot.data?.docs[index].id}'");
               }),
-              ListView.builder(padding: EdgeInsets.symmetric(horizontal: 16), shrinkWrap: true, itemCount: snapshot.data?.docs.length, itemBuilder: (context, index) {
-                return Text("${snapshot.data?.docs[index].data().values}");
+              ListView.builder(padding: EdgeInsets.symmetric(horizontal: 32), shrinkWrap: true, itemCount: snapshot.data?.docs.length, itemBuilder: (context, index) {
+                return Text("Einträge zu ${snapshot.data?.docs[index].id}:\n ${snapshot.data?.docs[index].data().values}");
               },)
             ]);
             } else { return CircularProgressIndicator(); }
@@ -36,6 +36,7 @@ class _Ts614State extends State<Ts614> {
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getCollection() async {
+    await Future.delayed(Duration(milliseconds: 500));
     return await FirebaseFirestore.instance.collection("Retrocomputer").get();
   }
 }
