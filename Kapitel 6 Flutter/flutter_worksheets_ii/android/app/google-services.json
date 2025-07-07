@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "599244212953",
+    "project_id": "fb-test-bds",
+    "storage_bucket": "fb-test-bds.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599244212953:android:7892734480bd0010230cc8",
+        "android_client_info": {
+          "package_name": "com.example.flutter_worksheets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS-tf341gb7FVruJu12teGOL5irsJnyDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
