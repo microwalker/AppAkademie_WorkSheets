@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_worksheets_ii/firebase_options.dart';
 import 'flutter_worksheets.dart';
@@ -13,7 +12,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
- @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
@@ -53,17 +52,32 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Card.filled(color: Colors.grey, child: Padding(padding: EdgeInsets.all(32), child: Column(
-              children: <Widget>[
-                const Text('You have pushed the button this many times:'),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                )]))),
-                TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Worksheets())), child: Text("...skip this bullshit!")),
-              ],
+            Card.filled(
+              color: Colors.grey,
+              child: Padding(
+                padding: EdgeInsets.all(32),
+                child: Column(
+                  children: <Widget>[
+                    const Text('You have pushed the button this many times:'),
+                    Text(
+                      '$_counter',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
+            TextButton(
+              onPressed:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Worksheets()),
+                  ),
+              child: Text("...skip this bullshit!"),
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
